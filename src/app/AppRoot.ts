@@ -5,6 +5,7 @@ import EventFall from '$/lib/event/EventFall';
 import BabyEvent from '$/lib/event/BabyEvent';
 import UpdateEventMessage from '$/lib/event/message/UpdateEventMessage';
 import { EventMessageImpl } from '$/lib/event/message/EventMessage';
+import ShareMemory from './ShareMemory';
 
 export default class AppRoot extends EventFall {
   private root: HTMLElement;
@@ -12,6 +13,7 @@ export default class AppRoot extends EventFall {
   private config: appConfig;
   private engine: BABYLON.Engine;
   private scene: BABYLON.Scene;
+  private share: ShareMemory;
 
   private running: boolean = false;
   constructor(root: HTMLElement, config: appConfig) {
@@ -25,6 +27,10 @@ export default class AppRoot extends EventFall {
 
     this.engine = this.buildEngine(this.canvas);
     this.scene = new BABYLON.Scene(this.engine);
+
+    this.share = {
+      scene: this.scene,
+    };
 
     this.debug();
     this.engine.runRenderLoop(this.loop.bind(this));
@@ -51,9 +57,9 @@ export default class AppRoot extends EventFall {
     }
   }
   protected appendMember(
-    Member: new (parent: EventFall, scene: BABYLON.Scene) => Module
+    Member: new (parent: EventFall, scene: ShareMemory) => Module
   ) {
-    const member = new Member(this, this.scene);
+    const member = new Member(this, this.share);
     this.children.push(member);
   }
   public run() {

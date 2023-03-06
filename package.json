@@ -2,7 +2,7 @@
   "name": "friends",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build": "tsc && vite build",
     "preview": "tsc && vite build && vite preview --host --open",
     "prettier-watch": "onchange 'src/**/*.ts' -- prettier --write {{changed}}"
