@@ -26,7 +26,9 @@ export default class AppRoot extends EventFall {
     this.root.appendChild(this.canvas);
 
     this.engine = this.buildEngine(this.canvas);
+    this.engine.setHardwareScalingLevel(1 / window.devicePixelRatio);
     this.scene = new BABYLON.Scene(this.engine);
+    this.scene.clearColor = new BABYLON.Color4(0.2, 0.5, 0.7, 1);
 
     this.share = {
       scene: this.scene,
