@@ -19,7 +19,9 @@
     "paths": {
       "$/*": ["src/*"],
       "$test/*": ["src/test/*"],
-      "$static/*": ["static/*"]
+      "$static/*": ["static/*"],
+      "$app/*": ["src/app/*"],
+      "$module/*": ["src/module/*"]
     }
   },
   "include": ["./src", "vite.config.js"]
