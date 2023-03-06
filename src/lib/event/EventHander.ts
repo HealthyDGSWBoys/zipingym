@@ -1,4 +1,8 @@
-import BabyEvent, { BabyEventMapKey, BabyEventMapValue } from './BabyEvent';
+import BabyEvent, {
+  BabyEventMap,
+  BabyEventMapKey,
+  BabyEventMapValue,
+} from './BabyEvent';
 
 export default class EventHandler {
   protected eventHanderQueue: Map<
@@ -7,10 +11,11 @@ export default class EventHandler {
   > = new Map();
   constructor() {}
 
-  public addEventHandler(
-    namespace: BabyEventMapKey,
-    lamda: (message: BabyEventMapValue) => void
+  public addEventHandler<K extends BabyEventMapKey>(
+    namespace: K,
+    lamda: (message: BabyEventMap[K]) => void
   ) {
+    //@ts-ignore
     this.eventHanderQueue.set(namespace, lamda);
   }
   public __trigger__(event: BabyEvent) {

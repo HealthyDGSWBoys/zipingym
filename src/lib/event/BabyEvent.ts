@@ -14,7 +14,7 @@ export default class BabyEvent {
 export declare type BabyEventMapKey = keyof BabyEventMap;
 export declare type BabyEventMapValue = BabyEventMap[BabyEventMapKey];
 
-interface BabyEventMap {
+export interface BabyEventMap {
   update: UpdateEventMessage;
   setting: EventMessage;
 }
