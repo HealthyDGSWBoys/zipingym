@@ -4,10 +4,16 @@ import UpdateEventMessage from './message/UpdateEventMessage';
 export default class BabyEvent {
   public message: BabyEventMapValue;
   public target: BabyEventMapKey;
+  public isCascade: boolean;
   public generator: any;
-  constructor(target: BabyEventMapKey, message: BabyEventMapValue) {
+  constructor(
+    target: BabyEventMapKey,
+    message: BabyEventMapValue,
+    isCascade: boolean = true
+  ) {
     this.message = message;
     this.target = target;
+    this.isCascade = isCascade;
   }
 }
 

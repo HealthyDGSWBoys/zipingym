@@ -20,15 +20,16 @@ export default class EventFall extends EventHandler {
     //@ts-ignore
     return new EventFall(undefined);
   }
-  protected generateEvent(event: BabyEvent) {
-    const root = EventFall.FindRoot(this);
-    root.__trigger__(event);
+  protected generateEvent(event: BabyEvent, startPoint?: EventFall) {
+    (startPoint ?? EventFall.FindRoot(this)).__trigger__(event);
   }
   public __trigger__(event: BabyEvent) {
     const get = this.eventHanderQueue.get(event.target);
-    this.children.forEach((child: EventFall) => {
-      child.__trigger__(event);
-    });
+    if (event.isCascade) {
+      this.children.forEach((child: EventFall) => {
+        child.__trigger__(event);
+      });
+    }
     if (get != undefined) {
       get(event.message);
     }
