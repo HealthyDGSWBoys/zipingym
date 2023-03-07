@@ -17,4 +17,6 @@ export declare type BabyEventMapValue = BabyEventMap[BabyEventMapKey];
 export interface BabyEventMap {
   update: UpdateEventMessage;
   setting: EventMessage;
+
+  requestLoad: EventMessage;
 }
