@@ -66,9 +66,10 @@ export default class AppRoot extends EventFall {
   ) {
     const member = new Member(this, this.share);
     this.children.push(member);
+    member.__trigger__(new BabyEvent('setting', {}));
   }
   public run() {
-    this.generateEvent(new BabyEvent('setting', {}));
+    // this.generateEvent(new BabyEvent('setting', {}));
     this.deltaClock.play();
     this.running = true;
   }
