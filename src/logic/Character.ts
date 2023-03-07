@@ -1,6 +1,5 @@
 import Loader from './Loader';
 import character from '$static/model/character.glb';
-import * as BABYLON from 'babylonjs';
 import { TransformNode } from 'babylonjs';
 
 export default class Character extends Loader {
