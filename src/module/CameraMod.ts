@@ -4,7 +4,7 @@ import * as BABYLON from 'babylonjs';
 
 export default class CameraMod extends Module {
   public onSet() {
-    const camera = new BABYLON.FreeCamera(
+    const camera = new BABYLON.TouchCamera(
       'camera',
       new Vector3(-10, 70, -10),
       this.share.scene
