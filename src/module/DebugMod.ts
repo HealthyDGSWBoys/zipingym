@@ -1,3 +1,4 @@
+import Character from '$/logic/Character';
 import DummyMap from '$/logic/map/DummyMap';
 import Module from '$app/Module';
 import * as BABYLON from 'babylonjs';
@@ -7,6 +8,7 @@ BABYLON.SceneLoader.RegisterPlugin(new GLTFFileLoader());
 export default class DebugMod extends Module {
   protected onSet(): void {
     this.addChild(DummyMap);
+    this.addChild(Character);
     // this.addEventHandler('update', (e) => console.log(e.deltaTime));
   }
 }

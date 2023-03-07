@@ -1,5 +1,6 @@
 import Loader from '../Loader';
 import dummyMap from '$static/model/dummy.glb';
+import beachMap from '$static/model/beach2.glb';
 import * as BABYLON from 'babylonjs';
 
 export default class DummyMap extends Loader {

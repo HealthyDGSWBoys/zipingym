@@ -7,6 +7,9 @@ BABYLON.SceneLoader.RegisterPlugin(new BABYLON_LOADER.GLTFFileLoader());
 export default abstract class Loader extends Module {
   protected abstract url: [string, string];
   protected load() {
+    this.addEventHandler('onError', () => {
+      console.error('Error occur while loading ' + this.url[1]);
+    });
     BABYLON.SceneLoader.LoadAssetContainer(
       this.url[0],
       this.url[1].substring(1),
