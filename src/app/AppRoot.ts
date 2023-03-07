@@ -1,10 +1,10 @@
 import appConfig from './config';
 import * as BABYLON from 'babylonjs';
 import Module from './Module';
-import EventFall from '$/lib/event/EventFall';
-import BabyEvent from '$/lib/event/BabyEvent';
-import UpdateEventMessage from '$/lib/event/message/UpdateEventMessage';
-import { EventMessageImpl } from '$/lib/event/message/EventMessage';
+import EventFall from '$/event/EventFall';
+import BabyEvent from '$/event/BabyEvent';
+import UpdateEventMessage from '$/event/message/UpdateEventMessage';
+import { EventMessageImpl } from '$/event/message/EventMessage';
 import ShareMemory from './ShareMemory';
 import DeltaClock from '$/util/DeltaClock';
 
