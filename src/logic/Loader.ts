@@ -7,23 +7,23 @@ BABYLON.SceneLoader.RegisterPlugin(new BABYLON_LOADER.GLTFFileLoader());
 export default abstract class Loader extends Module {
   protected abstract url: [string, string];
   protected load() {
-    BABYLON.SceneLoader.Load(
+    BABYLON.SceneLoader.LoadAssetContainer(
       this.url[0],
       this.url[1].substring(1),
-      this.share.scene.getEngine(),
-      (scene: BABYLON.Scene) => {
-        this.generateEvent(
+      this.share.scene,
+      (scene: BABYLON.AssetContainer) => {
+        this.__trigger__(
           new BabyEvent(
             'onLoad',
             {
-              scene,
+              assets: scene,
             },
             false
           )
         );
       },
       (progress: BABYLON.ISceneLoaderProgressEvent) => {
-        this.generateEvent(
+        this.__trigger__(
           new BabyEvent(
             'onProgress',
             {
@@ -34,7 +34,7 @@ export default abstract class Loader extends Module {
         );
       },
       (scene: BABYLON.Scene, message: string, exception?: any) => {
-        this.generateEvent(
+        this.__trigger__(
           new BabyEvent(
             'onError',
             {

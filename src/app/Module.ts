@@ -1,3 +1,4 @@
+import BabyEvent from '$/event/BabyEvent';
 import EventFall from '$/event/EventFall';
 import * as BABYLON from 'babylonjs';
 import ShareMemory from './ShareMemory';
@@ -13,6 +14,8 @@ export default abstract class Module extends EventFall {
   protected addChild(
     maker: new (parent: Module, scene: ShareMemory) => Module
   ) {
+    const child = new maker(this, this.share);
     this.children.push(new maker(this, this.share));
+    child.__trigger__(new BabyEvent('setting', {}));
   }
 }

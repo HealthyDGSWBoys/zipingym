@@ -8,7 +8,7 @@ export default interface LocalLoadEventMap {
 }
 
 interface OnLoadEventMessage extends EventMessage {
-  scene: BABYLON.Scene;
+  assets: BABYLON.AssetContainer;
 }
 interface OnProgressEventMessage
   extends EventMessage,
