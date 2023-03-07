@@ -1,5 +1,6 @@
 import ControlEventMap from './map/ControlEventMap';
 import EventMessage from './map/EventMessage';
+import InputEventMap from './map/input/InputEventMap';
 import LocalLoadEventMap from './map/LocalLoadEventMap';
 
 export default class BabyEvent<K extends BabyEventMapKey> {
@@ -17,4 +18,7 @@ export default class BabyEvent<K extends BabyEventMapKey> {
 export declare type BabyEventMapKey = keyof BabyEventMap;
 export declare type BabyEventMapValue = BabyEventMap[BabyEventMapKey];
 
-export interface BabyEventMap extends LocalLoadEventMap, ControlEventMap {}
+export interface BabyEventMap
+  extends LocalLoadEventMap,
+    ControlEventMap,
+    InputEventMap {}
