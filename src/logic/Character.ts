@@ -10,11 +10,12 @@ export default class Character extends Loader {
     this.addEventHandler('onLoad', ({ assets }) => {
       assets.addAllToScene();
       const scene = this.getScene();
-      (assets.getNodes()[0] as TransformNode).position = scene
+      const character = assets.getNodes()[0] as TransformNode;
+      character.position = scene
         .getTransformNodeByName('SpawnPoint')!
         .position.clone();
       this.addEventHandler('keydown', (e) => {
-        console.log(e.key);
+        if (e.key == ' ') character.position.z -= 1;
       });
     });
     this.load();
