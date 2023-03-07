@@ -1,16 +1,13 @@
-import { EventMessage } from './message/EventMessage';
-import UpdateEventMessage from './message/UpdateEventMessage';
+import ControlEventMap from './map/ControlEventMap';
+import EventMessage from './map/EventMessage';
+import LocalLoadEventMap from './map/LocalLoadEventMap';
 
-export default class BabyEvent {
-  public message: BabyEventMapValue;
-  public target: BabyEventMapKey;
+export default class BabyEvent<K extends BabyEventMapKey> {
+  public message: BabyEventMap[K];
+  public target: K;
   public isCascade: boolean;
   public generator: any;
-  constructor(
-    target: BabyEventMapKey,
-    message: BabyEventMapValue,
-    isCascade: boolean = true
-  ) {
+  constructor(target: K, message: BabyEventMap[K], isCascade: boolean = true) {
     this.message = message;
     this.target = target;
     this.isCascade = isCascade;
@@ -20,9 +17,4 @@ export default class BabyEvent {
 export declare type BabyEventMapKey = keyof BabyEventMap;
 export declare type BabyEventMapValue = BabyEventMap[BabyEventMapKey];
 
-export interface BabyEventMap {
-  update: UpdateEventMessage;
-  setting: EventMessage;
-
-  requestLoad: EventMessage;
-}
+export interface BabyEventMap extends LocalLoadEventMap, ControlEventMap {}

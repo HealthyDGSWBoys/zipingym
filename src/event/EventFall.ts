@@ -1,4 +1,4 @@
-import BabyEvent from './BabyEvent';
+import BabyEvent, { BabyEventMapKey } from './BabyEvent';
 import EventHandler from './EventHander';
 
 export default class EventFall extends EventHandler {
@@ -20,10 +20,13 @@ export default class EventFall extends EventHandler {
     //@ts-ignore
     return new EventFall(undefined);
   }
-  protected generateEvent(event: BabyEvent, startPoint?: EventFall) {
+  protected generateEvent(
+    event: BabyEvent<BabyEventMapKey>,
+    startPoint?: EventFall
+  ) {
     (startPoint ?? EventFall.FindRoot(this)).__trigger__(event);
   }
-  public __trigger__(event: BabyEvent) {
+  public __trigger__(event: BabyEvent<BabyEventMapKey>) {
     const get = this.eventHanderQueue.get(event.target);
     if (event.isCascade) {
       this.children.forEach((child: EventFall) => {

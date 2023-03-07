@@ -18,7 +18,7 @@ export default class EventHandler {
     //@ts-ignore
     this.eventHanderQueue.set(namespace, lamda);
   }
-  public __trigger__(event: BabyEvent) {
+  public __trigger__(event: BabyEvent<BabyEventMapKey>) {
     const get = this.eventHanderQueue.get(event.target);
     if (get != undefined) {
       get(event.message);

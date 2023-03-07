@@ -3,8 +3,6 @@ import * as BABYLON from 'babylonjs';
 import Module from './Module';
 import EventFall from '$/event/EventFall';
 import BabyEvent from '$/event/BabyEvent';
-import UpdateEventMessage from '$/event/message/UpdateEventMessage';
-import { EventMessageImpl } from '$/event/message/EventMessage';
 import ShareMemory from './ShareMemory';
 import DeltaClock from '$/util/DeltaClock';
 
@@ -58,10 +56,7 @@ export default class AppRoot extends EventFall {
   private loop() {
     if (this.running) {
       this.generateEvent(
-        new BabyEvent(
-          'update',
-          new UpdateEventMessage(this.deltaClock.getDeltaTime())
-        )
+        new BabyEvent('update', { deltaTime: this.deltaClock.getDeltaTime() })
       );
       this.scene.render();
     }
@@ -73,7 +68,7 @@ export default class AppRoot extends EventFall {
     this.children.push(member);
   }
   public run() {
-    this.generateEvent(new BabyEvent('setting', new EventMessageImpl()));
+    this.generateEvent(new BabyEvent('setting', {}));
     this.deltaClock.play();
     this.running = true;
   }
