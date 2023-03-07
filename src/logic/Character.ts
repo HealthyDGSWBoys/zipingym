@@ -16,23 +16,21 @@ export default class Character extends Loader {
         .getTransformNodeByName('SpawnPoint')!
         .position.clone();
       const animation = new AnimateControl<Vector3>(character.position);
-      // this.addEventHandler('keydown', (e) => {
-      //   if (e.key == ' ') {
-      //     animation.addAnimate(new Vector3(0, 0, -2), 200);
-      //   }
-      // });
+      this.addEventHandler('keydown', (e) => {
+        if (e.key == ' ') {
+          animation.addAnimate(new Vector3(0, 0, -2), 200);
+        }
+      });
 
-      // this.addEventHandler('update', (e) => {
-      //   const ray = new BABYLON.Ray(
-      //     character.position,
-      //     new Vector3(0, -1, 0),
-      //     30
-      //   );
-      //   console.log(
-      //     ray.intersectsMeshes([this.getScene().getMeshByName('Cross-right')!])
-      //   );
-      //   animation.update(e.deltaTime);
-      // });
+      this.addEventHandler('update', (e) => {
+        const ray = new BABYLON.Ray(
+          character.position,
+          new Vector3(0, -1, 0),
+          30
+        );
+        console.log(ray.intersectsMeshes(this.share.crossPoints));
+        animation.update(e.deltaTime);
+      });
     });
     this.load();
   }

@@ -33,6 +33,7 @@ export default class AppRoot extends EventFall {
 
     this.share = {
       scene: this.scene,
+      crossPoints: new Array(),
     };
 
     this.debug();
