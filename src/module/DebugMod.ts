@@ -9,6 +9,5 @@ export default class DebugMod extends Module {
   protected onSet(): void {
     this.addChild(DummyMap);
     this.addChild(Character);
-    // this.addEventHandler('update', (e) => console.log(e.deltaTime));
   }
 }

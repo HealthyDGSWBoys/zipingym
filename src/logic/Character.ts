@@ -13,6 +13,9 @@ export default class Character extends Loader {
       (assets.getNodes()[0] as TransformNode).position = scene
         .getTransformNodeByName('SpawnPoint')!
         .position.clone();
+      this.addEventHandler('keydown', (e) => {
+        console.log(e.key);
+      });
     });
     this.load();
   }

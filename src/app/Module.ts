@@ -15,7 +15,7 @@ export default abstract class Module extends EventFall {
     maker: new (parent: Module, scene: ShareMemory) => Module
   ) {
     const child = new maker(this, this.share);
-    this.children.push(new maker(this, this.share));
+    this.children.push(child);
     child.__trigger__(new BabyEvent('setting', {}));
   }
   protected getScene(): BABYLON.Scene {

@@ -10,10 +10,6 @@ export default class DummyMap extends Loader {
     this.addEventHandler('onLoad', ({ assets: scene }) => {
       scene.addAllToScene();
     });
-    this.addEventHandler('onProgress', (e) => {});
-    this.addEventHandler('onError', (error) => {
-      console.log(error.message);
-    });
     this.load();
   }
 }
