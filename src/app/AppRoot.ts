@@ -6,6 +6,7 @@ import BabyEvent from '$/lib/event/BabyEvent';
 import UpdateEventMessage from '$/lib/event/message/UpdateEventMessage';
 import { EventMessageImpl } from '$/lib/event/message/EventMessage';
 import ShareMemory from './ShareMemory';
+import DeltaClock from '$/util/DeltaClock';
 
 export default class AppRoot extends EventFall {
   private root: HTMLElement;
@@ -16,6 +17,8 @@ export default class AppRoot extends EventFall {
   private share: ShareMemory;
 
   private running: boolean = false;
+
+  private deltaClock: DeltaClock = new DeltaClock();
   constructor(root: HTMLElement, config: appConfig) {
     super(EventFall.MakeMotherlessFall());
     this.root = root;
@@ -54,7 +57,12 @@ export default class AppRoot extends EventFall {
   }
   private loop() {
     if (this.running) {
-      this.generateEvent(new BabyEvent('update', new UpdateEventMessage(10)));
+      this.generateEvent(
+        new BabyEvent(
+          'update',
+          new UpdateEventMessage(this.deltaClock.getDeltaTime())
+        )
+      );
       this.scene.render();
     }
   }
@@ -66,9 +74,11 @@ export default class AppRoot extends EventFall {
   }
   public run() {
     this.generateEvent(new BabyEvent('setting', new EventMessageImpl()));
+    this.deltaClock.play();
     this.running = true;
   }
   public pause() {
+    this.deltaClock.pause();
     this.running = false;
   }
   protected isRoot = () => true;
