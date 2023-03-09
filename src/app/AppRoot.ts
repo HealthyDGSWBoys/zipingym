@@ -1,6 +1,6 @@
 import appConfig from './config';
 import * as BABYLON from 'babylonjs';
-import Module from './Module';
+import Module from '../package/Module';
 import EventFall from '$/event/EventFall';
 import BabyEvent from '$/event/BabyEvent';
 import ShareMemory from './ShareMemory';
@@ -33,7 +33,8 @@ export default class AppRoot extends EventFall {
 
     this.share = {
       scene: this.scene,
-      crossPoints: new Array(),
+      engine: this.engine,
+      highlite: new BABYLON.HighlightLayer('highlite_layer', this.scene),
     };
 
     this.debug();
@@ -49,7 +50,7 @@ export default class AppRoot extends EventFall {
   };
   private debug() {
     if (this.config.debugUI) {
-      this.scene.debugLayer.show({ overlay: true });
+      this.scene.debugLayer.show({ overlay: false });
     } else {
       this.scene.debugLayer.hide();
     }

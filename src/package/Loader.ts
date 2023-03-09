@@ -1,4 +1,4 @@
-import Module from '$/app/Module';
+import Module from '$/package/Module';
 import BabyEvent from '$/event/BabyEvent';
 import * as BABYLON from 'babylonjs';
 import * as BABYLON_LOADER from 'babylonjs-loaders';
@@ -7,7 +7,7 @@ BABYLON.SceneLoader.RegisterPlugin(new BABYLON_LOADER.GLTFFileLoader());
 export default abstract class Loader extends Module {
   protected abstract url: [string, string];
   protected load() {
-    this.addEventHandler('onError', () => {
+    this.addEventHandler('_onError', () => {
       console.error('Error occur while loading ' + this.url[1]);
     });
     BABYLON.SceneLoader.LoadAssetContainer(
@@ -17,7 +17,7 @@ export default abstract class Loader extends Module {
       (scene: BABYLON.AssetContainer) => {
         this.__trigger__(
           new BabyEvent(
-            'onLoad',
+            '_onLoad',
             {
               assets: scene,
             },
@@ -28,7 +28,7 @@ export default abstract class Loader extends Module {
       (progress: BABYLON.ISceneLoaderProgressEvent) => {
         this.__trigger__(
           new BabyEvent(
-            'onProgress',
+            '_onProgress',
             {
               ...progress,
             },
@@ -39,7 +39,7 @@ export default abstract class Loader extends Module {
       (scene: BABYLON.Scene, message: string, exception?: any) => {
         this.__trigger__(
           new BabyEvent(
-            'onError',
+            '_onError',
             {
               scene,
               message,

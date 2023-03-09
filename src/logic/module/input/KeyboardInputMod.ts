@@ -1,4 +1,4 @@
-import Module from '$/app/Module';
+import Module from '$/package/Module';
 import BabyEvent from '$/event/BabyEvent';
 
 export default class KeyboardInputMod extends Module {

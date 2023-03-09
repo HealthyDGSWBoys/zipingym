@@ -18,10 +18,10 @@
     "baseUrl": "./",
     "paths": {
       "$/*": ["src/*"],
-      "$test/*": ["src/test/*"],
       "$static/*": ["static/*"],
       "$app/*": ["src/app/*"],
-      "$module/*": ["src/module/*"]
+      "$logic/*": ["src/logic/*"],
+      "$util/*": ["src/util/*"]
     }
   },
   "include": ["./src", "vite.config.js"]
