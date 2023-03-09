@@ -11,9 +11,6 @@ export default class UserMod extends Module {
       this.share.scene
     );
     camera.fov = 1.2;
-    const animate: AnimateControl<Vector3> = new AnimateControl(
-      camera.rotation
-    );
     camera.rotation.x = Math.PI / 2;
     camera.rotation.z = Math.PI;
     camera.attachControl(true);
