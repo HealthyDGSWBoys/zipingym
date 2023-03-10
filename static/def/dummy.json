@@ -1,0 +1,26 @@
+{
+  "length": 10,
+  "origin": "o",
+  "children": [
+    {
+      "length": 8,
+      "origin": "r",
+      "children": [
+        {
+          "length": 15,
+          "origin": "l",
+          "children": [
+            {
+              "length": 9,
+              "origin": "r"
+            },
+            {
+              "length": 9,
+              "origin": "l"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
