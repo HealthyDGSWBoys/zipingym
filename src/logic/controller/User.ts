@@ -3,9 +3,11 @@ import AnimateControl from '$/util/AnimateControl';
 import Route from '$/util/Route';
 import * as BABYLON from 'babylonjs';
 import { Vector3 } from 'babylonjs';
+
 import raw from '$static/def/dummy.json';
 
 export default class UserController extends Controller<BABYLON.TransformNode> {
+  //@ts-ignore
   private route = new Route(raw);
   private moving: number = 0;
   protected onSet(): void {
@@ -22,15 +24,20 @@ export default class UserController extends Controller<BABYLON.TransformNode> {
       this.addEventHandler('keydown', (e) => {
         if (e.key == 'w') {
           animatePos.addAnimate(new Vector3(0, 0, -2), 200);
+          console.log(this.route.move('f'));
         } else if (e.key == 'q' && this.moving < 0) {
-          animatePos.addAnimate(new Vector3(1.5, 0, 0), 50);
-          this.moving = 50;
+          if (this.route.move('l') == 1) {
+            animatePos.addAnimate(new Vector3(1.5, 0, 0), 50);
+            this.moving = 50;
+          }
         } else if (e.key == 'e' && this.moving < 0) {
-          animatePos.addAnimate(new Vector3(-1.5, 0, 0), 50);
-          this.moving = 50;
+          if (this.route.move('r') == 1) {
+            animatePos.addAnimate(new Vector3(-1.5, 0, 0), 50);
+            this.moving = 50;
+          }
         }
       });
-      console.log(this.route);
+
       this.addEventHandler('update', ({ deltaTime }) => {
         animatePos.update(deltaTime);
         animateRot.update(deltaTime);
