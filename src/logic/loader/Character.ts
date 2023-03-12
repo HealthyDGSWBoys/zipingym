@@ -13,4 +13,6 @@ export default class Character extends Loader {
     });
     this.load();
   }
+  
+
 }
