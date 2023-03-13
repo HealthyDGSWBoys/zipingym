@@ -9,7 +9,6 @@ import raw from '$static/def/dummy.json';
 export default class UserController extends Controller<BABYLON.TransformNode> {
   //@ts-ignore
   private route = new Route(raw);
-  private moving: number = 0;
   protected onSet(): void {
     this.addEventHandler('_onTargetSet', () => {
       const usergroup: BABYLON.TransformNode = this.target;
@@ -18,30 +17,46 @@ export default class UserController extends Controller<BABYLON.TransformNode> {
       const scene = this.share.scene;
       const animatePos = new AnimateControl(usergroup.position);
       const animateRot = new AnimateControl(usergroup.rotation);
+
       const { x, y, z } = scene.getTransformNodeByName('SpawnPoint')!.position;
       usergroup.position.set(x, y, z);
 
       this.addEventHandler('keydown', (e) => {
-        if (e.key == 'w') {
-          animatePos.addAnimate(new Vector3(0, 0, -2), 200);
-          console.log(this.route.move('f'));
-        } else if (e.key == 'q' && this.moving < 0) {
-          if (this.route.move('l') == 1) {
-            animatePos.addAnimate(new Vector3(1.5, 0, 0), 50);
-            this.moving = 50;
-          }
-        } else if (e.key == 'e' && this.moving < 0) {
-          if (this.route.move('r') == 1) {
-            animatePos.addAnimate(new Vector3(-1.5, 0, 0), 50);
-            this.moving = 50;
-          }
+        if (e.key == ' ') {
+          //   animateRot.addAnimate(new Vector3(0, 1, 0), 100);
+          //   animatePos.addAnimate(new Vector3(0, 1, 0), 100);
+          //   usergroup.addRotation(0, 1, 0);
+          console.log(usergroup.position);
+          const keyFrames = [
+            {
+              frame: 0,
+              value: 0,
+            },
+            {
+              frame: 120,
+              value: 1.5,
+            },
+          ];
+
+          xSlide.setKeys(keyFrames);
+          scene.beginAnimation(usergroup, 0, 120);
         }
       });
+      usergroup.rotation.x += 1;
+      //   usergroup.addRotation(0, 1.5, 0);
+      const frameRate = 120;
+      const xSlide = new BABYLON.Animation(
+        'xSlide',
+        'rotation.y',
+        frameRate,
+        BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
+      );
+      usergroup.animations.push(xSlide);
 
       this.addEventHandler('update', ({ deltaTime }) => {
         animatePos.update(deltaTime);
         animateRot.update(deltaTime);
-        this.moving -= deltaTime;
       });
     });
   }

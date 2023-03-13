@@ -26,15 +26,19 @@ export default class AnimateControl<T extends Vector3> {
   public update(deltaTime: number) {
     this.animateQueue.forEach(({ onMs, time }, idx, arr) => {
       const delta = deltaTime > time ? time : deltaTime;
-      const { x, y, z } = onMs
-        .clone()
-        .multiply(new Vector3(delta, delta, delta));
-      this.target.x += x;
-      this.target.y += y;
-      this.target.z += z;
+      const { x, y, z } = this.target.add(
+        onMs.clone().multiply(new Vector3(delta, delta, delta))
+      );
+      // this.target.x += x;
+      // this.target.y += y;
+      // this.target.z += z;
+      this.target.set(x, y, z);
+      // this.target.
+      console.log(this.target);
+      // this.target = this.target.add(new Vector3(x, y, z));
       arr[idx].time -= delta;
       if (arr[idx].time <= 0) {
-        arr.splice(idx);
+        arr.splice(idx, 1);
       }
     });
   }
