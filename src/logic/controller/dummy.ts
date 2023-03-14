@@ -23,10 +23,6 @@ export default class UserController extends Controller<BABYLON.TransformNode> {
 
       this.addEventHandler('keydown', (e) => {
         if (e.key == ' ') {
-          //   animateRot.addAnimate(new Vector3(0, 1, 0), 100);
-          //   animatePos.addAnimate(new Vector3(0, 1, 0), 100);
-          //   usergroup.addRotation(0, 1, 0);
-          console.log(usergroup.position);
           const keyFrames = [
             {
               frame: 0,
