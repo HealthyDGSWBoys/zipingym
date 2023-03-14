@@ -14,9 +14,6 @@ export default class DummyMap extends Loader {
     this.addEventHandler('_onLoad', ({ assets }) => {
       //모두 렌더링
       assets.addAllToScene();
-      this.addChild(WorldTest).setTarget(
-        assets.getNodes()[0] as BABYLON.TransformNode
-      );
     });
     this.load();
   }

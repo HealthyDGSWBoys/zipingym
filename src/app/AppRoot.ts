@@ -35,6 +35,7 @@ export default class AppRoot extends EventFall {
       scene: this.scene,
       engine: this.engine,
       highlite: new BABYLON.HighlightLayer('highlite_layer', this.scene),
+      ...config,
     };
 
     this.debug();
