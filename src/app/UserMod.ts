@@ -1,7 +1,6 @@
-import { TransformNode, Vector3 } from 'babylonjs';
+import { Vector3 } from 'babylonjs';
 import * as BABYLON from 'babylonjs';
-import AnimateControl from '$/util/AnimateControl';
-import Module from '$/package/Module';
+import { Module } from '@zipingym/babybabylon';
 
 export default class UserMod extends Module {
   public onSet() {

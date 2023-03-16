@@ -1,17 +1,10 @@
-import DevMod from '$logic/module/DevMod';
-import UserMod from '$logic/module/UserMod';
-import InputMod from '$logic/module/input/InputMod';
-import LogicMod from '$logic/module/LogicMod';
-import AppRoot from './AppRoot';
-import appConfig from './config';
+import { BabyRoot } from '@zipingym/babybabylon';
+import DevMod from './DevMod';
+import UserMod from './UserMod';
 
-export default class App extends AppRoot {
-  constructor(root: HTMLElement, config: appConfig) {
-    super(root, config);
-
-    this.appendMember(UserMod);
-    this.appendMember(LogicMod);
-    this.appendMember(DevMod);
-    this.appendMember(InputMod);
+export default class App extends BabyRoot {
+  protected onSet(): void {
+    this.addChild(UserMod);
+    this.addChild(DevMod);
   }
 }

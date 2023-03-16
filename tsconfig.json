@@ -15,6 +15,7 @@
     "noUnusedParameters": false,
     "noImplicitReturns": true,
     "typeRoots": ["./node_modules/@types", "@types"],
+    "experimentalDecorators": true,
     "baseUrl": "./",
     "paths": {
       "$/*": ["src/*"],
