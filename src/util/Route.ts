@@ -3,6 +3,8 @@ import Tree from './Tree';
 export default class Route extends Tree<RouteValue> {
   public current: number;
 
+  public LookAt: 'r' | 'l' | 'ur' | 'ul' = 'r';
+
   //왼쪽일 떄 0 중간일 때 1 오른쪽일 떄 2
   public pos: 0 | 1 | 2 = 1;
 
@@ -25,6 +27,12 @@ export default class Route extends Tree<RouteValue> {
   }
 
   public move(direction: 'f' | 'l' | 'r'): number {
+    console.log(
+      'pos :' + this.pos,
+      'current :' + this.current,
+      'Length :' + this.value.length
+    );
+
     if (direction == 'f') {
       if (this.current < this.value.length) {
         this.current++;
@@ -40,9 +48,23 @@ export default class Route extends Tree<RouteValue> {
         return 0;
       }
     } else if (direction == 'r') {
+      const RchildNode = this.childNode.find(
+        (Element) => Element.value.origin == 'r'
+      );
       if (this.pos != 2) {
         this.pos++;
         return 1;
+      } else if (
+        RchildNode != undefined &&
+        this.current >= this.value.length &&
+        this.pos == 2
+      ) {
+        this.current = 0;
+        this.value = RchildNode.value;
+        this.childNode = RchildNode.childNode;
+        this.parentNode = RchildNode.parentNode;
+        console.log(this.childNode.find);
+        return -1;
       } else {
         return 0;
       }
