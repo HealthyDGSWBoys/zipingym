@@ -1,7 +1,7 @@
 import dummyMap from '$static/model/dummy.glb';
-import { Module, ModelLoadDecorator } from '@zipingym/babybabylon';
+import { Module, Loader } from '@zipingym/babybabylon';
 
-@ModelLoadDecorator('./', dummyMap)
+@Loader('./', dummyMap)
 export default class DummyMapLoadMod extends Module {
   protected onSet(): void {
     // 로딩됐을 때

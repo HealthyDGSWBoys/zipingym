@@ -1,9 +1,9 @@
 import CharacterController from '$/controller/CharacterController';
 import character from '$static/model/character.glb';
-import { Module, ModelLoadDecorator } from '@zipingym/babybabylon';
+import { Module, Loader } from '@zipingym/babybabylon';
 import { TransformNode } from 'babylonjs';
 
-@ModelLoadDecorator('./', character)
+@Loader('./', character)
 export default class CharacterLoadMod extends Module {
   protected onSet(): void {
     // 로딩됐을 때
