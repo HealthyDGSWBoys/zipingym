@@ -18,12 +18,24 @@ export default class CharacterController extends Controller<BABYLON.TransformNod
       this.addEventHandler('keydown', (e) => {
         if (e.key == 'w') {
           if (route.move('f') == 1) {
-            this.animateVec(
-              userGroup,
-              'position',
-              new BABYLON.Vector3(0, 0, -2),
-              200
-            );
+            console.log(userGroup.position._x,userGroup.position._y,userGroup.position._z)
+            if(userGroup.position._z-2>-9){
+              this.animateVec(
+                userGroup,
+                'position',
+                new BABYLON.Vector3(0, 0, -2),
+                200
+              );
+            }
+            else{
+              this.animateVec(
+                userGroup,
+                'position',
+                new BABYLON.Vector3(0, 0, 0),
+                200
+              );
+              
+            }
           }
         } else if (e.key == 'q') {
           if (route.move('l') == 1) {
