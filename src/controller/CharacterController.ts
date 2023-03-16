@@ -1,17 +1,17 @@
-import Controller from '$/package/Controller';
+import { Controller } from '@zipingym/babybabylon';
 import * as BABYLON from 'babylonjs';
 import Route from '$util/Route';
 import raw from '$static/def/dummy.json';
 
 export default class CharacterController extends Controller<BABYLON.TransformNode> {
   protected onSet(): void {
-    this.addEventHandler('_onTargetSet', () => {
+    this.addEventHandler('_target', () => {
       const userGroup = this.target;
       //@ts-ignore
       const route = new Route(raw);
 
       const spawnpoint = (
-        this.getScene().getNodeByName('SpawnPoint') as BABYLON.TransformNode
+        this.scene.getNodeByName('SpawnPoint') as BABYLON.TransformNode
       ).position;
       userGroup.position.set(spawnpoint.x, spawnpoint.y, spawnpoint.z);
 

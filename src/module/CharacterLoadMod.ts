@@ -1,3 +1,4 @@
+import CharacterController from '$/controller/CharacterController';
 import character from '$static/model/character.glb';
 import { Module, ModelLoadDecorator } from '@zipingym/babybabylon';
 import { TransformNode } from 'babylonjs';
@@ -10,7 +11,7 @@ export default class CharacterLoadMod extends Module {
       //모두 렌더링
       assets.addAllToScene();
       const characterNode = assets.getNodes()[0] as TransformNode;
-      // this.addChild(CharacterController).setTarget(characterNode);
+      this.addChild(CharacterController).setTarget(characterNode);
     });
   }
 }
