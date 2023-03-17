@@ -20,8 +20,6 @@
     "paths": {
       "$/*": ["src/*"],
       "$static/*": ["static/*"],
-      "$app/*": ["src/app/*"],
-      "$logic/*": ["src/logic/*"],
       "$util/*": ["src/util/*"]
     }
   },

@@ -1,12 +1,12 @@
 import { BabyRoot } from '@zipingym/babybabylon';
 import AddonMod from './AddonMod';
 import DevMod from './DevMod';
-import UserMod from './UserMod';
+import LogicMod from './LogicMod';
 
 export default class App extends BabyRoot {
   protected onSet(): void {
-    this.addChild(UserMod);
-    this.addChild(AddonMod);
     this.addChild(DevMod);
+    this.addChild(AddonMod);
+    this.addChild(LogicMod);
   }
 }
