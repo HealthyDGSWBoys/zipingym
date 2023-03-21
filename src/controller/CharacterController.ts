@@ -54,11 +54,27 @@ export default class CharacterController extends Controller<BABYLON.TransformNod
       };
 
       this.addEventHandler('keydown', (e) => {
-        if (e.key == 'w') {
-          const move: 'f' = CharacterController.KeyMap.get('w') as 'f';
+        const move = CharacterController.KeyMap.get(e.key);
+        if (move != undefined) {
+          //@ts-ignore
           const result = route.move(move);
-        } else if (e.key == 'q') {
-        } else if (e.key == 'e') {
+          if (move == 'f') {
+            if (result == 1) {
+              animateMove(new Vector3(0, 0, -2), 'position');
+            }
+          } else if (e.key == 'q') {
+            if (result == 1) {
+              animateMove(new Vector3(2, 0, 0), 'position');
+            } else if (result == -1) {
+              animateMove(new Vector3(Math.PI / 2, 0, 0), 'rotation');
+            }
+          } else if (e.key == 'e') {
+            if (result == 1) {
+              animateMove(new Vector3(-2, 0, 0), 'position');
+            } else if (result == -1) {
+              animateMove(new Vector3(-Math.PI / 2, 0, 0), 'rotation');
+            }
+          }
         }
       });
     });
