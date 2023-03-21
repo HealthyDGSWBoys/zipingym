@@ -1,72 +1,64 @@
-import { Controller } from '@zipingym/babybabylon';
+import { AnimationController, Controller } from '@zipingym/babybabylon';
 import * as BABYLON from 'babylonjs';
 import Route from '$util/Route';
 import raw from '$static/def/dummy.json';
 import { Vector3 } from 'babylonjs';
+import { Route2 } from '$util/Route2';
 
 export default class CharacterController extends Controller<BABYLON.TransformNode> {
+  private static KeyMap = new Map([
+    ['w', 'f'],
+    ['q', 'l'],
+    ['e', 'r'],
+  ]);
   protected onSet(): void {
     this.addEventHandler('_target', () => {
       const userGroup = this.target;
       //@ts-ignore
-      const route = new Route(raw);
+      const route = new Route(raw) as Route2;
 
       const spawnpoint = (
         this.scene.getNodeByName('SpawnPoint') as BABYLON.TransformNode
       ).position;
       userGroup.position.set(spawnpoint.x, spawnpoint.y, spawnpoint.z);
-      //   console.log(route);
-      this.addEventHandler('keydown', (e) => {
-        // if (e.key == 'w') {
-        //   if (route.move('f') == 1) {
-        //     this.animateVec(
-        //       userGroup,
-        //       'position',
-        //       new BABYLON.Vector3(0, 0, -2),
-        //       200
-        //     );
-        //   }
-        // } else if (e.key == 'q') {
-        //   if (route.move('l') == 1) {
-        //     this.animateVec(
-        //       userGroup,
-        //       'position',
-        //       new BABYLON.Vector3(1.5, 0, 0),
-        //       200
-        //     );
-        //   }
-        // } else if (e.key == 'e') {
-        //   if (route.move('r') == 1) {
-        //     this.animateVec(
-        //       userGroup,
-        //       'position',
-        //       new BABYLON.Vector3(-1.5, 0, 0),
-        //       200
-        //     );
-        //   }
-        // }
 
+      const animationPositionController = this.addChild(
+        AnimationController
+      ).setTarget({
+        target: userGroup,
+        value: 'position',
+      });
+      const animationRotationController = this.addChild(
+        AnimationController
+      ).setTarget({
+        target: userGroup,
+        value: 'rotation',
+      });
+      const rotDuration: number = 100;
+      const moveDuration: number = 200;
+      const animateMove = (value: Vector3, type: 'position' | 'rotation') => {
+        const controller =
+          type === 'position'
+            ? animationPositionController
+            : animationRotationController;
+        controller.executeEvent(
+          'animate',
+          {
+            type: 'add',
+            duration: type === 'position' ? moveDuration : rotDuration,
+            vector: value,
+          },
+          false,
+          controller
+        );
+      };
+
+      this.addEventHandler('keydown', (e) => {
         if (e.key == 'w') {
-          if (route.move('f') == 1) {
-            this.target.position = this.target.position.add(
-              new Vector3(0, 0, -2)
-            );
-          }
+          const move: 'f' = CharacterController.KeyMap.get('w') as 'f';
+          const result = route.move(move);
         } else if (e.key == 'q') {
-          if (route.move('l') == 1) {
-            this.target.position = this.target.position.add(
-              new Vector3(1.5, 0, 0)
-            );
-          }
         } else if (e.key == 'e') {
-          const rightMovement = route.move('r');
-          if (rightMovement == 1) {
-            this.target.position = this.target.position.add(
-              new Vector3(-1.5, 0, 0)
-            );
-          } else if (rightMovement == -1) {
-            this.target.addRotation(0, Math.PI / 2, 0);
-          }
         }
       });
     });
