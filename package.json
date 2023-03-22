@@ -24,7 +24,7 @@
     "vite-tsconfig-paths": "^4.0.5"
   },
   "dependencies": {
-    "@zipingym/babybabylon": "0.0.6",
+    "@zipingym/babybabylon": "0.0.7",
     "babylonjs": "^5.49.0",
     "babylonjs-loaders": "^5.49.0"
   }
