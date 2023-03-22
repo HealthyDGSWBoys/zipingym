@@ -12,11 +12,13 @@
           "children": [
             {
               "length": 18,
-              "origin": "r"
+              "origin": "r",
+              "children": []
             },
             {
               "length": 18,
-              "origin": "l"
+              "origin": "l",
+              "children": []
             }
           ]
         }
