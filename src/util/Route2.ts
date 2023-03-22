@@ -1,8 +1,14 @@
 import { Vector3 } from 'babylonjs';
 
 export interface Route2 {
-  //현재 보고 있는 방향
-  lookAt: rotation;
+  // 현재 보고 있는 방향 ( l, r, u, d )
+  lookAt: rotation 
+
+  // 현재 길에서 위치한 방향 ( l, c, r )
+  position: position
+
+  // 현재 길의 진행도 ( Number )
+  progress: Number
 
   /**
    * @param dir 이동 방향(앞, 왼쪽 오른쪽)
@@ -18,11 +24,56 @@ export interface Route2 {
   lookDir: (dir: direction) => Vector3;
 }
 
+export default class Route2Impl implements Route2 {
+    constructor (
+        raw: RawRoute,
+    ) {
+        this.raw = raw
+    }
+    raw: RawRoute
+    position: position = 'c'
+    lookAt: rotation = 'd'
+    progress: Number = 0
+    public move(dir: direction): -1 | 0 | 1 {
+        if (dir === 'f') { // Going forward
+            if (this.progress < this.raw.length - 1) { // When it don't arrive at the end yet
+                return 1 // Keep moving
+            } else { // When it arrived at the end
+                return 0 // Do not anything
+            }
+        } else { // Rotating direction || Moving sideways
+            if (this.progress < this.raw.length - 1) { // When it don't arrive at the end yet
+                if (dir === this.position) { // If it can no longer move sideways
+                    return 0
+                } else { // If it can move sideways
+                    this.position = ['l', 'c', 'r'][{ 'l': 0, 'c': 1, 'r': 2 }[this.position] + { 'l': -1, 'r': 1 }[dir]] as position // Change my position
+                    return 1 // Moving sideways
+                }
+            } else { // When it arrive at the end
+                for (let i of this.raw.children) { // Search child nodes
+                    if (i.origin === dir) { // If the direction is included in the child nodes
+                        this.progress = 0 // Refresh progress
+                        this.raw = i // Change current path to child node
+                        return -1 // Rotating direction
+                    }
+                }
+                return 0 // Do not anything
+            }
+        }
+    }
+    public lookDir(dir: direction): Vector3 {
+        return Vector3.Backward()
+    }
+}
+
 // left, right, up, down
-declare type rotation = 'l' | 'r' | 'u' | 'd';
+declare type rotation = 'l' | 'r' | 'u' | 'd'
 
 // left, front, right
-declare type direction = 'l' | 'f' | 'r';
+declare type direction = 'l' | 'f' | 'r'
+
+// left, center, right
+declare type position = 'l' | 'c' | 'r'
 
 export interface RawRoute {
   //길의 길이
@@ -30,5 +81,5 @@ export interface RawRoute {
   //어떻게 돌아서 시작했는지
   origin: direction;
   //자식들
-  children?: Array<RawRoute>;
+  children: Array<RawRoute>;
 }
