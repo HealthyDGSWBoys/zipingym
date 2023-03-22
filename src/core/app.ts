@@ -2,6 +2,10 @@ import { Scene } from 'babylonjs';
 import * as BABYLON from 'babylonjs';
 import Core from './core';
 import DeltaClock from '$/util/DeltaClock';
+import World from './world';
+import User from './user';
+import Development from './development';
+import ShareMemory from './ShareMemory';
 
 export default class App extends Core {
   private children: Array<Core> = new Array();
@@ -53,13 +57,29 @@ export default class App extends Core {
 
   public set: () => Promise<void> = () => {
     return new Promise((resolve, reject) => {
+      this.addChild(World);
+      this.addChild(User);
+      this.addChild(Development);
+
       Promise.all(
         this.children.map((child) => {
           return child.set();
         })
       )
-        .then(() => resolve())
+        .then(() => {
+          this.setsync();
+          resolve();
+        })
         .catch(reject);
+    });
+  };
+
+  public setsync = () => {
+    this.scene.activeCamera = this.scene.getCameraByName(
+      true ? 'dev_camera' : 'user_camera'
+    );
+    this.children.forEach((child) => {
+      child.setsync();
     });
   };
   private addChild(func: new (share: ShareMemory) => Core) {

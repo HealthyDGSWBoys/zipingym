@@ -9,5 +9,6 @@ export default abstract class Core {
     return this.share.scene;
   }
   public abstract set: () => Promise<void>;
+  public abstract setsync: () => void;
   public abstract loop: (deltaTime: number) => void;
 }
