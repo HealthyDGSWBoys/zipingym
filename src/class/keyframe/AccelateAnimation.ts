@@ -36,5 +36,12 @@ export default class AccelateAnimation implements CustomAnimation {
         this.animationQueue[idx].duration -= deltaTime;
       }
     });
+
+    for (let i = 0; i < this.animationQueue.length; i++) {
+      if (this.animationQueue[i].duration <= 0) {
+        this.animationQueue.splice(i, 1);
+        i--;
+      }
+    }
   }
 }
