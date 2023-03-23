@@ -65,9 +65,10 @@ export default class Route2Impl implements Route2 {
           // Search child nodes
           if (i.origin === dir) {
             // If the direction is included in the child nodes
-            this.progress = 0; // Refresh progress
+            this.progress = this.posToNum() * (dir == 'l' ? 1 : -1); // Refresh progress
             this.raw = i; // Change current path to child node
             this.spin(dir);
+            this.position = 'c';
             return -1; // Rotating direction
           }
         }
@@ -96,9 +97,9 @@ export default class Route2Impl implements Route2 {
         case 'd':
           return new Vector3(-movement, 0);
         case 'r':
-          return new Vector3(0, 0, movement);
-        case 'l':
           return new Vector3(0, 0, -movement);
+        case 'l':
+          return new Vector3(0, 0, movement);
       }
     }
   }
@@ -115,6 +116,10 @@ export default class Route2Impl implements Route2 {
       else if (this.lookAt == 'd') this.lookAt = 'r';
       else this.lookAt = 'u';
     }
+  }
+
+  private posToNum() {
+    return this.position == 'c' ? 0 : this.position == 'l' ? 1 : -1;
   }
 }
 

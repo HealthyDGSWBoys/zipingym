@@ -1,6 +1,6 @@
 import Core from './core';
 import dummyCharacter from '$static/model/character.glb';
-import { AssetContainer, Mesh } from 'babylonjs';
+import { AssetContainer, Mesh, Vector3 } from 'babylonjs';
 import { LoadAll } from '$/function/Load';
 import * as BABYLON from 'babylonjs';
 import CharacterControl from '$/class/control/CharacterControl';
@@ -36,13 +36,14 @@ export default class User extends Core {
       new BABYLON.Vector3(0, 0, 0),
       this.scene
     );
+    camera.cameraAcceleration = 0.5;
     const dummyCharacter = this.userModel.get('dummy');
     const character = dummyCharacter.getNodes()[0] as Mesh;
     camera.lockedTarget = character;
     const spawnpoint = (this.scene.getNodeByName('SpawnPoint') as Mesh)
       .position;
     character.position.set(spawnpoint.x, spawnpoint.y, spawnpoint.z);
-
+    character.rotation = new Vector3(0, Math.PI, 0);
     this.control = new CharacterControl(
       character,
       //@ts-ignore

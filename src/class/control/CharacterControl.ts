@@ -21,7 +21,6 @@ export default class CharacterControl {
 
   public move(direction: direction) {
     const moveResult = this.route.move(direction);
-    console.log(moveResult);
     if (direction == 'f') {
       if (moveResult == 1) {
         this.posKeyframe.animate('add', this.route.lookDir('f'), 100);
@@ -30,13 +29,13 @@ export default class CharacterControl {
       if (moveResult == 1) {
         this.posKeyframe.animate('add', this.route.lookDir('r'), 100);
       } else if (moveResult == -1) {
-        this.rotKeyframe.animate('add', new Vector3(0, -Math.PI / 2, 0), 100);
+        this.rotKeyframe.animate('add', new Vector3(0, Math.PI / 2, 0), 500);
       }
     } else if (direction == 'l') {
       if (moveResult == 1) {
         this.posKeyframe.animate('add', this.route.lookDir('l'), 100);
       } else if (moveResult == -1) {
-        this.rotKeyframe.animate('add', new Vector3(0, Math.PI / 2, 0), 100);
+        this.rotKeyframe.animate('add', new Vector3(0, -Math.PI / 2, 0), 500);
       }
     }
   }
