@@ -21,8 +21,9 @@ export default class App extends Core {
       scene,
       ...config,
     });
-
+    // 해상도 조정
     scene.getEngine().setHardwareScalingLevel(1 / window.devicePixelRatio);
+    // 배경 색 설정
     scene.clearColor = new BABYLON.Color4(0.2, 0.5, 0.7, 1);
 
     this.debug(scene);

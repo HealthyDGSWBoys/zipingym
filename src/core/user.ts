@@ -15,6 +15,7 @@ export default class User extends Core {
   private control: CharacterControl;
   public set: () => Promise<void> = () => {
     return new Promise((resolve, reject) => {
+      //캐릭터 모델 비동기 로드
       LoadAll(User.CharacterModelFile, this.scene)
         .then((users) => {
           this.userModel = users;
