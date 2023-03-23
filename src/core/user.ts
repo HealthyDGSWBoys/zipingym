@@ -3,12 +3,16 @@ import dummyCharacter from '$static/model/character.glb';
 import { AssetContainer, Mesh } from 'babylonjs';
 import { LoadAll } from '$/function/Load';
 import * as BABYLON from 'babylonjs';
+import CharacterControl from '$/class/control/CharacterControl';
+import rawMap from '$static/def/dummy.json';
+import KeyboardInput from '$/class/control/KeyboardInput';
 
 export default class User extends Core {
   private static CharacterModelFile: Map<string, string> = new Map([
     ['dummy', dummyCharacter],
   ]);
   private userModel: Map<string, AssetContainer>;
+  private control: CharacterControl;
   public set: () => Promise<void> = () => {
     return new Promise((resolve, reject) => {
       LoadAll(User.CharacterModelFile, this.scene)
@@ -38,6 +42,13 @@ export default class User extends Core {
     const spawnpoint = (this.scene.getNodeByName('SpawnPoint') as Mesh)
       .position;
     character.position.set(spawnpoint.x, spawnpoint.y, spawnpoint.z);
+
+    this.control = new CharacterControl(
+      character,
+      //@ts-ignore
+      rawMap,
+      new KeyboardInput()
+    );
   };
   public loop = (deltaTime: number) => {};
 }
