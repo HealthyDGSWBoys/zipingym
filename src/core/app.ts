@@ -41,7 +41,7 @@ export default class App extends Core {
     }
   };
   private debug(scene: Scene) {
-    if (this.share.debugUI) {
+    if (this.share.debugUI && this.share.production == false) {
       scene.debugLayer.show({ overlay: false });
     } else {
       scene.debugLayer.hide();
@@ -76,7 +76,7 @@ export default class App extends Core {
 
   public setsync = () => {
     this.scene.activeCamera = this.scene.getCameraByName(
-      false ? 'dev_camera' : 'user_camera'
+      !this.share.production ? 'dev_camera' : 'user_camera'
     );
     this.children.forEach((child) => {
       child.setsync();
@@ -89,4 +89,5 @@ export default class App extends Core {
 
 export interface AppConfig {
   debugUI: boolean;
+  production: boolean;
 }

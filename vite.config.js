@@ -5,6 +5,9 @@ export default defineConfig(({ command, mode }) => {
   return {
     assetsInclude: ['**/*.gltf', '**/*.glb'],
     plugins: [tsconfigPaths()],
+    define: {
+      __ISPRODUCTION__: mode !== 'development',
+    },
     resolve: {
       alias: {
         babylonjs:
