@@ -22,8 +22,8 @@ export default class KeyframeAnimation {
     //   duration,
     // });
 
-    BABYLON.Animation.CreateAndStartAnimation(
-      'move',
+    BABYLON.Animation.CreateMergeAndStartAnimation(
+      String(Math.random()),
       this.target,
       this.type,
       30,

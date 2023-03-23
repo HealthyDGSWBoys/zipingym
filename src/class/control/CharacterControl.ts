@@ -1,5 +1,6 @@
 import Route2Impl, { RawRoute, Route2 } from '$/util/Route2';
-import { Mesh, Vector2, Vector3 } from 'babylonjs';
+import { Mesh, Vector3 } from 'babylonjs';
+import AccelateAnimation from '../keyframe/AccelateAnimation';
 import KeyframeAnimation from '../keyframe/KeyframeAnimation';
 import CharacterInput from './CharacterInput';
 
@@ -8,12 +9,12 @@ export declare type direction = 'l' | 'f' | 'r';
 export default class CharacterControl {
   private route: Route2;
   private target: Mesh;
-  private posKeyframe: KeyframeAnimation;
+  private posKeyframe: AccelateAnimation;
   private rotKeyframe: KeyframeAnimation;
   constructor(target: Mesh, rawRoute: RawRoute, input: CharacterInput) {
     this.target = target;
     this.route = new Route2Impl(rawRoute);
-    this.posKeyframe = new KeyframeAnimation(this.target, 'position');
+    this.posKeyframe = new AccelateAnimation(this.target, 'position');
     this.rotKeyframe = new KeyframeAnimation(this.target, 'rotation');
 
     input.setMove(this);
