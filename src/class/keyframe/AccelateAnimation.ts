@@ -1,7 +1,8 @@
 import { TransformNode, Vector3 } from 'babylonjs';
 import * as BABYLON from 'babylonjs';
+import CustomAnimation from './CustomAnimation';
 
-export default class AccelateAnimation {
+export default class AccelateAnimation implements CustomAnimation {
   private target: TransformNode;
   private type: 'position' | 'rotation';
   private frameRate: number = 60;

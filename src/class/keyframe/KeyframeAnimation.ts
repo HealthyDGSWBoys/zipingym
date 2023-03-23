@@ -1,7 +1,8 @@
 import { TransformNode, Vector3, Animation } from 'babylonjs';
 import * as BABYLON from 'babylonjs';
+import CustomAnimation from './CustomAnimation';
 
-export default class KeyframeAnimation {
+export default class KeyframeAnimation implements CustomAnimation {
   private target: TransformNode;
   private type: 'position' | 'rotation';
   // private animationQueue = new Array<{
