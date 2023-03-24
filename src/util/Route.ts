@@ -29,15 +29,16 @@ export default class RouteImpl implements Route {
   constructor(raw: RawRoute) {
     this.raw = raw;
   }
-  move_distance: number = 1;
+  move_distance: number = 1.5;
   raw: RawRoute;
   position: position = 'c';
   lookAt: rotation = 'u';
   progress: number = 0;
   public move(dir: direction): -1 | 0 | 1 {
+    console.log(this.raw);
     if (dir === 'f') {
       // Going forward
-      if (this.progress < this.raw.length - 1) {
+      if (this.progress < this.raw.length) {
         // When it don't arrive at the end yet
         this.progress++;
         return 1; // Keep moving
@@ -47,7 +48,7 @@ export default class RouteImpl implements Route {
       }
     } else {
       // Rotating direction || Moving sideways
-      if (this.progress < this.raw.length - 1) {
+      if (this.progress < this.raw.length) {
         // When it don't arrive at the end yet
         if (dir === this.position) {
           // If it can no longer move sideways
