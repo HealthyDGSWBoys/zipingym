@@ -1,7 +1,7 @@
 import { Vector3 } from 'babylonjs';
 import { direction } from '$/class/control/CharacterControl';
 
-export interface Route2 {
+export interface Route {
   // 현재 보고 있는 방향 ( l, r, u, d )
   lookAt: rotation;
 
@@ -25,7 +25,7 @@ export interface Route2 {
   lookDir: (dir: direction) => Vector3;
 }
 
-export default class Route2Impl implements Route2 {
+export default class RouteImpl implements Route {
   constructor(raw: RawRoute) {
     this.raw = raw;
   }
