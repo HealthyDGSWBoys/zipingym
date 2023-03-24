@@ -47,8 +47,7 @@ export default class User extends Core {
     character.rotation = new Vector3(0, Math.PI, 0);
     this.control = new CharacterControl(
       character,
-      //@ts-ignore
-      rawMap,
+      this.share.worldEngine,
       new KeyboardInput()
     );
   };

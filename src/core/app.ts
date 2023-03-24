@@ -6,6 +6,7 @@ import World from './world';
 import User from './user';
 import Development from './development';
 import ShareMemory from './ShareMemory';
+import WorldEngine from '$/util/WorldEngine';
 
 export default class App extends Core {
   private children: Array<Core> = new Array();
@@ -19,6 +20,11 @@ export default class App extends Core {
     const scene = new BABYLON.Scene(App.BuildEngine(canvas));
     super({
       scene,
+      worldEngine: new WorldEngine({
+        length: 12,
+        origin: 'f',
+        children: [],
+      }),
       ...config,
     });
     // 해상도 조정

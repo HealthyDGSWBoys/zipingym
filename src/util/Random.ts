@@ -14,7 +14,6 @@ export default class Random {
         stop = true;
       }
     });
-    console.log(ret);
     return ret;
   }
   private static rand(max: number) {

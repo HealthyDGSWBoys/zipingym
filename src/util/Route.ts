@@ -35,7 +35,6 @@ export default class RouteImpl implements Route {
   lookAt: rotation = 'u';
   progress: number = 0;
   public move(dir: direction): -1 | 0 | 1 {
-    console.log(this.raw);
     if (dir === 'f') {
       // Going forward
       if (this.progress < this.raw.length) {
