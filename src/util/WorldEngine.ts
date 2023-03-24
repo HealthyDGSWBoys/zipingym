@@ -2,6 +2,7 @@ import Random from './Random';
 import RouteImpl, { RawRoute } from './Route';
 
 export default class WorldEngine extends RouteImpl {
+  public rerendered: boolean = false;
   private childDeps: number = 3;
   private lengthRand: Map<number, number> = new Map([
     [1, 1],
@@ -43,6 +44,7 @@ export default class WorldEngine extends RouteImpl {
         });
       }
     });
+    this.rerendered = false;
   }
 
   private noChildNodes(raw: RawRoute) {
