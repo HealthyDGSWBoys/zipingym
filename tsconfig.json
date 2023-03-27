@@ -14,7 +14,12 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noImplicitReturns": true,
-    "typeRoots": ["./node_modules/@types", "@types"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "@types",
+      "babylonjs",
+      "babylonjs-materials"
+    ],
     "experimentalDecorators": true,
     "strictNullChecks": false,
     "baseUrl": "./",

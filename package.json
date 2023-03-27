@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "babylonjs": "^5.49.0",
-    "babylonjs-loaders": "^5.49.0"
+    "babylonjs-loaders": "^5.49.0",
+    "babylonjs-materials": "^5.52.0"
   }
 }

@@ -86,7 +86,7 @@ export default class App extends Core {
 
   public setsync = () => {
     this.scene.activeCamera = this.scene.getCameraByName(
-      !this.share.production ? 'dev_camera' : 'user_camera'
+      !this.share.production ? 'user_camera' : 'user_camera'
     );
     this.children.forEach((child) => {
       child.setsync();
