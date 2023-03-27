@@ -34,6 +34,7 @@ export default class World extends Core {
     const testThema = this.worldModel.get('testThema');
     if (testThema != undefined) {
       this.worldManagers.set('test', new WorldManager(testThema));
+      this.share.worldEngine.setWorldManager(this.worldManagers.get('test'));
     }
     const testManager = this.worldManagers.get('test')!.list;
 

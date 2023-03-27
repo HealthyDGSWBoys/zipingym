@@ -27,10 +27,17 @@ export interface Route {
 
 export default class RouteImpl implements Route {
   constructor(raw: RawRoute) {
-    this.raw = raw;
+    // this.raw = raw;
+    this.raw = {
+      ...raw,
+      absolutePos: new Vector3(0, 0, -10),
+      absoluteRot: 'u',
+      children: [],
+      parent: this.raw,
+    };
   }
   move_distance: number = 1.5;
-  raw: RawRoute;
+  raw: RouteTree;
   position: position = 'c';
   lookAt: rotation = 'u';
   progress: number = 0;
@@ -124,10 +131,10 @@ export default class RouteImpl implements Route {
 }
 
 // left, right, up, down
-declare type rotation = 'l' | 'r' | 'u' | 'd';
+export declare type rotation = 'l' | 'r' | 'u' | 'd';
 
 // left, center, right
-declare type position = 'l' | 'c' | 'r';
+export declare type position = 'l' | 'c' | 'r';
 
 export interface RawRoute {
   //길의 길이
@@ -136,4 +143,11 @@ export interface RawRoute {
   origin: direction;
   //자식들
   children: Array<RawRoute>;
+}
+
+export interface RouteTree extends RawRoute {
+  absolutePos: Vector3;
+  absoluteRot: rotation;
+  children: Array<RouteTree>;
+  parent: RouteTree;
 }

@@ -20,11 +20,14 @@ export default class App extends Core {
     const scene = new BABYLON.Scene(App.BuildEngine(canvas));
     super({
       scene,
-      worldEngine: new WorldEngine({
-        length: 12,
-        origin: 'f',
-        children: [],
-      }),
+      worldEngine: new WorldEngine(
+        {
+          length: 12,
+          origin: 'f',
+          children: [],
+        },
+        scene
+      ),
       ...config,
     });
     // 해상도 조정
