@@ -33,11 +33,11 @@ export default class WorldEngine extends RouteImpl {
       if (dir == 'b') {
         const lengthL = Random.getRandom(this.lengthRand);
         const lengthR = Random.getRandom(this.lengthRand);
-        child.children.push(WorldEngine.makeRouteTree(child, 1, 'l'));
-        child.children.push(WorldEngine.makeRouteTree(child, 1, 'r'));
+        child.children.push(WorldEngine.makeRouteTree(child, lengthL, 'l'));
+        child.children.push(WorldEngine.makeRouteTree(child, lengthR, 'r'));
       } else {
         const length = Random.getRandom(this.lengthRand);
-        child.children.push(WorldEngine.makeRouteTree(child, 1, dir));
+        child.children.push(WorldEngine.makeRouteTree(child, length, dir));
       }
       this.rerender(child.children);
     });
@@ -50,26 +50,18 @@ export default class WorldEngine extends RouteImpl {
   private rerender(target: Array<RouteTree>) {
     const sp = this.scene.getNodeByName('SpawnPoint');
     target.forEach((t) => {
-      // const size = t.length / WorldEngine.LengthDelta;
-      // for (let i = 1; i <= size; i++) {
-      //   const road = this.manager.random.clone();
-      //   if (t.absoluteRot == 'l' || t.absoluteRot == 'r') {
-      //     road.rotation = new Vector3(0, Math.PI / 2, 0);
-      //   }
-      //   road.position = t.absolutePos.add(
-      //     WorldEngine.calcRotToDir(
-      //       t.absoluteRot,
-      //       WorldEngine.LengthDelta * 2
-      //     ).multiply(new Vector3().setAll(i - 1))
-      //   );
-      //   road.parent = sp;
-      // }
-      const road = this.manager.random.clone();
-      if (t.absoluteRot == 'l' || t.absoluteRot == 'r') {
-        road.rotation = new Vector3(0, Math.PI / 2, 0);
+      const size = t.length / WorldEngine.LengthDelta;
+      for (let i = 1; i <= size; i++) {
+        const road = this.manager.random.clone();
+        if (t.absoluteRot == 'l' || t.absoluteRot == 'r') {
+          road.rotation = new Vector3(0, Math.PI / 2, 0);
+        }
+        road.position = t.absolutePos.add(
+          WorldEngine.calcRotToDir(t.absoluteRot, 30 * (i - 1))
+        );
+
+        road.parent = sp;
       }
-      road.position = t.absolutePos;
-      road.parent = sp;
     });
   }
 
@@ -84,7 +76,7 @@ export default class WorldEngine extends RouteImpl {
     }
     return res;
   }
-  private static LengthDelta = 20;
+  private static LengthDelta = this.RouteLength / this.Move_Distance;
   private static makeRouteTree(parent: RouteTree, len: number, dir: 'l' | 'r') {
     return {
       length: len * WorldEngine.LengthDelta,
@@ -94,6 +86,7 @@ export default class WorldEngine extends RouteImpl {
       absolutePos: WorldEngine.calcAbsolutePos(
         parent.absoluteRot,
         parent.absolutePos,
+        parent.length / WorldEngine.LengthDelta,
         WorldEngine.calcAbsoluteRot(parent.absoluteRot, dir)
       ),
       absoluteRot: WorldEngine.calcAbsoluteRot(parent.absoluteRot, dir),
@@ -114,12 +107,25 @@ export default class WorldEngine extends RouteImpl {
   private static calcAbsolutePos(
     parent_rot: rotation,
     parent_pos: Vector3,
+    parent_len: number,
     child_rot: rotation
   ) {
     const origin = parent_pos
       .clone()
-      .add(WorldEngine.calcRotToDir(parent_rot, 12))
-      .add(WorldEngine.calcRotToDir(child_rot, 18));
+      .add(
+        WorldEngine.calcRotToDir(
+          parent_rot,
+          this.RouteLength / 2 -
+            this.RouteWidth +
+            RouteImpl.RouteLength * (parent_len - 1)
+        )
+      )
+      .add(
+        WorldEngine.calcRotToDir(
+          child_rot,
+          this.RouteLength / 2 + this.RouteWidth
+        )
+      );
     return origin;
   }
 

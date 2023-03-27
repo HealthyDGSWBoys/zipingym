@@ -36,11 +36,13 @@ export default class RouteImpl implements Route {
       parent: this.raw,
     };
   }
-  move_distance: number = 1.5;
+  protected static RouteLength: number = 30;
+  protected static RouteWidth: number = 3;
+  protected static Move_Distance: number = 1.5;
   raw: RouteTree;
   position: position = 'c';
   lookAt: rotation = 'u';
-  progress: number = 0;
+  progress: number = 2;
   public move(dir: direction): -1 | 0 | 1 {
     if (dir === 'f') {
       // Going forward
@@ -84,7 +86,7 @@ export default class RouteImpl implements Route {
     }
   }
   public lookDir(dir: direction): Vector3 {
-    let movement = this.move_distance;
+    let movement = RouteImpl.Move_Distance;
     if (dir == 'f') {
       switch (this.lookAt) {
         case 'u':

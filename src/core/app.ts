@@ -22,7 +22,7 @@ export default class App extends Core {
       scene,
       worldEngine: new WorldEngine(
         {
-          length: 18,
+          length: 20,
           origin: 'f',
           children: [],
         },
