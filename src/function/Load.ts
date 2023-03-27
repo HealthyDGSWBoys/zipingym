@@ -5,7 +5,7 @@ import {
   ISceneLoaderProgressEvent,
 } from '@babylonjs/core';
 
-const baseURL = './';
+const baseURL = '';
 
 export const LoadAll: (
   map: Map<string, string>,
@@ -40,7 +40,7 @@ const Load: (url: string, scene: Scene) => Promise<AssetContainer> = (
   return new Promise((resolve, reject) => {
     SceneLoader.LoadAssetContainer(
       baseURL,
-      url.substring(1),
+      url,
       scene,
       (assets: AssetContainer) => {
         resolve(assets);
