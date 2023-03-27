@@ -30,7 +30,7 @@ export default class RouteImpl implements Route {
     // this.raw = raw;
     this.raw = {
       ...raw,
-      absolutePos: new Vector3(0, 0, -10),
+      absolutePos: new Vector3(0, 0, -15),
       absoluteRot: 'u',
       children: [],
       parent: this.raw,

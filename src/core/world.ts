@@ -42,7 +42,7 @@ export default class World extends Core {
 
     const newRoad = testManager[0].clone();
     newRoad.parent = spawnpoint;
-    newRoad.position.set(0, 0, -10);
+    newRoad.position.set(0, 0, -15);
   };
   public loop = (deltaTime: number) => {};
 }
