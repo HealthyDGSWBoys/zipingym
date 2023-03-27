@@ -2,7 +2,6 @@ import Core from './core';
 import dummyCharacter from '$static/model/character.glb';
 import { AssetContainer, Mesh, Vector3 } from 'babylonjs';
 import { LoadAll } from '$/function/Load';
-import '$/function/load';
 import * as BABYLON from 'babylonjs';
 import CharacterControl from '$/class/control/CharacterControl';
 import rawMap from '$static/def/dummy.json';
