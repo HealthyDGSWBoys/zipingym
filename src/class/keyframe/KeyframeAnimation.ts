@@ -1,5 +1,4 @@
-import { TransformNode, Vector3, Animation } from 'babylonjs';
-import * as BABYLON from 'babylonjs';
+import { TransformNode, Vector3, Animation } from '@babylonjs/core';
 import CustomAnimation from './CustomAnimation';
 
 export default class KeyframeAnimation implements CustomAnimation {
@@ -10,7 +9,7 @@ export default class KeyframeAnimation implements CustomAnimation {
     this.type = type;
   }
   public animate(type: 'add' | 'set', vector: Vector3, duration: number) {
-    BABYLON.Animation.CreateMergeAndStartAnimation(
+    Animation.CreateMergeAndStartAnimation(
       String(Math.random()),
       this.target,
       this.type,
@@ -18,7 +17,7 @@ export default class KeyframeAnimation implements CustomAnimation {
       (30 * duration) / 1000,
       this.target[this.type],
       this.target[this.type].add(vector),
-      BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE
+      Animation.ANIMATIONLOOPMODE_RELATIVE
     );
   }
 }

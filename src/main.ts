@@ -1,4 +1,5 @@
 import App from './core/app';
+import '@babylonjs/loaders/glTF';
 
 window.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('app')!;

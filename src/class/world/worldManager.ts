@@ -1,5 +1,5 @@
 import Random from '$/util/Random';
-import { AssetContainer, Mesh } from 'babylonjs';
+import { AssetContainer, Mesh } from '@babylonjs/core';
 
 export default class WorldManager {
   private roads: Array<Mesh> = new Array();

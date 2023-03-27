@@ -1,5 +1,5 @@
-import { Scene } from 'babylonjs';
-import * as BABYLON from 'babylonjs';
+import { Scene, Engine, Color4, WebGPUEngine } from '@babylonjs/core';
+import '@babylonjs/inspector';
 import Core from './core';
 import DeltaClock from '$/util/DeltaClock';
 import World from './world';
@@ -17,12 +17,12 @@ export default class App extends Core {
     canvas.style.width = '100%';
     canvas.style.height = '100%';
     parent.appendChild(canvas);
-    const scene = new BABYLON.Scene(App.BuildEngine(canvas));
+    const scene = new Scene(App.BuildEngine(canvas));
     super({
       scene,
       worldEngine: new WorldEngine(
         {
-          length: 20,
+          length: 5,
           origin: 'f',
           children: [],
         },
@@ -33,7 +33,7 @@ export default class App extends Core {
     // 해상도 조정
     scene.getEngine().setHardwareScalingLevel(1 / window.devicePixelRatio);
     // 배경 색 설정
-    scene.clearColor = new BABYLON.Color4(0.2, 0.5, 0.7, 1);
+    scene.clearColor = new Color4(0.2, 0.5, 0.7, 1);
 
     this.debug(scene);
 
@@ -43,11 +43,11 @@ export default class App extends Core {
     });
   }
 
-  private static BuildEngine = (canvas: HTMLCanvasElement): BABYLON.Engine => {
-    if (BABYLON.WebGPUEngine.IsSupported) {
-      return new BABYLON.WebGPUEngine(canvas);
+  private static BuildEngine = (canvas: HTMLCanvasElement): Engine => {
+    if (WebGPUEngine.IsSupported) {
+      return new WebGPUEngine(canvas);
     } else {
-      return new BABYLON.Engine(canvas);
+      return new Engine(canvas);
     }
   };
   private debug(scene: Scene) {
@@ -86,7 +86,7 @@ export default class App extends Core {
 
   public setsync = () => {
     this.scene.activeCamera = this.scene.getCameraByName(
-      !this.share.production ? 'dev_camera' : 'user_camera'
+      !this.share.production ? 'user_camera' : 'user_camera'
     );
     this.children.forEach((child) => {
       child.setsync();

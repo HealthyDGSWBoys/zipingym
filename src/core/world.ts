@@ -2,9 +2,18 @@ import Core from './core';
 import dummyMap from '$static/model/dummy.glb';
 import start from '$static/model/start.glb';
 import testThema from '$static/model/testmap.glb';
-import { AssetContainer, Mesh, TransformNode } from 'babylonjs';
+import {
+  AssetContainer,
+  Mesh,
+  MeshBuilder,
+  Texture,
+  Color3,
+} from '@babylonjs/core';
 import { LoadAll } from '$/function/Load';
 import WorldManager from '$/class/world/worldManager';
+import ColaTexture from '$static/material/Cola2.jpg';
+import BumpTexture from '$static/material/LavaBump2.jpg';
+import { LavaMaterial } from '@babylonjs/materials';
 
 export default class World extends Core {
   private static WorldModelFile: Map<string, string> = new Map([
@@ -43,6 +52,22 @@ export default class World extends Core {
     const newRoad = testManager[0].clone();
     newRoad.parent = spawnpoint;
     newRoad.position.set(0, 0, -15);
+
+    var ground = MeshBuilder.CreateGround(
+      'lava',
+      { width: 512, height: 512, subdivisions: 128 },
+      this.scene
+    );
+    ground.position.set(0, -5, 0);
+    var lavaMaterial = new LavaMaterial('lava', this.scene);
+    lavaMaterial.noiseTexture = new Texture(BumpTexture, this.scene); // Set the bump texture
+    // lavaMaterial.noiseTexture.scale
+    lavaMaterial.diffuseTexture = new Texture(ColaTexture, this.scene);
+    lavaMaterial.diffuseTexture.name = 'lavaMaterialdiffuseTexture';
+    lavaMaterial.speed = 0.2;
+    lavaMaterial.fogColor = new Color3(0.3, 0, 0);
+    // lavaMaterial.
+    ground.material = lavaMaterial;
   };
   public loop = (deltaTime: number) => {};
 }
