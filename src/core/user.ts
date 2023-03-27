@@ -1,8 +1,7 @@
 import Core from './core';
 import dummyCharacter from '$static/model/character.glb';
-import { AssetContainer, Mesh, Vector3 } from 'babylonjs';
+import { AssetContainer, Mesh, Vector3, FollowCamera } from '@babylonjs/core';
 import { LoadAll } from '$/function/Load';
-import * as BABYLON from 'babylonjs';
 import CharacterControl from '$/class/control/CharacterControl';
 import rawMap from '$static/def/dummy.json';
 import KeyboardInput from '$/class/control/KeyboardInput';
@@ -32,9 +31,9 @@ export default class User extends Core {
   };
 
   public setsync = () => {
-    const camera = new BABYLON.FollowCamera(
+    const camera = new FollowCamera(
       'user_camera',
-      new BABYLON.Vector3(0, 0, 0),
+      new Vector3(0, 0, 0),
       this.scene
     );
     camera.cameraAcceleration = 0.5;

@@ -8,11 +8,5 @@ export default defineConfig(({ command, mode }) => {
     define: {
       __ISPRODUCTION__: mode !== 'development',
     },
-    resolve: {
-      alias: {
-        babylonjs:
-          mode === 'development' ? 'babylonjs/babylon.max' : 'babylonjs',
-      },
-    },
   };
 });

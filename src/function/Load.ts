@@ -1,16 +1,18 @@
-import * as BABYLON_LOADER from 'babylonjs-loaders';
-import * as BABYLON from 'babylonjs';
-import { AssetContainer } from 'babylonjs';
+import {
+  Scene,
+  AssetContainer,
+  SceneLoader,
+  ISceneLoaderProgressEvent,
+} from '@babylonjs/core';
 
-BABYLON.SceneLoader.RegisterPlugin(new BABYLON_LOADER.GLTFFileLoader());
 const baseURL = './';
 
 export const LoadAll: (
   map: Map<string, string>,
-  scene: BABYLON.Scene
+  scene: Scene
 ) => Promise<Map<string, AssetContainer>> = (
   map: Map<string, string>,
-  scene: BABYLON.Scene
+  scene: Scene
 ) => {
   return new Promise((resolve, reject) => {
     const keyArray = Array.from(map.keys());
@@ -31,20 +33,20 @@ export const LoadAll: (
   });
 };
 
-const Load: (
+const Load: (url: string, scene: Scene) => Promise<AssetContainer> = (
   url: string,
-  scene: BABYLON.Scene
-) => Promise<BABYLON.AssetContainer> = (url: string, scene: BABYLON.Scene) => {
+  scene: Scene
+) => {
   return new Promise((resolve, reject) => {
-    BABYLON.SceneLoader.LoadAssetContainer(
+    SceneLoader.LoadAssetContainer(
       baseURL,
       url.substring(1),
       scene,
-      (assets: BABYLON.AssetContainer) => {
+      (assets: AssetContainer) => {
         resolve(assets);
       },
-      (prog: BABYLON.ISceneLoaderProgressEvent) => {},
-      (scene: BABYLON.Scene, message: string, exception?: any) => {
+      (prog: ISceneLoaderProgressEvent) => {},
+      (scene: Scene, message: string, exception?: any) => {
         reject({
           scene,
           message,

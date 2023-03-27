@@ -1,4 +1,4 @@
-import { Vector3 } from 'babylonjs';
+import { Vector3 } from '@babylonjs/core';
 import { direction } from '$/class/control/CharacterControl';
 
 export interface Route {

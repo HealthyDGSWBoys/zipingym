@@ -1,5 +1,5 @@
 import WorldManager from '$/class/world/worldManager';
-import { Mesh, Scene, Vector3 } from 'babylonjs';
+import { Scene, Vector3 } from '@babylonjs/core';
 import Random from './Random';
 import RouteImpl, { RawRoute, RouteTree } from './Route';
 import { rotation } from './Route';

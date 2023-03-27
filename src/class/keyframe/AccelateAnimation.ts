@@ -1,5 +1,4 @@
-import { TransformNode, Vector3 } from 'babylonjs';
-import * as BABYLON from 'babylonjs';
+import { TransformNode, Vector3 } from '@babylonjs/core';
 import CustomAnimation from './CustomAnimation';
 
 export default class AccelateAnimation implements CustomAnimation {
