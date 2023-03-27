@@ -76,7 +76,7 @@ export default class WorldEngine extends RouteImpl {
     }
     return res;
   }
-  private static LengthDelta = this.RouteLength / this.Move_Distance;
+  private static LengthDelta = this.RouteLength / this.Advance_Distance;
   private static makeRouteTree(parent: RouteTree, len: number, dir: 'l' | 'r') {
     return {
       length: len * WorldEngine.LengthDelta,

@@ -24,22 +24,26 @@ export default class CharacterControl {
   public move(direction: direction) {
     const moveResult = this.engine.move(direction);
     if (direction == 'f') {
-      if (moveResult == 1) {
-        this.posKeyframe.animate('add', this.engine.lookDir('f'), 250);
+      if (moveResult > 0) {
+        this.posKeyframe.animate(
+          'add',
+          this.engine.lookDir('f').multiply(new Vector3().setAll(moveResult)),
+          350
+        );
       }
     } else if (direction == 'r') {
       if (moveResult == 1) {
-        this.posKeyframe.animate('add', this.engine.lookDir('r'), 200);
+        this.posKeyframe.animate('add', this.engine.lookDir('r'), 300);
       } else if (moveResult == -1) {
         this.engine.mapBuild();
-        this.rotKeyframe.animate('add', new Vector3(0, Math.PI / 2, 0), 500);
+        this.rotKeyframe.animate('add', new Vector3(0, Math.PI / 2, 0), 400);
       }
     } else if (direction == 'l') {
       if (moveResult == 1) {
-        this.posKeyframe.animate('add', this.engine.lookDir('l'), 200);
+        this.posKeyframe.animate('add', this.engine.lookDir('l'), 300);
       } else if (moveResult == -1) {
         this.engine.mapBuild();
-        this.rotKeyframe.animate('add', new Vector3(0, -Math.PI / 2, 0), 500);
+        this.rotKeyframe.animate('add', new Vector3(0, -Math.PI / 2, 0), 400);
       }
     }
   }

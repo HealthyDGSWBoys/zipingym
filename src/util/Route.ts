@@ -15,7 +15,7 @@ export interface Route {
    * @param dir 이동 방향(앞, 왼쪽 오른쪽)
    * @returns 해야 하는 동직(-1 일 경우 해당 방향으로 돌기, 1 일 경우 해당 방향으로 이동, 0일 경우 아무 동자도 하지 않기
    */
-  move: (dir: direction) => -1 | 0 | 1;
+  move: (dir: direction) => number;
 
   /**
    *
@@ -38,20 +38,31 @@ export default class RouteImpl implements Route {
   }
   protected static RouteLength: number = 30;
   protected static RouteWidth: number = 3;
+  protected static Advance_Distance: number = 6;
   protected static Move_Distance: number = 1.5;
   raw: RouteTree;
   position: position = 'c';
   lookAt: rotation = 'u';
-  progress: number = 2;
-  public move(dir: direction): -1 | 0 | 1 {
+  progress: number = 0.5;
+  public move(dir: direction): number {
     if (dir === 'f') {
       // Going forward
       if (this.progress < this.raw.length) {
         // When it don't arrive at the end yet
-        this.progress++;
-        return 1; // Keep moving
+        if (this.progress % 1 != 0) {
+          const t = this.progress % 1;
+          if (t < 0) {
+            this.progress += 1 + t;
+            return 1 + t;
+          } else {
+            this.progress += t;
+            return t;
+          }
+        } else {
+          this.progress++;
+          return 1;
+        }
       } else {
-        // When it arrived at the end
         return 0; // Do not anything
       }
     } else {
@@ -74,7 +85,7 @@ export default class RouteImpl implements Route {
           // Search child nodes
           if (i.origin === dir) {
             // If the direction is included in the child nodes
-            this.progress = this.posToNum() * (dir == 'l' ? 1 : -1); // Refresh progress
+            this.progress = this.posToNum() * (dir == 'l' ? 0.25 : -0.25); // Refresh progress
             this.raw = i; // Change current path to child node
             this.spin(dir);
             this.position = 'c';
@@ -86,7 +97,7 @@ export default class RouteImpl implements Route {
     }
   }
   public lookDir(dir: direction): Vector3 {
-    let movement = RouteImpl.Move_Distance;
+    let movement = RouteImpl.Advance_Distance;
     if (dir == 'f') {
       switch (this.lookAt) {
         case 'u':
@@ -99,7 +110,9 @@ export default class RouteImpl implements Route {
           return new Vector3(movement, 0, 0);
       }
     } else {
-      movement = dir === 'r' ? -movement : movement;
+      movement =
+        dir === 'r' ? -RouteImpl.Move_Distance : RouteImpl.Move_Distance;
+
       switch (this.lookAt) {
         case 'u':
           return new Vector3(movement, 0, 0);
