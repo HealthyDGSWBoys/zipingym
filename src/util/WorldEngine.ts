@@ -5,6 +5,7 @@ import RouteImpl, { RawRoute, RouteTree } from './Route';
 import { rotation } from './Route';
 
 export default class WorldEngine extends RouteImpl {
+  public deps: number = 0;
   private childDeps: number = 3;
   private scene: Scene;
   private manager: WorldManager;
@@ -53,16 +54,25 @@ export default class WorldEngine extends RouteImpl {
       const size = t.length / WorldEngine.LengthDelta;
       for (let i = 1; i <= size; i++) {
         const road = this.manager.random.clone();
+        road.name = String(this.deps);
         if (t.absoluteRot == 'l' || t.absoluteRot == 'r') {
           road.rotation = new Vector3(0, Math.PI / 2, 0);
         }
         road.position = t.absolutePos.add(
           WorldEngine.calcRotToDir(t.absoluteRot, 30 * (i - 1))
         );
-
         road.parent = sp;
       }
     });
+    while (true) {
+      const get = this.scene.getMeshByName(String(this.deps - 3));
+      if (get != null) {
+        get.dispose();
+      } else {
+        break;
+      }
+    }
+    this.deps++;
   }
 
   public noChildNodes(raw: RouteTree): Array<RouteTree> {

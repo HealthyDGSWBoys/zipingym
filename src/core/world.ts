@@ -50,6 +50,7 @@ export default class World extends Core {
     const spawnpoint = this.scene.getNodeByName('SpawnPoint') as Mesh;
 
     const newRoad = testManager[0].clone();
+    newRoad.name = '-1';
     newRoad.parent = spawnpoint;
     newRoad.position.set(0, 0, -15);
 
