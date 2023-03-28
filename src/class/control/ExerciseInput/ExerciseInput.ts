@@ -31,6 +31,7 @@ export default class ExerciseInput implements CharacterInput {
     this.pipeline(this.inputVideo)
       .then((res: Array<number>) => {
         console.log(res);
+        this.move.move('f');
       })
       .catch(() => {});
   }

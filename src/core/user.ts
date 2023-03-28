@@ -24,6 +24,13 @@ export default class User extends Core {
         const dummyCharacter = this.userModel.get('dummy');
         dummyCharacter.addAllToScene();
         this.camera = webcam;
+        this.scene
+          .getEngine()
+          .getRenderingCanvas()
+          .parentElement.appendChild(this.camera);
+        this.camera.style.position = 'absolute';
+        this.camera.style.width = '300px';
+
         this.camera.play();
         resolve();
       });
@@ -47,7 +54,9 @@ export default class User extends Core {
     this.control = new CharacterControl(
       character,
       this.share.worldEngine,
-      new KeyboardInput()
+      this.share.input == 'keyboard'
+        ? new KeyboardInput()
+        : new ExerciseInput(this.camera)
     );
   };
   public loop = (deltaTime: number) => {};

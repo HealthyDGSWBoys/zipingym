@@ -38,6 +38,9 @@ export default class App extends Core {
     this.debug(scene);
 
     this.set().then(() => {
+      scene.getEngine().getRenderingCanvas().parentElement.style.position =
+        'relative';
+      scene.getEngine().getRenderingCanvas().style.position = 'absolute';
       console.log('<<<GAME START>>>>');
       scene.getEngine().runRenderLoop(this.loop.bind(this));
     });
@@ -100,4 +103,5 @@ export default class App extends Core {
 export interface AppConfig {
   debugUI: boolean;
   production: boolean;
+  input: 'keyboard' | 'webcam';
 }
