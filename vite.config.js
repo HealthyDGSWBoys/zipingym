@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import gltf from 'vite-plugin-gltf';
+import wasm from 'vite-plugin-wasm';
 
 export default defineConfig(({ command, mode }) => {
   return {
-    plugins: [gltf(), tsconfigPaths()],
+    assetsInclude: ['**/*.tflite'],
+    plugins: [gltf(), wasm(), tsconfigPaths()],
     define: {
       __ISPRODUCTION__: mode !== 'development',
     },

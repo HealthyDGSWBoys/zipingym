@@ -3,8 +3,9 @@ import dummyCharacter from '$static/model/character.glb';
 import { AssetContainer, Mesh, Vector3, FollowCamera } from '@babylonjs/core';
 import { LoadAll } from '$/function/Load';
 import CharacterControl from '$/class/control/CharacterControl';
-import rawMap from '$static/def/dummy.json';
 import KeyboardInput from '$/class/control/KeyboardInput';
+import WebcamBuilder from '$util/Webcam';
+import ExerciseInput from '$/class/control/ExerciseInput/ExerciseInput';
 
 export default class User extends Core {
   private static CharacterModelFile: Map<string, string> = new Map([
@@ -12,21 +13,20 @@ export default class User extends Core {
   ]);
   private userModel: Map<string, AssetContainer>;
   private control: CharacterControl;
+  private camera: HTMLVideoElement;
   public set: () => Promise<void> = () => {
     return new Promise((resolve, reject) => {
-      //캐릭터 모델 비동기 로드
-      LoadAll(User.CharacterModelFile, this.scene)
-        .then((users) => {
-          this.userModel = users;
-          const dummyCharacter = this.userModel.get('dummy');
-          if (dummyCharacter != undefined) {
-            dummyCharacter.addAllToScene();
-            resolve();
-          } else {
-            reject('NO MAP EXIST');
-          }
-        })
-        .catch(reject);
+      Promise.all([
+        LoadAll(User.CharacterModelFile, this.scene),
+        WebcamBuilder(),
+      ]).then(([users, webcam]) => {
+        this.userModel = users;
+        const dummyCharacter = this.userModel.get('dummy');
+        dummyCharacter.addAllToScene();
+        this.camera = webcam;
+        this.camera.play();
+        resolve();
+      });
     });
   };
 
