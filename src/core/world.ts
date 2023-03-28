@@ -1,6 +1,5 @@
 import Core from './core';
-import dummyMap from '$static/model/dummy.glb';
-import start from '$static/model/start.glb';
+import start from '$static/model/dummy.glb';
 import testThema from '$static/model/testmap.glb';
 import {
   AssetContainer,
@@ -8,6 +7,10 @@ import {
   MeshBuilder,
   Texture,
   Color3,
+  TransformNode,
+  SpotLight,
+  Vector3,
+  DirectionalLight,
 } from '@babylonjs/core';
 import { LoadAll } from '$/function/Load';
 import WorldManager from '$/class/world/worldManager';
@@ -17,7 +20,6 @@ import { LavaMaterial } from '@babylonjs/materials';
 
 export default class World extends Core {
   private static WorldModelFile: Map<string, string> = new Map([
-    ['dummy', dummyMap],
     ['start', start],
     ['testThema', testThema],
   ]);
@@ -28,18 +30,23 @@ export default class World extends Core {
       LoadAll(World.WorldModelFile, this.scene)
         .then((world) => {
           this.worldModel = world;
-          const dummyMap = this.worldModel.get('start');
-          if (dummyMap != undefined) {
-            dummyMap.addAllToScene();
-            resolve();
-          } else {
-            reject('NO MAP EXIST');
-          }
+          // const Spawnpoint = new TransformNode('SpawnPoint', this.scene);
+          this.worldModel.get('start').addAllToScene();
+
+          resolve();
         })
         .catch(reject);
     });
   };
   public setsync = () => {
+    const sun = new DirectionalLight(
+      'Sun',
+      this.scene
+        .getTransformNodeByName('SpawnPoint')
+        .position.add(new Vector3(0, -100, 0)),
+      this.scene
+    );
+    sun.intensity = 5;
     const testThema = this.worldModel.get('testThema');
     if (testThema != undefined) {
       this.worldManagers.set('test', new WorldManager(testThema));

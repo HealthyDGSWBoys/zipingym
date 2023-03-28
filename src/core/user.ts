@@ -4,8 +4,6 @@ import { AssetContainer, Mesh, Vector3, FollowCamera } from '@babylonjs/core';
 import { LoadAll } from '$/function/Load';
 import CharacterControl from '$/class/control/CharacterControl';
 import KeyboardInput from '$/class/control/KeyboardInput';
-import WebcamBuilder from '$util/Webcam';
-import ExerciseInput from '$/class/control/ExerciseInput/ExerciseInput';
 
 export default class User extends Core {
   private static CharacterModelFile: Map<string, string> = new Map([
@@ -18,20 +16,19 @@ export default class User extends Core {
     return new Promise((resolve, reject) => {
       Promise.all([
         LoadAll(User.CharacterModelFile, this.scene),
-        WebcamBuilder(),
-      ]).then(([users, webcam]) => {
+        // WebcamBuilder(),
+      ]).then(([users]) => {
         this.userModel = users;
         const dummyCharacter = this.userModel.get('dummy');
         dummyCharacter.addAllToScene();
-        this.camera = webcam;
-        this.scene
-          .getEngine()
-          .getRenderingCanvas()
-          .parentElement.appendChild(this.camera);
-        this.camera.style.position = 'absolute';
-        this.camera.style.width = '300px';
-
-        this.camera.play();
+        // this.camera = webcam;
+        // this.scene
+        //   .getEngine()
+        //   .getRenderingCanvas()
+        //   .parentElement.appendChild(this.camera);
+        // this.camera.style.position = 'absolute';
+        // this.camera.style.width = '300px';
+        // this.camera.play();
         resolve();
       });
     });
@@ -54,9 +51,7 @@ export default class User extends Core {
     this.control = new CharacterControl(
       character,
       this.share.worldEngine,
-      this.share.input == 'keyboard'
-        ? new KeyboardInput()
-        : new ExerciseInput(this.camera)
+      this.share.input == 'keyboard' ? new KeyboardInput() : new KeyboardInput()
     );
   };
   public loop = (deltaTime: number) => {};
