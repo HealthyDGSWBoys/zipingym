@@ -1,11 +1,11 @@
 import CharacterControl, { direction } from '../CharacterControl';
 import CharacterInput from '../CharacterInput';
 import ExerciseClassfierPipeline from './pipeline';
-import tfmodel from './model';
+import Bzmodel from './model';
 import classfier from './classfier';
 import { test as wasmPreprocesser } from './wasm/pkg/wasm';
 import model from '$static/tflite/index.tflite';
-// import '@tensorflow/tfjs-backend-webgl';
+import '@tensorflow/tfjs-backend-webgl';
 
 export default class ExerciseInput implements CharacterInput {
   private move: CharacterControl;
@@ -17,9 +17,9 @@ export default class ExerciseInput implements CharacterInput {
     keyMap?: Map<string, direction>
   ) {
     this.inputVideo = inputVideo;
-    Promise.all([tfmodel(), classfier(model)]).then(([model, classfier]) => {
+    Promise.all([Bzmodel(), classfier(model)]).then(([bzmodel, classfier]) => {
       this.pipeline = ExerciseClassfierPipeline(
-        model,
+        bzmodel,
         //@ts-ignore
         wasmPreprocesser,
         classfier

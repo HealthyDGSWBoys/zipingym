@@ -14,7 +14,7 @@ const PoseModel = (
       .createDetector(poseDetection.SupportedModels.BlazePose, {
         runtime: 'mediapipe',
         modelType: 'full',
-        solutionPath: 'https://cdn.jsdelivr.net/npm/@mediapipe/pose',
+        solutionPath: './mp/',
         ...config,
       })
       .then((detecter) => {
