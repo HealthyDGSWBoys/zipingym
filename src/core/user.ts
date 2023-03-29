@@ -1,12 +1,10 @@
 import Core from './core';
 import dummyCharacter from '$static/model/character.glb';
 import animeCharacter from '$static/model/girl.glb';
-import { AssetContainer, Mesh, Vector3, FollowCamera } from '@babylonjs/core';
+import { AssetContainer } from '@babylonjs/core';
 import { LoadAll } from '$/function/Load';
-import CharacterControl from '$/class/control/CharacterControl';
-import KeyboardInput from '$/class/control/KeyboardInput';
-import ExerciseInput from '$/class/control/ExerciseInput/ExerciseInput';
 import WebcamBuilder from '$/util/Webcam';
+import UserCharacter from '$/class/character/UserCharacter';
 
 export default class User extends Core {
   private static CharacterModelFile: Map<string, string> = new Map([
@@ -14,8 +12,7 @@ export default class User extends Core {
     ['anime', animeCharacter],
   ]);
   private userModel: Map<string, AssetContainer>;
-  private control: CharacterControl;
-  private camera: HTMLVideoElement;
+  private camera: HTMLVideoElement | null;
   public set: () => Promise<void> = () => {
     return new Promise((resolve, reject) => {
       Promise.all([
@@ -23,50 +20,18 @@ export default class User extends Core {
         this.share.input == 'webcam' ? WebcamBuilder() : null,
       ]).then(([users, webcam]) => {
         this.userModel = users;
-        const dummyCharacter = this.userModel.get('anime');
-        dummyCharacter.addAllToScene();
-        dummyCharacter.animationGroups.forEach((anime) => {
-          anime.pause();
-        });
-        const mainNode = dummyCharacter.getNodes()[0] as Mesh;
-        mainNode.scaling = new Vector3(1.6, 1.6, 1.6);
-        if (webcam != null) {
-          this.camera = webcam;
-          this.scene
-            .getEngine()
-            .getRenderingCanvas()
-            .parentElement.appendChild(this.camera);
-          this.camera.style.position = 'absolute';
-          this.camera.style.width = '300px';
-          this.camera.play();
-        }
+        this.camera = webcam;
         resolve();
       });
     });
   };
 
   public setsync = () => {
-    const camera = new FollowCamera(
-      'user_camera',
-      new Vector3(0, 0, 0),
-      this.scene
-    );
-    camera.cameraAcceleration = 0.5;
-    camera.rotationOffset = 180;
-
-    const dummyCharacter = this.userModel.get('anime');
-    const character = dummyCharacter.getNodes()[0] as Mesh;
-    camera.lockedTarget = character;
-    const spawnpoint = (this.scene.getNodeByName('SpawnPoint') as Mesh)
-      .position;
-    character.position.set(spawnpoint.x, spawnpoint.y, spawnpoint.z);
-    character.rotation = new Vector3(0, Math.PI, 0);
-    this.control = new CharacterControl(
-      character,
+    const user = new UserCharacter(
+      this.scene,
+      this.userModel.get('anime'),
       this.share.worldEngine,
-      this.share.input == 'keyboard'
-        ? new KeyboardInput()
-        : new ExerciseInput(this.camera)
+      this.camera
     );
   };
   public loop = (deltaTime: number) => {};
