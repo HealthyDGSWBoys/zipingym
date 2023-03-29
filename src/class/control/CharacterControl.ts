@@ -11,18 +11,24 @@ export default class CharacterControl {
   private target: Mesh;
   private posKeyframe: AccelateAnimation;
   private rotKeyframe: KeyframeAnimation;
-  constructor(target: Mesh, engine: WorldEngine, input: CharacterInput) {
+  constructor(
+    target: Mesh,
+    engine: WorldEngine,
+    input: CharacterInput,
+    moveReport: (report: Vector3) => void
+  ) {
     this.target = target;
     this.posKeyframe = new AccelateAnimation(this.target, 'position');
+    this.posKeyframe.report = moveReport;
     this.rotKeyframe = new KeyframeAnimation(this.target, 'rotation');
-
-    input.setMove(this);
     this.engine = engine;
     this.engine.mapBuild();
+    input.setMove(this);
   }
 
   public move(direction: direction) {
     const moveResult = this.engine.move(direction);
+
     if (direction == 'f') {
       if (moveResult > 0) {
         this.posKeyframe.animate(

@@ -9,6 +9,7 @@ export default class AccelateAnimation implements CustomAnimation {
     onmillsec: Vector3;
     duration: number;
   }>();
+  public report: (vec: Vector3) => void = () => 1;
   constructor(target: TransformNode, type: 'position' | 'rotation') {
     this.target = target;
     this.type = type;
@@ -25,11 +26,12 @@ export default class AccelateAnimation implements CustomAnimation {
     });
   }
   private update() {
-    const deltaTime = 1000 / 60;
+    const deltaTime = 1000 / this.frameRate;
+    const final = new Vector3();
     this.animationQueue.forEach(({ onmillsec, duration }, idx) => {
       const delta = duration - deltaTime <= 0 ? duration : deltaTime;
       if (delta > 0) {
-        this.target[this.type] = this.target[this.type].add(
+        final.addInPlace(
           onmillsec.clone().multiply(new Vector3().setAll(delta))
         );
         this.animationQueue[idx].duration -= deltaTime;
@@ -42,5 +44,7 @@ export default class AccelateAnimation implements CustomAnimation {
         i--;
       }
     }
+    this.target[this.type] = this.target[this.type].add(final);
+    this.report(final.divide(new Vector3().setAll(deltaTime)));
   }
 }
