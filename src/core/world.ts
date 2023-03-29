@@ -11,6 +11,8 @@ import {
   SpotLight,
   Vector3,
   DirectionalLight,
+  PointLight,
+  HemisphericLight,
 } from '@babylonjs/core';
 import { LoadAll } from '$/function/Load';
 import WorldManager from '$/class/world/worldManager';
@@ -47,6 +49,16 @@ export default class World extends Core {
       this.scene
     );
     sun.intensity = 5;
+
+    const point = new HemisphericLight(
+      'Point',
+      this.scene
+        .getTransformNodeByName('SpawnPoint')
+        .position.add(new Vector3(0, -100, 0)),
+      this.scene
+    );
+    point.intensity = 0.2;
+
     const testThema = this.worldModel.get('testThema');
     if (testThema != undefined) {
       this.worldManagers.set('test', new WorldManager(testThema));
@@ -69,12 +81,10 @@ export default class World extends Core {
     ground.position.set(0, -5, 0);
     var lavaMaterial = new LavaMaterial('lava', this.scene);
     lavaMaterial.noiseTexture = new Texture(BumpTexture, this.scene); // Set the bump texture
-    // lavaMaterial.noiseTexture.scale
     lavaMaterial.diffuseTexture = new Texture(ColaTexture, this.scene);
     lavaMaterial.diffuseTexture.name = 'lavaMaterialdiffuseTexture';
     lavaMaterial.speed = 0.2;
     lavaMaterial.fogColor = new Color3(0.3, 0, 0);
-    // lavaMaterial.
     ground.material = lavaMaterial;
   };
   public loop = (deltaTime: number) => {};

@@ -1,5 +1,6 @@
 import Core from './core';
 import dummyCharacter from '$static/model/character.glb';
+import animeCharacter from '$static/model/girl.glb';
 import { AssetContainer, Mesh, Vector3, FollowCamera } from '@babylonjs/core';
 import { LoadAll } from '$/function/Load';
 import CharacterControl from '$/class/control/CharacterControl';
@@ -10,6 +11,7 @@ import WebcamBuilder from '$/util/Webcam';
 export default class User extends Core {
   private static CharacterModelFile: Map<string, string> = new Map([
     ['dummy', dummyCharacter],
+    ['anime', animeCharacter],
   ]);
   private userModel: Map<string, AssetContainer>;
   private control: CharacterControl;
@@ -18,19 +20,26 @@ export default class User extends Core {
     return new Promise((resolve, reject) => {
       Promise.all([
         LoadAll(User.CharacterModelFile, this.scene),
-        WebcamBuilder(),
+        this.share.input == 'webcam' ? WebcamBuilder() : null,
       ]).then(([users, webcam]) => {
         this.userModel = users;
-        const dummyCharacter = this.userModel.get('dummy');
+        const dummyCharacter = this.userModel.get('anime');
         dummyCharacter.addAllToScene();
-        this.camera = webcam;
-        this.scene
-          .getEngine()
-          .getRenderingCanvas()
-          .parentElement.appendChild(this.camera);
-        this.camera.style.position = 'absolute';
-        this.camera.style.width = '300px';
-        this.camera.play();
+        dummyCharacter.animationGroups.forEach((anime) => {
+          anime.pause();
+        });
+        const mainNode = dummyCharacter.getNodes()[0] as Mesh;
+        mainNode.scaling = new Vector3(1.6, 1.6, 1.6);
+        if (webcam != null) {
+          this.camera = webcam;
+          this.scene
+            .getEngine()
+            .getRenderingCanvas()
+            .parentElement.appendChild(this.camera);
+          this.camera.style.position = 'absolute';
+          this.camera.style.width = '300px';
+          this.camera.play();
+        }
         resolve();
       });
     });
@@ -43,7 +52,9 @@ export default class User extends Core {
       this.scene
     );
     camera.cameraAcceleration = 0.5;
-    const dummyCharacter = this.userModel.get('dummy');
+    camera.rotationOffset = 180;
+
+    const dummyCharacter = this.userModel.get('anime');
     const character = dummyCharacter.getNodes()[0] as Mesh;
     camera.lockedTarget = character;
     const spawnpoint = (this.scene.getNodeByName('SpawnPoint') as Mesh)
