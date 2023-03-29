@@ -7,7 +7,7 @@ import top_await from 'vite-plugin-top-level-await';
 export default defineConfig(({ command, mode }) => {
   return {
     assetsInclude: ['**/*.tflite'],
-    plugins: [gltf(), wasm(), tsconfigPaths()],
+    plugins: [gltf(), wasm(), top_await(), tsconfigPaths()],
     define: {
       __ISPRODUCTION__: mode !== 'development',
     },
