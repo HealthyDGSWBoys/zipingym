@@ -4,7 +4,7 @@ import ExerciseClassfierPipeline from './pipeline';
 import Bzmodel from './model';
 import classfier from './classfier';
 import { test as wasmPreprocesser } from './wasm/pkg/wasm';
-import model from '$static/tflite/index.tflite';
+import model from '$static/tflite/work.tflite';
 import '@tensorflow/tfjs-backend-webgl';
 
 export default class ExerciseInput implements CharacterInput {
@@ -30,8 +30,15 @@ export default class ExerciseInput implements CharacterInput {
   private update() {
     this.pipeline(this.inputVideo)
       .then((res: Array<number>) => {
-        console.log(res);
-        this.move.move('f');
+        let maxIdx: number = -1;
+        let maxVal: number = -1;
+        for (let i = 0; i < res.length; i++) {
+          if (res[i] > maxVal) {
+            maxIdx = i;
+            maxVal = res[i];
+          }
+        }
+        console.log(maxIdx);
       })
       .catch(() => {});
   }
