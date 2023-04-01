@@ -7,16 +7,13 @@ import {
   MeshBuilder,
   Texture,
   Color3,
-  TransformNode,
-  SpotLight,
   Vector3,
   DirectionalLight,
-  PointLight,
   HemisphericLight,
 } from '@babylonjs/core';
 import { LoadAll } from '$/function/Load';
 import WorldManager from '$/class/world/worldManager';
-import ColaTexture from '$static/material/Cola2.jpg';
+import ColaTexture from '$static/material/Cola3.png';
 import BumpTexture from '$static/material/LavaBump2.jpg';
 import { LavaMaterial } from '@babylonjs/materials';
 
@@ -75,16 +72,19 @@ export default class World extends Core {
 
     var ground = MeshBuilder.CreateGround(
       'lava',
-      { width: 512, height: 512, subdivisions: 128 },
+      { width: 1024, height: 1024, subdivisions: 128 },
       this.scene
     );
     ground.position.set(0, -5, 0);
     var lavaMaterial = new LavaMaterial('lava', this.scene);
-    lavaMaterial.noiseTexture = new Texture(BumpTexture, this.scene); // Set the bump texture
-    lavaMaterial.diffuseTexture = new Texture(ColaTexture, this.scene);
+    const lavaTexture = new Texture(ColaTexture, this.scene);
+    lavaTexture.level = 0.15;
+    lavaMaterial.diffuseTexture = lavaTexture;
+    lavaMaterial.alpha = 0.8;
     lavaMaterial.diffuseTexture.name = 'lavaMaterialdiffuseTexture';
-    lavaMaterial.speed = 0.2;
-    lavaMaterial.fogColor = new Color3(0.3, 0, 0);
+    lavaMaterial.speed = 0.3;
+    lavaMaterial.fogColor = new Color3(0, 0, 0);
+    lavaMaterial.noiseTexture = new Texture(BumpTexture, this.scene);
     ground.material = lavaMaterial;
   };
   public loop = (deltaTime: number) => {};
