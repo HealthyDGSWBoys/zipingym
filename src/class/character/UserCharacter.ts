@@ -69,7 +69,7 @@ export default class UserCharacter {
       moveIdx = 1;
     }
     if (this.befIdx != moveIdx) {
-      // this.animations[this.befIdx].pause();
+      this.animations[this.befIdx].pause();
       this.animations[moveIdx].play();
       this.befIdx = moveIdx;
     } else if (!this.animations[this.befIdx].isPlaying) {
