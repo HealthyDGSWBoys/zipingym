@@ -1,6 +1,6 @@
 import Core from './core';
 import start from '$static/model/dummy.glb';
-import testThema from '$static/model/testmap.glb';
+import testThema from '$static/model/room.glb';
 import {
   AssetContainer,
   Mesh,

@@ -65,7 +65,7 @@ export default class WorldEngine extends RouteImpl {
       }
     });
     while (true) {
-      const get = this.scene.getMeshByName(String(this.deps - 3));
+      const get = this.scene.getTransformNodeByName(String(this.deps - 3));
       if (get != null) {
         get.dispose();
       } else {
