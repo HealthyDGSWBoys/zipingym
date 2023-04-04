@@ -1,6 +1,7 @@
 import Core from './core';
 import start from '$static/model/dummy.glb';
 import testThema from '$static/model/room.glb';
+import itemsGLB from '$static/model/items.glb';
 import {
   AssetContainer,
   Mesh,
@@ -16,10 +17,12 @@ import WorldManager from '$/class/world/worldManager';
 import ColaTexture from '$static/material/Cola3.png';
 import BumpTexture from '$static/material/LavaBump2.jpg';
 import { LavaMaterial } from '@babylonjs/materials';
+import ItemManager from '$/class/item/itemsManager';
 
 enum worldModelEnum {
   start,
   testtheme,
+  items,
 }
 enum worldThemeEnum {
   test,
@@ -28,9 +31,12 @@ export default class World extends Core {
   private static WorldModelFile: Map<worldModelEnum, string> = new Map([
     [worldModelEnum.start, start],
     [worldModelEnum.testtheme, testThema],
+    [worldModelEnum.items, itemsGLB],
   ]);
   private worldModel: Map<worldModelEnum, AssetContainer>;
   private worldManagers: Map<worldThemeEnum, WorldManager> = new Map();
+  private itemManager: ItemManager;
+
   public set: () => Promise<void> = () => {
     return new Promise((resolve, reject) => {
       LoadAll<worldModelEnum>(World.WorldModelFile, this.scene)
@@ -43,6 +49,10 @@ export default class World extends Core {
     });
   };
   public setsync = () => {
+    this.itemManager = new ItemManager(
+      this.worldModel.get(worldModelEnum.items)
+    );
+
     const sun = new DirectionalLight(
       'Sun',
       this.scene
