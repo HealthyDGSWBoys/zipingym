@@ -32,6 +32,7 @@ export default class App extends Core {
     });
     // 해상도 조정
     scene.getEngine().setHardwareScalingLevel(1 / window.devicePixelRatio);
+    document.addEventListener('resize', () => scene.getEngine().resize);
     // 배경 색 설정
     scene.clearColor = new Color4(0.2, 0.5, 0.7, 1);
 
