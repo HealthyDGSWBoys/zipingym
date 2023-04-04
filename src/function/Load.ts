@@ -7,16 +7,16 @@ import {
 
 const baseURL = '';
 
-export const LoadAll: (
-  map: Map<string, string>,
+export const LoadAll: <T>(
+  map: Map<T, string>,
   scene: Scene
-) => Promise<Map<string, AssetContainer>> = (
-  map: Map<string, string>,
+) => Promise<Map<T, AssetContainer>> = <T>(
+  map: Map<T, string>,
   scene: Scene
 ) => {
   return new Promise((resolve, reject) => {
     const keyArray = Array.from(map.keys());
-    const result: Map<string, AssetContainer> = new Map();
+    const result: Map<T, AssetContainer> = new Map();
     Promise.all(
       keyArray.map((key) => {
         const get = map.get(key)!;
@@ -27,6 +27,7 @@ export const LoadAll: (
         keyArray.forEach((key, idx) => {
           result.set(key, values[idx]);
         });
+        //@ts-ignore
         resolve(result);
       })
       .catch(reject);

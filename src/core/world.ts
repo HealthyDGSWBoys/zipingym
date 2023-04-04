@@ -17,21 +17,26 @@ import ColaTexture from '$static/material/Cola3.png';
 import BumpTexture from '$static/material/LavaBump2.jpg';
 import { LavaMaterial } from '@babylonjs/materials';
 
+enum worldModelEnum {
+  start,
+  testtheme,
+}
+enum worldThemeEnum {
+  test,
+}
 export default class World extends Core {
-  private static WorldModelFile: Map<string, string> = new Map([
-    ['start', start],
-    ['testThema', testThema],
+  private static WorldModelFile: Map<worldModelEnum, string> = new Map([
+    [worldModelEnum.start, start],
+    [worldModelEnum.testtheme, testThema],
   ]);
-  private worldModel: Map<string, AssetContainer>;
-  private worldManagers: Map<string, WorldManager> = new Map();
+  private worldModel: Map<worldModelEnum, AssetContainer>;
+  private worldManagers: Map<worldThemeEnum, WorldManager> = new Map();
   public set: () => Promise<void> = () => {
     return new Promise((resolve, reject) => {
-      LoadAll(World.WorldModelFile, this.scene)
+      LoadAll<worldModelEnum>(World.WorldModelFile, this.scene)
         .then((world) => {
           this.worldModel = world;
-          // const Spawnpoint = new TransformNode('SpawnPoint', this.scene);
-          this.worldModel.get('start').addAllToScene();
-
+          this.worldModel.get(worldModelEnum.start).addAllToScene();
           resolve();
         })
         .catch(reject);
@@ -56,12 +61,14 @@ export default class World extends Core {
     );
     point.intensity = 0.2;
 
-    const testThema = this.worldModel.get('testThema');
+    const testThema = this.worldModel.get(worldModelEnum.testtheme);
     if (testThema != undefined) {
-      this.worldManagers.set('test', new WorldManager(testThema));
-      this.share.worldEngine.setWorldManager(this.worldManagers.get('test'));
+      this.worldManagers.set(worldThemeEnum.test, new WorldManager(testThema));
+      this.share.worldEngine.setWorldManager(
+        this.worldManagers.get(worldThemeEnum.test)
+      );
     }
-    const testManager = this.worldManagers.get('test')!.list;
+    const testManager = this.worldManagers.get(worldThemeEnum.test)!.list;
 
     const spawnpoint = this.scene.getNodeByName('SpawnPoint') as Mesh;
 
