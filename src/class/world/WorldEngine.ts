@@ -1,8 +1,9 @@
 import WorldManager from '$/class/world/WorldManager';
-import { Scene, Vector3 } from '@babylonjs/core';
+import { AssetContainer, Scene, Vector3 } from '@babylonjs/core';
 import Random from '../../util/Random';
 import RouteImpl, { RawRoute, RouteTree } from './Route';
 import { rotation } from './Route';
+import ItemManager, { itemEnum } from '../item/itemsManager';
 
 export default class WorldEngine extends RouteImpl {
   public deps: number = 0;
@@ -49,19 +50,19 @@ export default class WorldEngine extends RouteImpl {
   }
 
   private rerender(target: Array<RouteTree>) {
+    const itemManager = new ItemManager(new AssetContainer());
     const sp = this.scene.getNodeByName('SpawnPoint');
     target.forEach((t) => {
       const size = t.length / WorldEngine.LengthDelta;
       for (let i = 1; i <= size; i++) {
-        const road = this.manager.random.clone();
-        road.name = String(this.deps);
+        const road = this.manager.random.clone(String(this.deps), sp);
         if (t.absoluteRot == 'l' || t.absoluteRot == 'r') {
           road.rotation = new Vector3(0, Math.PI / 2, 0);
         }
         road.position = t.absolutePos.add(
           WorldEngine.calcRotToDir(t.absoluteRot, 30 * (i - 1))
         );
-        road.parent = sp;
+        itemManager.get(itemEnum.banana).deploy(road);
       }
     });
     while (true) {

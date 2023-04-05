@@ -5,27 +5,17 @@ export default class Item {
   public static spawnpoint: TransformNode;
   public node: TransformNode;
   public collusionDistance: number = 2;
-
+  private name: string;
   private renderedNode: Array<TransformNode> = new Array();
   private onTouch: () => void;
   constructor(name: itemUnion, onTouch: () => void, node?: TransformNode) {
     this.node = node ?? MeshBuilder.CreateBox(name, { size: 1 });
+    this.name = name;
     this.onTouch = onTouch;
   }
 
-  public deployAt(pos: Vector3, name: string) {
-    const node = this.node.clone(name, Item.spawnpoint);
-    node.position = pos;
-    this.renderedNode.push(node);
-  }
-  public dispose(name: string) {
-    this.renderedNode.filter((n) => n.name == name).forEach((n) => n.dispose());
-    for (let i = 0; i < this.renderedNode.length; i++) {
-      if (this.renderedNode[i].isDisposed() == true) {
-        this.renderedNode.splice(i, 1);
-        i--;
-      }
-    }
+  public deploy(parent: TransformNode) {
+    this.node.clone(this.name, parent);
   }
   public checkCollusion(targetPos: Vector3) {
     this.renderedNode.forEach((node) => {
