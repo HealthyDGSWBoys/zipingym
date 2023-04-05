@@ -1,4 +1,4 @@
-import WorldEngine from '$/util/WorldEngine';
+import WorldEngine from '$/class/world/WorldEngine';
 import {
   Scene,
   Mesh,

@@ -6,7 +6,7 @@ import World from './world';
 import User from './user';
 import Development from './development';
 import ShareMemory from './ShareMemory';
-import WorldEngine from '$/util/WorldEngine';
+import WorldEngine from '$/class/world/WorldEngine';
 
 export default class App extends Core {
   private children: Array<Core> = new Array();

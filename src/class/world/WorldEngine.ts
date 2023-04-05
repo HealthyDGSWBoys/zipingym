@@ -1,6 +1,6 @@
-import WorldManager from '$/class/world/worldManager';
+import WorldManager from '$/class/world/WorldManager';
 import { Scene, Vector3 } from '@babylonjs/core';
-import Random from './Random';
+import Random from '../../util/Random';
 import RouteImpl, { RawRoute, RouteTree } from './Route';
 import { rotation } from './Route';
 

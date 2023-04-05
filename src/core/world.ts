@@ -13,7 +13,7 @@ import {
   HemisphericLight,
 } from '@babylonjs/core';
 import { LoadAll } from '$/function/Load';
-import WorldManager from '$/class/world/worldManager';
+import WorldManager from '$/class/world/WorldManager';
 import ColaTexture from '$static/material/Cola3.png';
 import BumpTexture from '$static/material/LavaBump2.jpg';
 import { LavaMaterial } from '@babylonjs/materials';
