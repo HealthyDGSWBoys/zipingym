@@ -1,4 +1,27 @@
-const Models: Array<ModelInfo> = [];
+import dummyCharacter from '$static/model/character.glb';
+import animeCharacter from '$static/model/girl.glb';
+
+import startpoint from '$static/model/dummy.glb';
+import colaTheme from '$static/model/room.glb';
+
+const Models: Array<ModelInfo> = [
+  {
+    name: 'dummyCharacter',
+    url: dummyCharacter,
+  },
+  {
+    name: 'animeCharacter',
+    url: animeCharacter,
+  },
+  {
+    name: 'startpoint',
+    url: startpoint,
+  },
+  {
+    name: 'colaTheme',
+    url: colaTheme,
+  },
+];
 
 export interface ModelInfo {
   name: ModelNameUnion;
@@ -16,6 +39,3 @@ export const ModelNames = {
 export type ModelNameUnion = (typeof ModelNames)[keyof typeof ModelNames];
 
 export default Models;
-
-import './AddCharacter';
-import './AddWorld';

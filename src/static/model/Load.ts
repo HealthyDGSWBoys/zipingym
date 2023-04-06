@@ -5,6 +5,7 @@ import {
   ISceneLoaderProgressEvent,
 } from '@babylonjs/core';
 import Config from '../config/Config';
+import '@babylonjs/loaders';
 
 export const LoadAll: <NameMap extends string>(
   map: Map<NameMap, string>,
