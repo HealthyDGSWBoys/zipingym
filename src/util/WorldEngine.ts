@@ -1,4 +1,4 @@
-import WorldManager from '$/class/world/worldManager';
+import WorldManager from '$/legacy/class/world/worldManager';
 import { Scene, Vector3 } from '@babylonjs/core';
 import Random from './Random';
 import RouteImpl, { RawRoute, RouteTree } from './Route';

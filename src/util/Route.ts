@@ -1,5 +1,5 @@
 import { Vector3 } from '@babylonjs/core';
-import { direction } from '$/class/control/CharacterControl';
+import { direction } from '$/legacy/class/control/CharacterControl';
 
 export interface Route {
   // 현재 보고 있는 방향 ( l, r, u, d )

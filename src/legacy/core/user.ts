@@ -4,7 +4,7 @@ import animeCharacter from '$static/model/girl.glb';
 import { AssetContainer } from '@babylonjs/core';
 import { LoadAll } from '$/function/Load';
 import WebcamBuilder from '$/util/Webcam';
-import UserCharacter from '$/class/character/UserCharacter';
+import UserCharacter from '$/legacy/class/character/UserCharacter';
 
 export default class User extends Core {
   private static CharacterModelFile: Map<string, string> = new Map([
