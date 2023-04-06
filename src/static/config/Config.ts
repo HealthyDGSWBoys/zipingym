@@ -10,11 +10,11 @@ export default class Config implements RawConfig {
   }
 
   get debugUI() {
-    return this.config.debugUI;
+    return this.production ? false : this.config.debugUI;
   }
 
   get production() {
-    return this.config.debugUI;
+    return this.config.production;
   }
 
   get input() {

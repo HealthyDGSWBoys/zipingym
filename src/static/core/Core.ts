@@ -1,33 +1,51 @@
-import { Scene } from '@babylonjs/core';
+import { Scene, TransformNode } from '@babylonjs/core';
 import buildEngine from './buildEngine';
 import UpdateLoop from './UpdateLoop';
+import Config from '../config/Config';
+import '@babylonjs/inspector';
 
 export default class Core {
   private static instance: Core;
 
   private parent: HTMLElement;
 
-  public scene: Scene;
+  private _scene: Scene;
   private constructor(parent: HTMLElement) {
     this.parent = parent;
-    this.scene = new Scene(buildEngine(parent));
+    this._scene = new Scene(buildEngine());
+    parent.appendChild(this.scene.getEngine().getRenderingCanvas()!);
+
+    if (Config.get.debugUI) {
+      this.scene.debugLayer.show({
+        overlay: true,
+      });
+    } else {
+      this.scene.debugLayer.hide();
+    }
   }
 
   public static set(parent: HTMLElement) {
     if (this.instance == null) {
       this.instance = new Core(parent);
       UpdateLoop.set();
-      this.getScene.getEngine().runRenderLoop(() => {
-        UpdateLoop.get.update();
-      });
     }
+  }
+
+  public static run() {
+    this.instance.scene.getEngine().runRenderLoop(() => {
+      UpdateLoop.get.update();
+    });
   }
 
   public static get get() {
     return this.instance;
   }
 
-  public static get getScene() {
-    return this.instance.scene;
+  public get scene() {
+    return this._scene;
+  }
+
+  public get root(): TransformNode {
+    return this.scene.getNodeByName('$SpawnPoint') as TransformNode;
   }
 }

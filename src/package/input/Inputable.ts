@@ -1,10 +1,10 @@
 import { InputMap } from './InputMap';
 
-export interface Inputable<T extends InputMap> {
+export interface Inputable {
   onInput: onInputFunc;
 }
 
-export abstract class Input<T extends InputMap> implements Inputable<T> {
+export abstract class Input implements Inputable {
   constructor(onInput: onInputFunc) {
     this.onInput = onInput;
   }

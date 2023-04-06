@@ -16,7 +16,7 @@ export default class UpdateLoop implements Updateable {
     this.updateQueue.forEach((updateMember) => {
       updateMember.update(deltaTime);
     });
-    Core.getScene.render();
+    Core.get.scene.render();
   }
 
   public static set() {

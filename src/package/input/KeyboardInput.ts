@@ -1,7 +1,7 @@
 import { InputMap } from './InputMap';
 import { Input, onInputFunc } from './Inputable';
 
-export default class KeyboardInput extends Input<InputMap> {
+export default class KeyboardInput extends Input {
   public static KeyMap: Map<string, InputMap> = new Map([
     ['w', 'straight'],
     ['q', 'left'],

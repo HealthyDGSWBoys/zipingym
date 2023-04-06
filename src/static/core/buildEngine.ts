@@ -1,6 +1,6 @@
 import { Engine, WebGPUEngine } from '@babylonjs/core';
 
-const buildEngine = (parent: HTMLElement) => {
+const buildEngine = () => {
   const canvas = document.createElement('canvas');
   canvas.style.width = '100%';
   canvas.style.height = '100%';
