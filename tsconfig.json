@@ -21,7 +21,7 @@
       "babylonjs-materials"
     ],
     "experimentalDecorators": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "baseUrl": "./",
     "paths": {
       "$/*": ["src/*"],
