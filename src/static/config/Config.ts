@@ -1,3 +1,5 @@
+import { InputType } from '$/package/input/InputFactory';
+
 export default class Config implements RawConfig {
   private static instance: Config;
   private config: RawConfig;
@@ -40,5 +42,5 @@ export interface RawConfig {
   baseURL: string;
   debugUI: boolean;
   production: boolean;
-  input: Array<'keyboard' | 'webcam'>;
+  input: Array<InputType>;
 }

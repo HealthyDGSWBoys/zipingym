@@ -8,8 +8,8 @@ export default class KeyboardInput extends Input {
     ['e', 'right'],
   ]);
 
-  constructor(onInput: onInputFunc) {
-    super(onInput);
+  constructor() {
+    super();
     document.addEventListener('keydown', (e) => {
       const key = KeyboardInput.KeyMap.get(e.key);
       if (key != undefined) {

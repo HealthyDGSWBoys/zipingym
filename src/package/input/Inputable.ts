@@ -1,14 +1,15 @@
 import { InputMap } from './InputMap';
 
 export interface Inputable {
-  onInput: onInputFunc;
+  setOnInput(onInput: onInputFunc): void;
 }
 
 export abstract class Input implements Inputable {
-  constructor(onInput: onInputFunc) {
+  constructor() {}
+  setOnInput(onInput: onInputFunc): void {
     this.onInput = onInput;
   }
-  onInput: onInputFunc;
+  protected onInput: onInputFunc = () => {};
 }
 
 export type onInputFunc = (input: InputMap) => void;

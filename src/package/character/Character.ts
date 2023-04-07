@@ -19,9 +19,8 @@ export default class Character {
     ).clone(this.name, Core.get.root)!;
   }
 
-  public addController(
-    MakeController: new (asset: TransformNode) => Controller<TransformNode>
-  ) {
-    this.controllers.push(new MakeController(this.model));
+  public addController(controller: Controller<TransformNode>) {
+    controller.setTarget(this.model);
+    this.controllers.push(controller);
   }
 }
