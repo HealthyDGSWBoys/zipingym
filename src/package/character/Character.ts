@@ -1,26 +1,22 @@
 import Core from '$/static/core/Core';
 import ModelStorage from '$/static/model/ModelStorage';
 import { ModelNameUnion } from '$/static/model/Models';
+import { ControlTarget } from '../controller/Controlable';
 import { Controller } from '../controller/Controller';
-import { Node, TransformNode } from '@babylonjs/core';
+import { Node, TransformNode, Vector3 } from '@babylonjs/core';
 
-export default class Character {
+export default class Character extends ControlTarget<TransformNode> {
   private static characterId: number = 0;
 
   protected name: string;
-  protected model: TransformNode;
-  protected controllers: Array<Controller<Node>>;
   constructor(model?: ModelNameUnion, name?: string) {
-    this.name = name ?? String(Character.characterId);
+    name = name ?? String(Character.characterId);
     Character.characterId++;
-    this.controllers = new Array();
-    this.model = (
+    const character = (
       ModelStorage.get(model ?? 'dummyCharacter').getNodes()[0] as TransformNode
-    ).clone(this.name, Core.get.root)!;
-  }
-
-  public addController(controller: Controller<TransformNode>) {
-    controller.setTarget(this.model);
-    this.controllers.push(controller);
+    ).clone(name, Core.get.root)!;
+    super(character);
+    character.scaling = new Vector3(1.6, 1.6, 1.6);
+    this.name = name;
   }
 }

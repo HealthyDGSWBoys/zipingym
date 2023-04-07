@@ -13,6 +13,6 @@ export default class User extends Character {
     );
     camera.cameraAcceleration = 0.5;
     camera.rotationOffset = 180;
-    camera.lockedTarget = this.model as Mesh;
+    camera.lockedTarget = this.target as Mesh;
   }
 }

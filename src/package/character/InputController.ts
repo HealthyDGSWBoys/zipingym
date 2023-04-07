@@ -1,5 +1,5 @@
 import { TransformNode } from '@babylonjs/core';
-import { Controller } from './Controller';
+import { Controller } from '../controller/Controller';
 import { Inputable, onInputFunc } from '../input/Inputable';
 import { InputMap } from '../input/InputMap';
 

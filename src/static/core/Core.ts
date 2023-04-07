@@ -1,4 +1,11 @@
-import { Color4, Scene, TransformNode } from '@babylonjs/core';
+import {
+  Color4,
+  DirectionalLight,
+  HemisphericLight,
+  Scene,
+  TransformNode,
+  Vector3,
+} from '@babylonjs/core';
 import buildEngine from './buildEngine';
 import UpdateLoop from './UpdateLoop';
 import Config from '../config/Config';
@@ -6,10 +13,11 @@ import '@babylonjs/inspector';
 
 export default class Core {
   private static instance: Core;
-
   private parent: HTMLElement;
-
   private _scene: Scene;
+
+  public static RootName = '@root';
+
   private constructor(parent: HTMLElement) {
     this.parent = parent;
     this._scene = new Scene(buildEngine());
@@ -27,6 +35,20 @@ export default class Core {
     }
     scene.clearColor = new Color4(0.2, 0.5, 0.7, 1);
     this.scene.getEngine().setHardwareScalingLevel(1 / window.devicePixelRatio);
+    this.scene.addTransformNode(new TransformNode(Core.RootName));
+    const sun = new DirectionalLight(
+      'Sun',
+      this.root.position.add(new Vector3(0, -100, 0)),
+      this.scene
+    );
+    sun.intensity = 5;
+
+    const point = new HemisphericLight(
+      'Point',
+      this.root.position.add(new Vector3(0, -100, 0)),
+      this.scene
+    );
+    point.intensity = 0.2;
   }
 
   public static set(parent: HTMLElement) {
@@ -46,11 +68,11 @@ export default class Core {
     return this.instance;
   }
 
-  public get scene() {
-    return this._scene;
+  public get scene(): Scene {
+    return this._scene!;
   }
 
   public get root(): TransformNode {
-    return this.scene.getNodeByName('$SpawnPoint') as TransformNode;
+    return this.scene.getNodeByName(Core.RootName)! as TransformNode;
   }
 }

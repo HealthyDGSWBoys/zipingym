@@ -1,6 +1,6 @@
 import WorldEngine from '$/util/WorldEngine';
 import { Mesh, Vector3 } from '@babylonjs/core';
-import AccelateAnimation from '../keyframe/AccelateAnimation';
+import AccelateAnimation from '../../../package/animation/AccelateAnimation';
 import KeyframeAnimation from '../keyframe/KeyframeAnimation';
 import CharacterInput from './CharacterInput';
 
