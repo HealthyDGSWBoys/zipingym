@@ -9,10 +9,10 @@ export default class User extends Character {
     const camera = new FollowCamera(
       'user_camera',
       new Vector3(0, 0, 0),
-      Core.get.scene
+      Core.get.scene,
+      this.target as Mesh
     );
     camera.cameraAcceleration = 0.5;
     camera.rotationOffset = 180;
-    camera.lockedTarget = this.target as Mesh;
   }
 }

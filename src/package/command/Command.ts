@@ -11,11 +11,13 @@ export default class Command extends Update {
   constructor() {
     super();
     const world = new World();
+    const worldController = new WorldBuildController();
     const user = new User('animeCharacter', 'user');
     Config.get.input.forEach((input: InputType) => {
       user.addController(new InputController(InputFactory.GetInput(input)));
     });
-    world.addController(new WorldBuildController());
+    world.addController(worldController);
+    worldController.init();
   }
   public update(deltaTime: number): void {
     // console.log(deltaTime);
