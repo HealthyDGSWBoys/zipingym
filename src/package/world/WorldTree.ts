@@ -71,7 +71,7 @@ export default class RoadTree {
         position: RoadCalculator.calcAbsolutePos(
           parent.val.rotation,
           parent.val.position,
-          1,
+          parent.val.length,
           rotation
         ),
         rotation,

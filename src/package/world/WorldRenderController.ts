@@ -3,6 +3,7 @@ import { Controller } from '../controller/Controller';
 import Core from '$/static/core/Core';
 import Random from '$/util/Random';
 import RoadTree from './WorldTree';
+import RoadCalculator from './RoadCalculator';
 
 export default class WorldRenderController extends Controller<AssetContainer> {
   private static findRoadNodeRegex = new RegExp('^\\$');
@@ -23,10 +24,19 @@ export default class WorldRenderController extends Controller<AssetContainer> {
 
   public render() {
     this.roadTree.getNotRenderedNode().forEach((node) => {
-      const road = this.roadManager.getRandom(String(node.depth));
-      road.position = node.position.clone();
-      if (node.rotation == 'l' || node.rotation == 'r') {
-        road.rotation = new Vector3(0, Math.PI / 2, 0);
+      for (let i = 0; i < node.length; i++) {
+        const road = this.roadManager.getRandom(String(node.depth));
+        road.position = node.position
+          .clone()
+          .add(
+            RoadCalculator.calcRotToDir(
+              node.rotation,
+              RoadCalculator.RoadLength * i
+            )
+          );
+        if (node.rotation == 'l' || node.rotation == 'r') {
+          road.rotation = new Vector3(0, Math.PI / 2, 0);
+        }
       }
     });
   }
