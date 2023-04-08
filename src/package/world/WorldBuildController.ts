@@ -8,7 +8,7 @@ export default class WorldBuildController extends Controller<AssetContainer> {
   private static findRoadNodeRegex = new RegExp('^\\$');
   public progress: number = 0;
   private roadManager: RoadNodeManager = new RoadNodeManager();
-  private roadTreeBuilder: RoadTreeBuilder = new RoadTreeBuilder(3);
+  private roadTreeBuilder: RoadTreeBuilder = new RoadTreeBuilder(2);
   constructor(public deps: number = 3) {
     super();
   }
@@ -21,9 +21,18 @@ export default class WorldBuildController extends Controller<AssetContainer> {
           WorldBuildController.findRoadNodeRegex.test(name)
         ) as Array<TransformNode>
     );
+    this.render();
   }
 
-  public render() {}
+  public render() {
+    this.roadTreeBuilder.getNotRenderedNode().forEach((node) => {
+      const road = this.roadManager.getRandom(String(node.depth));
+      road.position = node.position.clone();
+      if (node.rotation == 'l' || node.rotation == 'r') {
+        road.rotation = new Vector3(0, Math.PI / 2, 0);
+      }
+    });
+  }
 }
 
 class RoadNodeManager {
@@ -35,12 +44,12 @@ class RoadNodeManager {
     });
   }
   public getRandom(name: string, parent: TransformNode = Core.get.root) {
-    Random.getRandom(this.randomMap).clone(name, parent);
+    return Random.getRandom(this.randomMap).clone(name, parent)!;
   }
 }
 
 class RoadTreeBuilder {
-  private tree: Tree<RoadInfoNode>;
+  private tree: Tree<RoadRenderNode>;
   public static DirectionRandomMap: Map<'l' | 'r' | 'b', number> = new Map([
     ['l', 1],
     ['r', 1],
@@ -54,7 +63,9 @@ class RoadTreeBuilder {
   ]);
   constructor(public depth: number) {
     this.tree = new Tree({
-      length: 2,
+      isRender: false,
+      depth: 0,
+      length: 3,
       origin: 'f',
       position: new Vector3(0, 0, -15),
       rotation: 'u',
@@ -64,15 +75,15 @@ class RoadTreeBuilder {
 
   public buildChildren() {
     while (true) {
-      const depth = this.tree.getMaxDepth() - 1;
-      this.tree.findChildrenAtDepth(depth).forEach((node) => {
+      const depth = this.tree.getMaxDepth();
+      this.tree.findChildrenAtDepth(depth - 1).forEach((node) => {
         this.buildChild(node);
       });
-      if (this.depth < depth) break;
+      if (this.depth <= depth) break;
     }
   }
 
-  public buildChild(node: TreeNode<RoadInfoNode>) {
+  public buildChild(node: TreeNode<RoadRenderNode>) {
     const type = Random.getRandom(RoadTreeBuilder.DirectionRandomMap);
     if (type == 'b') {
       this._buildChild(node, 'l');
@@ -81,7 +92,16 @@ class RoadTreeBuilder {
       this._buildChild(node, type);
     }
   }
-  private _buildChild(parent: TreeNode<RoadInfoNode>, origin: 'r' | 'l') {
+
+  public getNotRenderedNode(): Array<RoadRenderNode> {
+    const result: Array<RoadRenderNode> = new Array();
+    this.tree.traverseBFS(({ val }) => {
+      if (val.isRender == false) result.push(val);
+    });
+    return result;
+  }
+
+  private _buildChild(parent: TreeNode<RoadRenderNode>, origin: 'r' | 'l') {
     const length = Random.getRandom(RoadTreeBuilder.LengthRandomMap);
     const rotation = RoadCalculator.calcAbsoluteRot(
       parent.val.rotation,
@@ -89,12 +109,14 @@ class RoadTreeBuilder {
     );
     parent.addChild(
       new TreeNode({
+        isRender: false,
+        depth: parent.val.depth + 1,
         length,
         origin,
         position: RoadCalculator.calcAbsolutePos(
           parent.val.rotation,
           parent.val.position,
-          15,
+          1,
           rotation
         ),
         rotation,
@@ -163,4 +185,9 @@ interface RoadInfoNode {
   origin: direction;
   position: Vector3;
   rotation: rotation;
+}
+
+interface RoadRenderNode extends RoadInfoNode {
+  isRender: boolean;
+  depth: number;
 }
