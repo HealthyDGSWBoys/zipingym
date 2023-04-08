@@ -8,4 +8,5 @@ export abstract class Controller<T> {
   public setTarget(target: T) {
     this._target = target;
   }
+  public init() {}
 }

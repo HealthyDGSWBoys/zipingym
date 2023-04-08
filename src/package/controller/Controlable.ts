@@ -7,6 +7,7 @@ export class ControlTarget<T> {
 
   public addController(controller: Controller<T>) {
     controller.setTarget(this.target);
+    controller.init();
     this.controllers.push(controller);
   }
 }
