@@ -112,7 +112,6 @@ export default class RouteImpl implements Route {
     } else {
       movement =
         dir === 'r' ? -RouteImpl.Move_Distance : RouteImpl.Move_Distance;
-
       switch (this.lookAt) {
         case 'u':
           return new Vector3(movement, 0, 0);

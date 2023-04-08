@@ -17,6 +17,7 @@ export default class Character extends ControlTarget<TransformNode> {
     ).clone(name, Core.get.root)!;
     super(character);
     character.scaling = new Vector3(1.6, 1.6, 1.6);
+    character.rotation = new Vector3(0, Math.PI, 0);
     this.name = name;
   }
 }

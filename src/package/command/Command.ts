@@ -7,12 +7,12 @@ import World from '../world/World';
 import WorldRenderController from '../world/WorldRenderController';
 
 export default class Command extends Update {
+  private render: WorldRenderController;
   constructor() {
     super();
     const world = new World();
-    const worldRenderController = new WorldRenderController(world.roadTree);
-    world.addController(worldRenderController);
-    worldRenderController.render();
+    this.render = new WorldRenderController(world.roadTree);
+    world.addController(this.render);
     const user = new User('animeCharacter', 'user');
     Config.get.input.forEach((input: InputType) => {
       user.addController(
@@ -21,6 +21,6 @@ export default class Command extends Update {
     });
   }
   public update(deltaTime: number): void {
-    // console.log(deltaTime);
+    this.render.render();
   }
 }

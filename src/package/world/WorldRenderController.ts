@@ -38,6 +38,7 @@ export default class WorldRenderController extends Controller<AssetContainer> {
           road.rotation = new Vector3(0, Math.PI / 2, 0);
         }
       }
+      node.isRender = true;
     });
   }
 }
