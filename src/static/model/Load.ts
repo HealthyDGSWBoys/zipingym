@@ -44,6 +44,7 @@ const Load: (url: string, scene: Scene) => Promise<AssetContainer> = (
       url,
       scene,
       (assets: AssetContainer) => {
+        assets.animationGroups.forEach((a) => a.pause());
         resolve(assets);
       },
       (prog: ISceneLoaderProgressEvent) => {},
