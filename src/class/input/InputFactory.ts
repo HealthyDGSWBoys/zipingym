@@ -1,4 +1,4 @@
-import ExerciseInput from './ExerciseInput';
+import ExerciseInput from './ExerciseInput/ExerciseInput';
 import { Inputable } from './Inputable';
 import KeyboardInput from './KeyboardInput';
 import NetworkInput from './NetworkInput';
