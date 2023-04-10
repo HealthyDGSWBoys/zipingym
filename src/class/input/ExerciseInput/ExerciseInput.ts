@@ -34,7 +34,7 @@ export default class ExerciseInput extends Input {
         }, 1000);
       })
       .catch(() => {
-        window.location.reload();
+        console.log('INIT ERROR');
       });
   }
 
