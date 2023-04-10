@@ -1,5 +1,10 @@
-import { Pose } from '@mediapipe/pose';
+import '@mediapipe/pose';
+import { Pose as _Pose } from '@mediapipe/pose';
 import { Vector3Array } from './landmark';
+
+//@ts-expect-error
+const Pose = _Pose ?? (window.Pose as _Pose);
+
 const MpPoseModel = (): Promise<
   (video: HTMLVideoElement) => Promise<Vector3Array>
 > => {
