@@ -14,7 +14,7 @@ export default defineConfig(({ command, mode }) => {
       top_await(),
       visualizer({
         filename: './dist/report.html',
-        open: true,
+        open: false,
         brotliSize: true,
       }),
       tsconfigPaths(),
