@@ -1,10 +1,14 @@
+import Config from '$/static/config/Config';
 import Core from '$/static/core/Core';
 import { ModelNameUnion } from '$/static/model/Models';
+import InputFactory, { InputType } from '../input/InputFactory';
 import Character from './Character';
 import { FollowCamera, Mesh, Vector3 } from '@babylonjs/core';
+import InputController from './InputController';
+import RoadTree from '../world/WorldTree';
 
 export default class User extends Character {
-  constructor(model: ModelNameUnion, name: string) {
+  constructor(model: ModelNameUnion, name: string, roadTree: RoadTree) {
     super(model, name);
     const camera = new FollowCamera(
       'user_camera',
@@ -14,5 +18,11 @@ export default class User extends Character {
     );
     camera.cameraAcceleration = 0.5;
     camera.rotationOffset = 180;
+
+    Config.get.input.forEach((input: InputType) => {
+      this.addController(
+        new InputController(InputFactory.GetInput(input), roadTree)
+      );
+    });
   }
 }

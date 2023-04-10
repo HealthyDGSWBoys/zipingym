@@ -6,8 +6,12 @@ export interface Updateable {
 
 export abstract class Update implements Updateable {
   constructor() {
-    UpdateLoop.append(this);
+    UpdateLoop.get.append(this);
   }
 
   public abstract update(deltaTime: number): void;
+}
+
+export class UpdateMaker implements Updateable {
+  constructor(public update: (deltaTime: number) => void) {}
 }

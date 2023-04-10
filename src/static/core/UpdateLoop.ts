@@ -1,4 +1,4 @@
-import { Updateable } from '$/global/Updateable';
+import { UpdateMaker, Updateable } from '$/global/Updateable';
 import DeltaClock from '$/util/DeltaClock';
 import Core from './Core';
 
@@ -27,7 +27,11 @@ export default class UpdateLoop implements Updateable {
   public static get get() {
     return this.instance;
   }
-  public static append(updateMember: Updateable) {
-    this.instance.updateQueue.push(updateMember);
+  public append(updateMember: Updateable | ((deltaTime: number) => void)) {
+    if (typeof updateMember == 'function') {
+      this.updateQueue.push(new UpdateMaker(updateMember));
+    } else {
+      this.updateQueue.push(updateMember);
+    }
   }
 }
