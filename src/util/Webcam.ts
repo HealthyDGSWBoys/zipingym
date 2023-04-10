@@ -16,7 +16,9 @@ const WebcamBuilder = (video?: HTMLVideoElement): Promise<HTMLVideoElement> => {
                 audio: false,
               })
               .then((stream) => {
+                //@ts-ignore
                 video.srcObject = stream;
+                //@ts-ignore
                 resolve(video);
               })
               .catch((error) => {

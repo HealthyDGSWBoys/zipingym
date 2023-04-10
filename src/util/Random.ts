@@ -14,6 +14,7 @@ export default class Random {
         stop = true;
       }
     });
+    //@ts-ignore
     return ret;
   }
   private static rand(max: number) {
