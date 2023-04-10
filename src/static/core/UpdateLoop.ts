@@ -1,4 +1,4 @@
-import { UpdateMaker, Updateable } from '$/global/Updateable';
+import { UpdateMaker, Updateable } from '$/interface/Updateable';
 import DeltaClock from '$/util/DeltaClock';
 import Core from './Core';
 

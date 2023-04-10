@@ -1,7 +1,7 @@
 import Core from '../core/Core';
 import Config, { RawConfig } from '../config/Config';
 import ModelStorage from '../model/ModelStorage';
-import Command from '$/package/command/Command';
+import Command from '$/class/command/Command';
 
 export default class App {
   private static instance: App;

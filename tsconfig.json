@@ -25,7 +25,9 @@
     "baseUrl": "./",
     "paths": {
       "$/*": ["src/*"],
-      "$static/*": ["static/*"],
+      "$asset/*": ["asset/*"],
+      "$class/*": ["src/class/*"],
+      "$interface/*": ["src/interface/*"],
       "$util/*": ["src/util/*"]
     }
   },

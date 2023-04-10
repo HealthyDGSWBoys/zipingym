@@ -1,8 +1,8 @@
-import dummyCharacter from '$static/model/character.glb';
-import animeCharacter from '$static/model/girl.glb';
+import dummyCharacter from '$asset/model/character.glb';
+import animeCharacter from '$asset/model/girl.glb';
 
-import startpoint from '$static/model/dummy.glb';
-import colaTheme from '$static/model/room.glb';
+import startpoint from '$asset/model/dummy.glb';
+import colaTheme from '$asset/model/room.glb';
 
 const Models: Array<ModelInfo> = [
   {

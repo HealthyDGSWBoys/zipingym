@@ -1,5 +1,4 @@
-import { Update } from '$/global/Updateable';
-import Config from '$/static/config/Config';
+import { Update } from '$/interface/Updateable';
 import User from '../character/User';
 import World from '../world/World';
 

@@ -1,4 +1,4 @@
-import { InputType } from '$/package/input/InputFactory';
+import { InputType } from '$/class/input/InputFactory';
 
 export default class Config implements RawConfig {
   private static instance: Config;

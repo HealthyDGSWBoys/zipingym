@@ -2,7 +2,6 @@ import Core from '$/static/core/Core';
 import ModelStorage from '$/static/model/ModelStorage';
 import { ModelNameUnion } from '$/static/model/Models';
 import { ControlTarget } from '../controller/Controlable';
-import { Controller } from '../controller/Controller';
 import { Node, TransformNode, Vector3 } from '@babylonjs/core';
 
 export default class Character extends ControlTarget<TransformNode> {
