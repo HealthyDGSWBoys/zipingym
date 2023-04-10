@@ -10,8 +10,6 @@ export default class Command extends Update {
   constructor() {
     super();
     const world = new World();
-    // this.render = new WorldRenderController(world.roadTree);
-    // world.addController(this.render);
     const user = new User('animeCharacter', 'user', world.roadTree);
   }
 

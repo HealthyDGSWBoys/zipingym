@@ -2,7 +2,6 @@ import { AssetContainer, TransformNode } from '@babylonjs/core';
 import { ControlTarget } from '../controller/Controlable';
 import ModelStorage from '$/static/model/ModelStorage';
 import RoadTree from './WorldTree';
-import { Update, Updateable } from '$/global/Updateable';
 import WorldRenderController from './WorldRenderController';
 import UpdateLoop from '$/static/core/UpdateLoop';
 
