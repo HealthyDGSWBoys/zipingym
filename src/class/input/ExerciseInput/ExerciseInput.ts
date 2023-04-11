@@ -1,6 +1,10 @@
 import { Input } from '../Inputable';
 
-import Pipeline, { MpPose, Classfier, JsMiddleware } from 'exercise-input';
+import Pipeline, {
+  MpPose,
+  Classfier,
+  JsMiddleware,
+} from '@zipingym/pose-input';
 
 import model from './work.tflite';
 import '@tensorflow/tfjs-backend-webgl';

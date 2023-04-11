@@ -43,6 +43,6 @@
     "@tensorflow/tfjs-converter": "^4.3.0",
     "@tensorflow/tfjs-core": "^4.3.0",
     "@tensorflow/tfjs-tflite": "^0.0.1-alpha.9",
-    "exercise-input": "/Users/kim/Documents/project/gyminhome/pose-input"
+    "@zipingym/pose-input": "^0.0.1"
   }
 }
