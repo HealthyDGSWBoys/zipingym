@@ -1,16 +1,13 @@
 import { Input } from '../Inputable';
 
-import Pipeline, {
-  MpPose,
-  Classfier,
-  JsMiddleware,
-} from '@zipingym/pose-input';
+import Pipeline, { MpPose, Classfier } from '@zipingym/pose-input';
 
 import model from './work.tflite';
 import '@tensorflow/tfjs-backend-webgl';
 import WebcamBuilder from '$/util/Webcam';
 import Trigger from './trigger/Trigger';
 import DumbleTrigger from './trigger/DumbleTrigger';
+import JsMiddleware from '../JsMiddleware';
 
 export default class ExerciseInput extends Input {
   private inputVideo?: HTMLVideoElement;
