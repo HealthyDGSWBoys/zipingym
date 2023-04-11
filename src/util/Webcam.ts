@@ -1,10 +1,13 @@
 const WebcamBuilder = (video?: HTMLVideoElement): Promise<HTMLVideoElement> => {
   video = video ?? document.createElement('video');
   return new Promise((resolve, reject) => {
-    navigator.mediaDevices
+    navigator.mediaDevices.getUserMedia({audio: true, video: true}).then(() => {
+      navigator.mediaDevices
       .enumerateDevices()
       .then((devices) => {
+        console.log(devices)
         devices.forEach((device) => {
+          
           if (device.kind == 'videoinput') {
             navigator.mediaDevices
               .getUserMedia({
@@ -12,8 +15,7 @@ const WebcamBuilder = (video?: HTMLVideoElement): Promise<HTMLVideoElement> => {
                   width: { ideal: 1920 },
                   height: { ideal: 1080 },
                   deviceId: { exact: device.deviceId },
-                },
-                audio: false,
+                }
               })
               .then((stream) => {
                 //@ts-ignore
@@ -22,6 +24,7 @@ const WebcamBuilder = (video?: HTMLVideoElement): Promise<HTMLVideoElement> => {
                 resolve(video);
               })
               .catch((error) => {
+                console.error(error)
                 alert("Can't use Webcam");
                 reject();
               });
@@ -31,6 +34,8 @@ const WebcamBuilder = (video?: HTMLVideoElement): Promise<HTMLVideoElement> => {
       .catch((err) => {
         console.error(`${err.name}: ${err.message}`);
       });
+    })
+    
   });
 };
 
