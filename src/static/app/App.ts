@@ -11,6 +11,7 @@ export default class App {
       this.instance = new App();
       Config.set(config);
       Core.set(parent);
+      await Core.get.init();
       await ModelStorage.set();
       new Command();
       Core.run();
