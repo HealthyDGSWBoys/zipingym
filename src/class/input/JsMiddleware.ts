@@ -103,7 +103,6 @@ export default class JsMiddleware {
     );
     result.set(JsMiddleware.calcJoint(arr), 0);
     result.set(JsMiddleware.calcDistance(arr), JsMiddleware.joints.length);
-    console.log(result);
     return result;
   }
 }
