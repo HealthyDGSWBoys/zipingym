@@ -14,7 +14,11 @@ export default class WorldEngine extends Backend<RoadTree> {
   }
 
   public rerender(): void {
-    this.roadTree.buildChildren();
     super.rerender(this.roadTree);
+  }
+
+  public buildChildren() {
+    this.roadTree.buildChildren();
+    this.rerender();
   }
 }
