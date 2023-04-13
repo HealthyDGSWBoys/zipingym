@@ -4,6 +4,8 @@ import animeCharacter from '$asset/model/girl.glb';
 import startpoint from '$asset/model/dummy.glb';
 import colaTheme from '$asset/model/room.glb';
 
+import items from '$asset/model/item.glb';
+
 const Models: Array<ModelInfo> = [
   {
     name: 'dummyCharacter',
@@ -21,6 +23,10 @@ const Models: Array<ModelInfo> = [
     name: 'colaTheme',
     url: colaTheme,
   },
+  {
+    name: 'items',
+    url: items,
+  },
 ];
 
 export interface ModelInfo {
@@ -34,6 +40,8 @@ export const ModelNames = {
 
   startpoint: 'startpoint',
   colaTheme: 'colaTheme',
+
+  items: 'items',
 } as const;
 
 export type ModelNameUnion = (typeof ModelNames)[keyof typeof ModelNames];

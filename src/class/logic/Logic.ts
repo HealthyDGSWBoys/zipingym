@@ -1,5 +1,6 @@
 import Core from '$/static/core/Core';
 import { DirectionalLight, HemisphericLight, Vector3 } from '@babylonjs/core';
+import ItemLogic from '../item/ItemLogic';
 
 export default class Logic {
   constructor() {
@@ -16,5 +17,7 @@ export default class Logic {
       Core.get.scene
     );
     point.intensity = 0.2;
+
+    new ItemLogic();
   }
 }
