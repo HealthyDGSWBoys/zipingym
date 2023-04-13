@@ -2,7 +2,7 @@ import { Input } from '../Inputable';
 
 import Pipeline, { MpPose, Classfier } from '@zipingym/pose-input';
 
-import model from './work.tflite';
+import model from '$asset/tflite/work.tflite';
 import '@tensorflow/tfjs-backend-webgl';
 import WebcamBuilder from '$/util/Webcam';
 import Trigger from './trigger/Trigger';
