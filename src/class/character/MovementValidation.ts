@@ -1,3 +1,4 @@
+import Command from '$/static/command/Command';
 import Tree from '$/util/Tree';
 import { InputMap } from '../input/InputMap';
 import RoadCalculator from '../world/RoadCalculator';
@@ -28,7 +29,7 @@ export default class MovementValidation {
         );
         if (find != undefined) {
           this.roadTree.tree.setRoot(find);
-          this.roadTree.buildChildren();
+          Command.get.world.rerender();
           this.currentPos =
             (input == 'left' ? -1 : 1) *
             this.currentSide *

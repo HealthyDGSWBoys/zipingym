@@ -7,8 +7,14 @@ export default class WorldEngine extends Backend<RoadTree> {
   public roadTree: RoadTree;
   constructor() {
     super(new WorldRenderer(ModelStorage.get('colaTheme')));
-    this.roadTree = new RoadTree(2);
 
-    this.rerender(this.roadTree);
+    this.roadTree = new RoadTree(1);
+
+    this.rerender();
+  }
+
+  public rerender(): void {
+    this.roadTree.buildChildren();
+    super.rerender(this.roadTree);
   }
 }

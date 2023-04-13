@@ -26,7 +26,6 @@ export default class RoadEngine {
       position: new Vector3(0, 0, -15),
       rotation: 'u',
     });
-    this.buildChildren();
   }
 
   public buildChildren() {
