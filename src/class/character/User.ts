@@ -5,10 +5,10 @@ import InputFactory, { InputType } from '../input/InputFactory';
 import Character from './Character';
 import { FollowCamera, Mesh, Vector3 } from '@babylonjs/core';
 import InputController from './InputController';
-import RoadTree from '../world/WorldTree';
+import Command from '$/static/command/Command';
 
 export default class User extends Character {
-  constructor(model: ModelNameUnion, name: string, roadTree: RoadTree) {
+  constructor(model: ModelNameUnion, name: string) {
     super(model, name);
     const camera = new FollowCamera(
       'user_camera',
@@ -21,7 +21,10 @@ export default class User extends Character {
 
     Config.get.input.forEach((input: InputType) => {
       this.addController(
-        new InputController(InputFactory.GetInput(input), roadTree)
+        new InputController(
+          InputFactory.GetInput(input),
+          Command.get.world.roadTree
+        )
       );
     });
   }

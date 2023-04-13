@@ -1,31 +1,27 @@
+import Renderer from '$/interface/Renderer';
 import { AssetContainer, TransformNode, Vector3 } from '@babylonjs/core';
-import { Controller } from '../controller/Controller';
+import RoadTree from './RoadTree';
 import Core from '$/static/core/Core';
-import Random from '$/util/Random';
-import RoadTree from './WorldTree';
 import RoadCalculator from './RoadCalculator';
-import { name } from '@babylonjs/gui';
+import Random from '$/util/Random';
 
-export default class WorldRenderController extends Controller<AssetContainer> {
+export default class WorldRenderer extends Renderer<RoadTree> {
   private static findRoadNodeRegex = new RegExp('^\\$');
   private roadManager: RoadNodeManager = new RoadNodeManager();
-  constructor(private roadTree: RoadTree) {
+  constructor(assets: AssetContainer) {
     super();
-  }
-
-  public init() {
     this.roadManager.addMap(
-      this.target
+      assets
         .getNodes()
         .filter(({ name }) =>
-          WorldRenderController.findRoadNodeRegex.test(name)
+          WorldRenderer.findRoadNodeRegex.test(name)
         ) as Array<TransformNode>
     );
   }
 
-  public render(): Promise<void> {
+  public rerender(roadTree: RoadTree): Promise<void> {
     return new Promise((resolve) => {
-      this.roadTree.getNotRenderedNode().forEach((node) => {
+      roadTree.getNotRenderedNode().forEach((node) => {
         for (let i = 0; i < node.length; i++) {
           const road = this.roadManager.getRandom(`#Road${node.depth}`);
           road.position = node.position
@@ -41,7 +37,7 @@ export default class WorldRenderController extends Controller<AssetContainer> {
           }
         }
         node.isRender = true;
-        const trash = node.depth - this.roadTree.depth - 2;
+        const trash = node.depth - roadTree.depth - 2;
         Core.get.root
           .getChildTransformNodes()
           .filter(({ name }) => name == `#Road${trash}`)

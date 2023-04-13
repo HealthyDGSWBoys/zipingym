@@ -1,19 +1,14 @@
-import { AssetContainer, TransformNode } from '@babylonjs/core';
-import { ControlTarget } from '../controller/Controlable';
+import Backend from '$/interface/Backend';
 import ModelStorage from '$/static/model/ModelStorage';
-import RoadTree from './WorldTree';
-import WorldRenderController from './WorldRenderController';
-import UpdateLoop from '$/static/core/UpdateLoop';
-import LavaController from './LavaController';
+import RoadTree from './RoadTree';
+import WorldRenderer from './WorldRenderer';
 
-export default class World extends ControlTarget<AssetContainer> {
+export default class WorldEngine extends Backend<RoadTree> {
   public roadTree: RoadTree;
   constructor() {
-    super(ModelStorage.get('colaTheme'));
-    this.addController(new LavaController());
-    this.roadTree = new RoadTree(1);
-    const worldRenderController = new WorldRenderController(this.roadTree);
-    this.addController(worldRenderController);
-    UpdateLoop.get.append(() => worldRenderController.render());
+    super(new WorldRenderer(ModelStorage.get('colaTheme')));
+    this.roadTree = new RoadTree(2);
+
+    this.rerender(this.roadTree);
   }
 }

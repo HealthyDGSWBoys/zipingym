@@ -14,6 +14,7 @@ import '@babylonjs/inspector';
 export default class Core {
   private static instance: Core;
   private parent: HTMLElement;
+  //@ts-expect-error
   private _scene: Scene;
 
   public static RootName = '@root';
@@ -36,19 +37,6 @@ export default class Core {
     this.scene.clearColor = new Color4(0.2, 0.5, 0.7, 1);
     this.scene.getEngine().setHardwareScalingLevel(1 / window.devicePixelRatio);
     this.scene.addTransformNode(new TransformNode(Core.RootName));
-    const sun = new DirectionalLight(
-      'Sun',
-      this.root.position.add(new Vector3(0, -100, 0)),
-      this.scene
-    );
-    sun.intensity = 5;
-
-    const point = new HemisphericLight(
-      'Point',
-      this.root.position.add(new Vector3(0, -100, 0)),
-      this.scene
-    );
-    point.intensity = 0.2;
   }
 
   public static set(parent: HTMLElement) {

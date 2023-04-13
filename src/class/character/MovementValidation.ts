@@ -1,7 +1,7 @@
 import Tree from '$/util/Tree';
 import { InputMap } from '../input/InputMap';
 import RoadCalculator from '../world/RoadCalculator';
-import RoadTree, { RoadInfoNode } from '../world/WorldTree';
+import RoadTree, { RoadInfoNode } from '../world/RoadTree';
 
 export default class MovementValidation {
   public static sideMovement: number = 1.5;

@@ -2,8 +2,9 @@ import Tree, { TreeNode } from '$/util/Tree';
 import { Vector3 } from '@babylonjs/core';
 import RoadCalculator, { direction, rotation } from './RoadCalculator';
 import Random from '$/util/Random';
+import Command from '$/static/command/Command';
 
-export default class RoadTree {
+export default class RoadEngine {
   public tree: Tree<RoadRenderNode>;
   public static DirectionRandomMap: Map<'l' | 'r' | 'b', number> = new Map([
     ['l', 1],
@@ -39,7 +40,7 @@ export default class RoadTree {
   }
 
   public buildChild(node: TreeNode<RoadRenderNode>) {
-    const type = Random.getRandom(RoadTree.DirectionRandomMap);
+    const type = Random.getRandom(RoadEngine.DirectionRandomMap);
     if (type == 'b') {
       this._buildChild(node, 'l');
       this._buildChild(node, 'r');
@@ -57,7 +58,7 @@ export default class RoadTree {
   }
 
   private _buildChild(parent: TreeNode<RoadRenderNode>, origin: 'r' | 'l') {
-    const length = Random.getRandom(RoadTree.LengthRandomMap);
+    const length = Random.getRandom(RoadEngine.LengthRandomMap);
     const rotation = RoadCalculator.calcAbsoluteRot(
       parent.val.rotation,
       origin

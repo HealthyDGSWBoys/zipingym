@@ -2,7 +2,7 @@ import { TransformNode, Vector3 } from '@babylonjs/core';
 import { Controller } from '../controller/Controller';
 import { Inputable } from '../input/Inputable';
 import { InputMap } from '../input/InputMap';
-import RoadTree from '../world/WorldTree';
+import RoadTree from '../world/RoadTree';
 import RoadCalculator from '../world/RoadCalculator';
 import AccelateAnimation from '../animation/AccelateAnimation';
 import MovementValidation from './MovementValidation';

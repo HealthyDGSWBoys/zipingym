@@ -1,7 +1,7 @@
 import Core from '../core/Core';
 import Config, { RawConfig } from '../config/Config';
 import ModelStorage from '../model/ModelStorage';
-import Command from '$/class/command/Command';
+import Command from '$/static/command/Command';
 
 export default class App {
   private static instance: App;
@@ -13,7 +13,7 @@ export default class App {
       Core.set(parent);
       await Core.get.init();
       await ModelStorage.set();
-      new Command();
+      Command.set();
       Core.run();
       return;
     } else {
