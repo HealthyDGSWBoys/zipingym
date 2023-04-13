@@ -5,9 +5,8 @@ import ColaTexture from '$asset/material/Cola3.png';
 import BumpTexture from '$asset/material/LavaBump2.jpg';
 import { LavaMaterial } from '@babylonjs/materials';
 
-export default class LavaController extends Controller<any> {
+export default class Lava {
   constructor() {
-    super();
     const scene = Core.get.scene;
     const ground = MeshBuilder.CreateGround(
       'lava',
