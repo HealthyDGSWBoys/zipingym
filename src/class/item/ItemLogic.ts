@@ -1,4 +1,5 @@
 import { Update } from '$/interface/Updateable';
+import Command from '$/static/command/Command';
 import ItemFactory from './ItemFactory';
 import Itemlist from './itemlist';
 
@@ -15,6 +16,8 @@ export default class ItemLogic extends Update {
         })
       );
     });
+
+    Command.get.world.addCallbackOnbuild(() => {});
   }
   public update(deltaTime: number): void {}
 }
