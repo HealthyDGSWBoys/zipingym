@@ -1,9 +1,7 @@
 import Tree, { TreeNode } from '$/util/Tree';
-import { Vector3 } from '@babylonjs/core';
+import { TransformNode, Vector3 } from '@babylonjs/core';
 import RoadCalculator, { direction, rotation } from './RoadCalculator';
 import Random from '$/util/Random';
-import Command from '$/static/command/Command';
-import { ThinSprite } from '@babylonjs/core/Sprites/thinSprite';
 
 export default class RoadEngine {
   public tree: Tree<RoadRenderNode>;
@@ -26,6 +24,7 @@ export default class RoadEngine {
       origin: 'f',
       position: new Vector3(0, 0, -15),
       rotation: 'u',
+      nodes: [],
     });
   }
 
@@ -65,14 +64,6 @@ export default class RoadEngine {
     return build;
   }
 
-  public getNotRenderedNode(): Array<RoadRenderNode> {
-    const result: Array<RoadRenderNode> = new Array();
-    this.tree.traverseBFS(({ val }) => {
-      if (val.isRender == false) result.push(val);
-    });
-    return result;
-  }
-
   private _buildChild(parent: TreeNode<RoadRenderNode>, origin: 'r' | 'l') {
     const length = Random.getRandom(RoadEngine.LengthRandomMap);
     const rotation = RoadCalculator.calcAbsoluteRot(
@@ -91,6 +82,7 @@ export default class RoadEngine {
         rotation
       ),
       rotation,
+      nodes: [],
     });
     parent.addChild(node);
 
@@ -106,6 +98,6 @@ export interface RoadInfoNode {
 }
 
 export interface RoadRenderNode extends RoadInfoNode {
-  isRender: boolean;
   depth: number;
+  nodes: Array<TransformNode>;
 }

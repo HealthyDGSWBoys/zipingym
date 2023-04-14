@@ -25,12 +25,16 @@ export default class WorldRenderer extends Renderer<WorldRenderInfo> {
       roadTree.remove.forEach(({ val }) => {
         Core.get.root
           .getChildTransformNodes()
-          .filter(({ name }) => name == `#Road${val.depth - 1}`)
+          .filter(
+            ({ name }) => name == WorldRenderer.makeRoadName(val.depth - 1)
+          )
           .forEach((n) => n.dispose());
       });
       roadTree.add.forEach(({ val }) => {
         for (let i = 0; i < val.length; i++) {
-          const road = this.roadManager.getRandom(`#Road${val.depth}`);
+          const road = this.roadManager.getRandom(
+            WorldRenderer.makeRoadName(val.depth)
+          );
           road.position = val.position
             .clone()
             .add(
@@ -42,10 +46,15 @@ export default class WorldRenderer extends Renderer<WorldRenderInfo> {
           if (val.rotation == 'l' || val.rotation == 'r') {
             road.rotation = new Vector3(0, Math.PI / 2, 0);
           }
+          val.nodes.push(road);
         }
       });
       resolve();
     });
+  }
+
+  public static makeRoadName(depth: number): string {
+    return `#Road${depth}`;
   }
 }
 

@@ -17,7 +17,6 @@ export default class WorldEngine extends Backend<WorldRenderInfo> {
 
   public setRoot(root: TreeNode<RoadRenderNode> = this.roadTree.tree.getRoot) {
     const result = this.roadTree.setRoot(root);
-    this.onBuildQueue.forEach((l) => l(result));
     if (root === this.roadTree.tree.getRoot) {
       this.render({
         ...result,
@@ -26,6 +25,7 @@ export default class WorldEngine extends Backend<WorldRenderInfo> {
     } else {
       this.render(result);
     }
+    this.onBuildQueue.forEach((l) => l(result));
   }
 
   private onBuildQueue: Array<onBuildCallback> = new Array();

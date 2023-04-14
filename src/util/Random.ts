@@ -17,6 +17,18 @@ export default class Random {
     //@ts-ignore
     return ret;
   }
+  public static getRandoms<T>(map: Map<T, number>, count: number): Array<T> {
+    const result: Array<T> = new Array();
+    for (let i = 0; i < count; i++) {
+      const get = this.getRandom(map);
+      if (result.includes(get)) {
+        i--;
+      } else {
+        result.push(get);
+      }
+    }
+    return result;
+  }
   private static rand(max: number) {
     const min = 1;
     return Math.floor(Math.random() * (max - min + 1)) + min;
