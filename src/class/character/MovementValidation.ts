@@ -28,8 +28,7 @@ export default class MovementValidation {
           (e) => e.val.origin == (input == 'left' ? 'r' : 'l')
         );
         if (find != undefined) {
-          this.roadTree.tree.setRoot(find);
-          Command.get.world.buildChildren();
+          Command.get.world.setRoot(find);
           this.currentPos =
             (input == 'left' ? -1 : 1) *
             this.currentSide *

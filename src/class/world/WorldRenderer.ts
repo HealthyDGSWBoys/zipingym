@@ -4,8 +4,9 @@ import RoadTree from './RoadTree';
 import Core from '$/static/core/Core';
 import RoadCalculator from './RoadCalculator';
 import Random from '$/util/Random';
+import { WorldRenderInfo } from './World';
 
-export default class WorldRenderer extends Renderer<RoadTree> {
+export default class WorldRenderer extends Renderer<WorldRenderInfo> {
   private static findRoadNodeRegex = new RegExp('^\\$');
   private roadManager: RoadNodeManager = new RoadNodeManager();
   constructor(assets: AssetContainer) {
@@ -19,29 +20,29 @@ export default class WorldRenderer extends Renderer<RoadTree> {
     );
   }
 
-  public rerender(roadTree: RoadTree): Promise<void> {
+  public render(roadTree: WorldRenderInfo): Promise<void> {
     return new Promise((resolve) => {
-      roadTree.getNotRenderedNode().forEach((node) => {
-        for (let i = 0; i < node.length; i++) {
-          const road = this.roadManager.getRandom(`#Road${node.depth}`);
-          road.position = node.position
+      roadTree.remove.forEach(({ val }) => {
+        Core.get.root
+          .getChildTransformNodes()
+          .filter(({ name }) => name == `#Road${val.depth - 1}`)
+          .forEach((n) => n.dispose());
+      });
+      roadTree.add.forEach(({ val }) => {
+        for (let i = 0; i < val.length; i++) {
+          const road = this.roadManager.getRandom(`#Road${val.depth}`);
+          road.position = val.position
             .clone()
             .add(
               RoadCalculator.calcRotToDir(
-                node.rotation,
+                val.rotation,
                 RoadCalculator.RoadLength * i
               )
             );
-          if (node.rotation == 'l' || node.rotation == 'r') {
+          if (val.rotation == 'l' || val.rotation == 'r') {
             road.rotation = new Vector3(0, Math.PI / 2, 0);
           }
         }
-        node.isRender = true;
-        const trash = node.depth - roadTree.depth - 2;
-        Core.get.root
-          .getChildTransformNodes()
-          .filter(({ name }) => name == `#Road${trash}`)
-          .forEach((n) => n.dispose());
       });
       resolve();
     });

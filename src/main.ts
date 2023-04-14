@@ -4,7 +4,7 @@ const root = document.getElementById('app')!;
 App.set(root, {
   debugUI: true,
   production: __ISPRODUCTION__,
-  input: ['keyboard', 'exercise'],
+  input: ['keyboard'],
   baseURL: '',
 });
 declare global {

@@ -34,7 +34,7 @@ export default class Tree<T> {
     this.root = new TreeNode(val);
   }
 
-  getRoot(): TreeNode<T> {
+  get getRoot(): TreeNode<T> {
     return this.root;
   }
 

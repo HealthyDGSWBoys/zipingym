@@ -3,6 +3,7 @@ import { Vector3 } from '@babylonjs/core';
 import RoadCalculator, { direction, rotation } from './RoadCalculator';
 import Random from '$/util/Random';
 import Command from '$/static/command/Command';
+import { ThinSprite } from '@babylonjs/core/Sprites/thinSprite';
 
 export default class RoadEngine {
   public tree: Tree<RoadRenderNode>;
@@ -28,24 +29,40 @@ export default class RoadEngine {
     });
   }
 
-  public buildChildren() {
+  public setRoot(node: TreeNode<RoadRenderNode>) {
+    const remove = this.tree.getRoot;
+    this.tree.setRoot(node);
+    const add = this.buildChildren();
+    return {
+      remove: [remove],
+      add,
+    };
+  }
+
+  private buildChildren() {
+    const build: Array<TreeNode<RoadRenderNode>> = new Array();
     while (true) {
       const depth = this.tree.getMaxDepth();
       this.tree.findChildrenAtDepth(depth - 1).forEach((node) => {
-        this.buildChild(node);
+        this.buildChild(node).forEach((res) => {
+          build.push(res);
+        });
       });
       if (this.depth <= depth) break;
     }
+    return build;
   }
 
-  public buildChild(node: TreeNode<RoadRenderNode>) {
+  private buildChild(node: TreeNode<RoadRenderNode>) {
     const type = Random.getRandom(RoadEngine.DirectionRandomMap);
+    const build: Array<TreeNode<RoadRenderNode>> = new Array();
     if (type == 'b') {
-      this._buildChild(node, 'l');
-      this._buildChild(node, 'r');
+      build.push(this._buildChild(node, 'l'));
+      build.push(this._buildChild(node, 'r'));
     } else {
-      this._buildChild(node, type);
+      build.push(this._buildChild(node, type));
     }
+    return build;
   }
 
   public getNotRenderedNode(): Array<RoadRenderNode> {
@@ -62,21 +79,22 @@ export default class RoadEngine {
       parent.val.rotation,
       origin
     );
-    parent.addChild(
-      new TreeNode({
-        isRender: false,
-        depth: parent.val.depth + 1,
-        length,
-        origin,
-        position: RoadCalculator.calcAbsolutePos(
-          parent.val.rotation,
-          parent.val.position,
-          parent.val.length,
-          rotation
-        ),
-        rotation,
-      })
-    );
+    const node = new TreeNode({
+      isRender: false,
+      depth: parent.val.depth + 1,
+      length,
+      origin,
+      position: RoadCalculator.calcAbsolutePos(
+        parent.val.rotation,
+        parent.val.position,
+        parent.val.length,
+        rotation
+      ),
+      rotation,
+    });
+    parent.addChild(node);
+
+    return node;
   }
 }
 

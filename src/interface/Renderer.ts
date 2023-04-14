@@ -1,3 +1,3 @@
 export default abstract class Renderer<T> {
-  public abstract rerender(args: T): void;
+  public abstract render(args: T): void;
 }
