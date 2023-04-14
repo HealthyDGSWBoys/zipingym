@@ -3,11 +3,11 @@ import { Input } from '../Inputable';
 import Pipeline, { MpPose, Classfier } from '@zipingym/pose-input';
 
 import model from '$asset/tflite/work.tflite';
-import '@tensorflow/tfjs-backend-webgl';
 import WebcamBuilder from '$/util/Webcam';
 import Trigger from './trigger/Trigger';
 import DumbleTrigger from './trigger/DumbleTrigger';
 import JsMiddleware from '../JsMiddleware';
+import Config from '$/static/config/Config';
 
 export default class ExerciseInput extends Input {
   private inputVideo?: HTMLVideoElement;
@@ -21,7 +21,7 @@ export default class ExerciseInput extends Input {
         camera.width = 360;
         this.inputVideo = camera;
         this.inputVideo.play();
-        Promise.all([MpPose(), Classfier(model)])
+        Promise.all([MpPose(), Classfier(model), ExerciseInput.loadBackend()])
           .then(([bzmodel, classfier]) => {
             this.pipeline = Pipeline(bzmodel, JsMiddleware.calc, classfier);
             setTimeout(() => {
@@ -42,5 +42,16 @@ export default class ExerciseInput extends Input {
         }
       })
       .catch((err) => {});
+  }
+
+  private static isBackendRegister: boolean = false;
+  private static async loadBackend() {
+    if (this.isBackendRegister == false) {
+      await import(
+        Config.get.engine == 'webgpu'
+          ? '@tensorflow/tfjs-backend-webgl'
+          : '@tensorflow/tfjs-backend-webgl'
+      );
+    }
   }
 }

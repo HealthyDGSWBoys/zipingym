@@ -1,4 +1,5 @@
 import { InputType } from '$/class/input/InputFactory';
+import { WebGPUEngine } from '@babylonjs/core';
 
 export default class Config implements RawConfig {
   private static instance: Config;
@@ -27,7 +28,16 @@ export default class Config implements RawConfig {
     return this.config.baseURL;
   }
 
-  public static set(config: RawConfig) {
+  get engine() {
+    return this.config.engine;
+  }
+
+  public static async set(config: RawConfig) {
+    if (config.engine == undefined) {
+      config.engine = (await WebGPUEngine.IsSupportedAsync)
+        ? 'webgpu'
+        : 'webgl';
+    }
     if (this.instance == null) {
       this.instance = new Config(config);
     }
@@ -43,4 +53,5 @@ export interface RawConfig {
   debugUI: boolean;
   production: boolean;
   input: Array<InputType>;
+  engine?: 'webgl' | 'webgpu';
 }

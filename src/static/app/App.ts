@@ -9,7 +9,7 @@ export default class App {
   public static async set(parent: HTMLElement, config: RawConfig) {
     if (this.instance == null) {
       this.instance = new App();
-      Config.set(config);
+      await Config.set(config);
       Core.set(parent);
       await Core.get.init();
       await ModelStorage.set();

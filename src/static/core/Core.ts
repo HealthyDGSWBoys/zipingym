@@ -9,7 +9,6 @@ import {
 import buildEngine from './buildEngine';
 import UpdateLoop from './UpdateLoop';
 import Config from '../config/Config';
-import '@babylonjs/inspector';
 
 export default class Core {
   private static instance: Core;
@@ -28,6 +27,7 @@ export default class Core {
     this.parent.appendChild(this.scene.getEngine().getRenderingCanvas()!);
 
     if (Config.get.debugUI) {
+      await import('@babylonjs/inspector');
       this.scene.debugLayer.show({
         overlay: true,
       });
