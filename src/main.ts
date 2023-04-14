@@ -6,7 +6,6 @@ App.set(root, {
   production: __ISPRODUCTION__,
   input: ['keyboard', 'exercise'],
   baseURL: '',
-  engine: 'webgpu',
 });
 declare global {
   const __ISPRODUCTION__: boolean;
