@@ -1,13 +1,18 @@
 import { TransformNode, Vector3 } from '@babylonjs/core';
 import { ItemInfo } from './itemlist';
 import ModelStorage from '$/static/model/ModelStorage';
+import Core from '$/static/core/Core';
 
 export default class ItemFactory {
+  private static range: number = 1;
   private items: Array<TransformNode>;
   private id: number = 0;
   private model: TransformNode;
 
-  constructor(private info: StrictItemInfo) {
+  constructor(
+    private info: StrictItemInfo,
+    private onCollusion: (item: TransformNode) => void
+  ) {
     this.items = new Array();
     const model = ModelStorage.get('items')
       .getNodes()
@@ -20,6 +25,15 @@ export default class ItemFactory {
     this.id++;
     newModel.position = position;
     this.items.push(newModel);
+    newModel.getChildMeshes().forEach((c) => {
+      c.isPickable = true;
+    });
+    Core.get.scene.onPointerDown = function (evt, pickResult) {
+      // We try to pick an object
+      if (pickResult.hit) {
+        console.log(pickResult.pickedMesh!.parent);
+      }
+    };
     return this.id - 1;
   }
 
@@ -29,6 +43,28 @@ export default class ItemFactory {
 
   private getName(id?: number) {
     return this.info.name + String(id ?? this.id);
+  }
+
+  public checkCollusion(target: Vector3) {
+    const result: Array<TransformNode> = new Array();
+    this.items.forEach(({ absolutePosition }, idx) => {
+      const distance = target.subtract(absolutePosition);
+      let isCollusion: boolean = true;
+      //@ts-expect-error
+      ['x', 'y', 'z'].forEach((pos: 'x' | 'y' | 'z') => {
+        if (Math.abs(distance[pos]) > ItemFactory.range) {
+          isCollusion = false;
+        }
+      });
+      if (isCollusion) this.onCollusion(this.items[idx]);
+    });
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.items[i].isDisposed()) {
+        this.items.splice(i, 1);
+        i--;
+      }
+    }
+    return result;
   }
 }
 

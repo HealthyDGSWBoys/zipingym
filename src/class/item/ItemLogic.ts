@@ -2,7 +2,6 @@ import { Update } from '$/interface/Updateable';
 import Command from '$/static/command/Command';
 import Random from '$/util/Random';
 import { TransformNode, Vector3 } from '@babylonjs/core';
-import Item from './Item';
 import ItemFactory from './ItemFactory';
 import Itemlist from './itemlist';
 import { rotation } from '../world/RoadCalculator';
@@ -29,10 +28,16 @@ export default class ItemLogic extends Update {
     this.itemFactorys = new Map();
     Itemlist.forEach((info) => {
       this.itemFactorys.set(
-        new ItemFactory({
-          ...info,
-          model: info.model ?? info.name,
-        }),
+        new ItemFactory(
+          {
+            ...info,
+            model: info.model ?? info.name,
+          },
+          (item: TransformNode) => {
+            console.log('COLL');
+            item.dispose();
+          }
+        ),
         1
       );
     });
@@ -52,12 +57,16 @@ export default class ItemLogic extends Update {
       const row = Random.getRandom(this.itemRowPosition);
       Random.getRandom(this.itemFactorys).deploy(
         parent,
-        rotation == 'u' || rotation == 'd'
-          ? new Vector3(row, 0, rank)
-          : new Vector3(rank, 0, row)
+        rotation == 'l' || rotation == 'r'
+          ? new Vector3(rank, 0, row * 1.5)
+          : new Vector3(row * 1.5, 0, rank)
       );
     });
     return count;
   }
-  public update(deltaTime: number): void {}
+  public update(deltaTime: number): void {
+    this.itemFactorys.forEach((key, value) => {
+      value.checkCollusion(Command.get.user.worldPosition);
+    });
+  }
 }

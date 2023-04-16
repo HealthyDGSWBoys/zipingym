@@ -3,10 +3,10 @@ const Itemlist: Array<ItemInfo> = [
     name: 'banana',
     type: 'good',
   },
-  {
-    name: 'cola',
-    type: 'bad',
-  },
+  // {
+  //   name: 'cola',
+  //   type: 'bad',
+  // },
 ];
 
 export interface ItemInfo {

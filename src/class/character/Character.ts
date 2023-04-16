@@ -19,4 +19,8 @@ export default class Character extends ControlTarget<TransformNode> {
     character.rotation = new Vector3(0, Math.PI, 0);
     this.name = name;
   }
+
+  public get worldPosition() {
+    return this.target.absolutePosition;
+  }
 }
