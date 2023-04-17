@@ -34,7 +34,6 @@ export default class ItemLogic extends Update {
             model: info.model ?? info.name,
           },
           (item: TransformNode) => {
-            console.log('COLL');
             item.dispose();
           }
         ),
@@ -55,11 +54,10 @@ export default class ItemLogic extends Update {
     const ranks = Random.getRandoms(this.itemRankPosition, count);
     ranks.forEach((rank) => {
       const row = Random.getRandom(this.itemRowPosition);
+      console.log();
       Random.getRandom(this.itemFactorys).deploy(
         parent,
-        rotation == 'l' || rotation == 'r'
-          ? new Vector3(rank, 0, row * 1.5)
-          : new Vector3(row * 1.5, 0, rank)
+        new Vector3(row * 1.5, 0, rank)
       );
     });
     return count;

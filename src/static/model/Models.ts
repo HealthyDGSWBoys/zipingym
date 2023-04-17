@@ -2,7 +2,7 @@ import dummyCharacter from '$asset/model/character.glb';
 import animeCharacter from '$asset/model/girl.glb';
 
 import startpoint from '$asset/model/dummy.glb';
-import colaTheme from '$asset/model/room.glb';
+import colaTheme from '$asset/model/stage1_5.glb';
 
 import items from '$asset/model/item.glb';
 
