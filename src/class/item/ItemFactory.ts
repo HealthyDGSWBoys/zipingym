@@ -25,15 +25,6 @@ export default class ItemFactory {
     this.id++;
     newModel.position = position;
     this.items.push(newModel);
-    newModel.getChildMeshes().forEach((c) => {
-      c.isPickable = true;
-    });
-    Core.get.scene.onPointerDown = function (evt, pickResult) {
-      // We try to pick an object
-      if (pickResult.hit) {
-        console.log(pickResult.pickedMesh!.parent);
-      }
-    };
     return this.id - 1;
   }
 
