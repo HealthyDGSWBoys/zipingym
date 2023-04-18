@@ -51,17 +51,6 @@ export default class ExerciseInput extends Input {
     );
   }
 
-  private update() {
-    this.pipeline!(this.inputVideo!)
-      .then((res: Array<number>) => {
-        const temp = this.trigger.call(res);
-        if (temp != null) {
-          this.onInput(temp);
-        }
-      })
-      .catch((err) => {});
-  }
-
   private static isBackendRegister: boolean = false;
   private static async loadBackend() {
     if (this.isBackendRegister == false) {

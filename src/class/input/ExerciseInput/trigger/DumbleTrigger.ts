@@ -2,7 +2,14 @@ import { InputMap } from '../../InputMap';
 import Trigger from './Trigger';
 
 export default class DumbleTrigger extends Trigger {
-  public call(res: Array<number>): InputMap | null {
+  public call({
+    result,
+    accuracy,
+  }: {
+    result: Array<number>;
+    accuracy: Array<number>;
+  }): InputMap | null {
+    const res = result;
     if (res[0] > 0) {
       console.log('DOWN');
     } else if (Math.abs(res[1] - res[2]) == 0 && (res[1] > 0 || res[2] > 0)) {

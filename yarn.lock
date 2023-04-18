@@ -449,10 +449,10 @@
   resolved "https://registry.npmjs.org/@webgpu/types/-/types-0.1.21.tgz"
   integrity sha512-pUrWq3V5PiSGFLeLxoGqReTZmiiXwY3jRkIG5sLLKjyqNxrwm/04b4nw7LSmGWJcKk59XOM/YRTUwOzo4MMlow==
 
-"@zipingym/pose-input@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@zipingym/pose-input/-/pose-input-0.0.7.tgz#3ac2e9dcc67957670576458e4c2fcf0e967f43ee"
-  integrity sha512-ySzQiQNzSEmRgGotKCrpbeAZNSfPgGONhWqEBiIiYxryoABrjxdHsNyJzBkv89ZihOrTXvhYPWHN1sctUPTqGw==
+"@zipingym/pose-input@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@zipingym/pose-input/-/pose-input-0.0.8.tgz#6f084dfe1abfb77cb501e792ece99c026dc3a841"
+  integrity sha512-KcC+HacrzR9bVqmKEv7nZx8T1dZLzl3rmX0FrLr8yEibXO2au8+h832AblyBvzZfwbHWp9TxdVfFDA2g4oznNw==
   dependencies:
     "@mediapipe/pose" "^0.5.1675469404"
     "@tensorflow-models/pose-detection" "^2.0.0"
