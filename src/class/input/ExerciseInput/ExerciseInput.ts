@@ -1,12 +1,16 @@
 import { Input } from '../Inputable';
 
-import Pipeline, { MpPose, Classfier } from '@zipingym/pose-input';
+import {
+  TfliteClassfier,
+  Pipeline,
+  MpJointPosition,
+  DisPreprocesser,
+} from '@zipingym/pose-input';
 
 import model from '$asset/tflite/work.tflite';
 import WebcamBuilder from '$/util/Webcam';
 import Trigger from './trigger/Trigger';
 import DumbleTrigger from './trigger/DumbleTrigger';
-import JsMiddleware from '../JsMiddleware';
 import Config from '$/static/config/Config';
 
 export default class ExerciseInput extends Input {
@@ -21,14 +25,28 @@ export default class ExerciseInput extends Input {
         camera.width = 360;
         this.inputVideo = camera;
         this.inputVideo.play();
-        Promise.all([MpPose(), Classfier(model), ExerciseInput.loadBackend()])
-          .then(([bzmodel, classfier]) => {
-            this.pipeline = Pipeline(bzmodel, JsMiddleware.calc, classfier);
-            setTimeout(() => {
-              setInterval(this.update.bind(this), 1000 / frameRate);
-            }, 3000);
-          })
-          .catch((e) => {});
+        const classfier = new TfliteClassfier(model);
+        const processer = new DisPreprocesser();
+        const jointPosition = new MpJointPosition({
+          modelComplexity: 1,
+        });
+        Promise.all([
+          classfier.init(),
+          jointPosition.init(),
+          ExerciseInput.loadBackend(),
+        ]).then(() => {
+          const pipeline = new Pipeline();
+          pipeline.setClassfier(classfier);
+          pipeline.setJointPosition(jointPosition);
+          pipeline.setPreprocesser(processer);
+          setTimeout(() => {
+            setInterval(() => {
+              pipeline.run(this.inputVideo!).then((result) => {
+                this.trigger.call(result);
+              });
+            }, 1000 / 30);
+          }, 3000);
+        });
       }
     );
   }
