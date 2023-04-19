@@ -29,7 +29,7 @@ export default class Core {
     if (Config.get.debugUI) {
       await import('@babylonjs/inspector');
       this.scene.debugLayer.show({
-        overlay: true,
+        overlay: false,
       });
     } else {
       this.scene.debugLayer.hide();
