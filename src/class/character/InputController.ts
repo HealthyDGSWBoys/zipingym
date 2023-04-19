@@ -21,6 +21,9 @@ export default class InputController extends Controller<TransformNode> {
   public init(): void {
     this.positionAnimation = new AccelateAnimation(this.target, 'position');
     this.rotationAnimation = new KeyframeAnimation(this.target, 'rotation');
+    this.positionAnimation.report = (d) => {
+      console.log(Math.abs(d.x) + Math.abs(d.z) > 0.01);
+    };
   }
 
   private onInputEvent(res: InputMap) {
