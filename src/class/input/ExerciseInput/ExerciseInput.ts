@@ -12,10 +12,10 @@ import WebcamBuilder from '$/util/Webcam';
 import Trigger from './trigger/Trigger';
 import DumbleTrigger from './trigger/DumbleTrigger';
 import Config from '$/static/config/Config';
+import UpdateLoop from '$/static/core/UpdateLoop';
 
 export default class ExerciseInput extends Input {
   private inputVideo?: HTMLVideoElement;
-  private pipeline?: (video: HTMLVideoElement) => Promise<Array<number>>;
   private trigger: Trigger;
   constructor(inputVideo?: HTMLVideoElement, frameRate: number = 30) {
     super();
@@ -40,11 +40,18 @@ export default class ExerciseInput extends Input {
           pipeline.setJointPosition(jointPosition);
           pipeline.setPreprocesser(processer);
           setTimeout(() => {
+            UpdateLoop.get.append(() => {});
             setInterval(() => {
               pipeline.run(this.inputVideo!).then((result) => {
-                this.trigger.call(result);
+                const trigger = this.trigger.call({
+                  ...result,
+                  deltaTime: 1000 / frameRate,
+                });
+                if (trigger != undefined) {
+                  this.onInput(trigger);
+                }
               });
-            }, 1000 / 30);
+            }, 1000 / frameRate);
           }, 3000);
         });
       }

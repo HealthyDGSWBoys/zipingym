@@ -1,10 +1,10 @@
 import { TransformNode, Vector3 } from '@babylonjs/core';
 import CustomAnimation from './CustomAnimation';
+import UpdateLoop from '$/static/core/UpdateLoop';
 
 export default class AccelateAnimation implements CustomAnimation {
   private target: TransformNode;
   private type: 'position' | 'rotation';
-  private frameRate: number = 60;
   private animationQueue = new Array<{
     onmillsec: Vector3;
     duration: number;
@@ -13,7 +13,7 @@ export default class AccelateAnimation implements CustomAnimation {
   constructor(target: TransformNode, type: 'position' | 'rotation') {
     this.target = target;
     this.type = type;
-    setInterval(this.update.bind(this), 1000 / this.frameRate);
+    UpdateLoop.get.append(this.update.bind(this));
   }
   public animate(type: 'add' | 'set', vector: Vector3, duration: number) {
     const delta =
@@ -25,8 +25,7 @@ export default class AccelateAnimation implements CustomAnimation {
       duration,
     });
   }
-  private update() {
-    const deltaTime = 1000 / this.frameRate;
+  private update(deltaTime: number) {
     const final = new Vector3();
     this.animationQueue.forEach(({ onmillsec, duration }, idx) => {
       const delta = duration - deltaTime <= 0 ? duration : deltaTime;
