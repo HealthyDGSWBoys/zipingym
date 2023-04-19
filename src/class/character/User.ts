@@ -6,7 +6,6 @@ import Character from './Character';
 import { UniversalCamera, Vector3 } from '@babylonjs/core';
 import InputController from './InputController';
 import Command from '$/static/command/Command';
-import UpdateLoop from '$/static/core/UpdateLoop';
 
 export default class User extends Character {
   constructor(model: ModelNameUnion, name: string) {
@@ -24,7 +23,8 @@ export default class User extends Character {
       this.addController(
         new InputController(
           InputFactory.GetInput(input),
-          Command.get.world.roadTree
+          Command.get.world.roadTree,
+          this.animations
         )
       );
     });

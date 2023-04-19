@@ -1,4 +1,9 @@
-import { TransformNode, Vector3 } from '@babylonjs/core';
+import {
+  AnimationGroup,
+  AnimationPropertiesOverride,
+  TransformNode,
+  Vector3,
+} from '@babylonjs/core';
 import { Controller } from '../controller/Controller';
 import { Inputable } from '../input/Inputable';
 import { InputMap } from '../input/InputMap';
@@ -12,7 +17,11 @@ export default class InputController extends Controller<TransformNode> {
   private positionAnimation: AccelateAnimation | undefined;
   private rotationAnimation: KeyframeAnimation | undefined;
   private moveValid: MovementValidation;
-  constructor(private input: Inputable, private roadTree: RoadTree) {
+  constructor(
+    private input: Inputable,
+    private roadTree: RoadTree,
+    private animations: Array<AnimationGroup>
+  ) {
     super();
     this.moveValid = new MovementValidation(this.roadTree);
     this.input.setOnInput(this.onInputEvent.bind(this));
@@ -21,8 +30,15 @@ export default class InputController extends Controller<TransformNode> {
   public init(): void {
     this.positionAnimation = new AccelateAnimation(this.target, 'position');
     this.rotationAnimation = new KeyframeAnimation(this.target, 'rotation');
+    this.animations.forEach((animation) => {});
     this.positionAnimation.report = (d) => {
-      console.log(Math.abs(d.x) + Math.abs(d.z) > 0.01);
+      if (Math.abs(d.x) + Math.abs(d.z) != 0) {
+        this.animations[1].play();
+        this.animations[3].pause();
+      } else {
+        this.animations[3].play();
+        this.animations[1].pause();
+      }
     };
   }
 
