@@ -1,5 +1,5 @@
 import Backend from '$/interface/Backend';
-import ModelStorage from '$/static/model/ModelStorage';
+import ModelStorage from '$/global/model/ModelStorage';
 import { TreeNode } from '$/util/Tree';
 import Lava from './Lava';
 import RoadTree, { RoadRenderNode } from './RoadTree';

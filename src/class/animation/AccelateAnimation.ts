@@ -1,6 +1,6 @@
 import { TransformNode, Vector3 } from '@babylonjs/core';
 import CustomAnimation from './CustomAnimation';
-import UpdateLoop from '$/static/core/UpdateLoop';
+import UpdateLoop from '$/global/core/UpdateLoop';
 
 export default class AccelateAnimation implements CustomAnimation {
   private target: TransformNode;

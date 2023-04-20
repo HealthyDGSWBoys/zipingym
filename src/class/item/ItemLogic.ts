@@ -1,5 +1,5 @@
 import { Update } from '$/interface/Updateable';
-import Command from '$/static/command/Command';
+import Command from '$/global/command/Command';
 import Random from '$/util/Random';
 import { TransformNode, Vector3 } from '@babylonjs/core';
 import ItemFactory from './ItemFactory';

@@ -1,6 +1,6 @@
-import Core from '$/static/core/Core';
-import ModelStorage from '$/static/model/ModelStorage';
-import { ModelNameUnion } from '$/static/model/Models';
+import Core from '$/global/core/Core';
+import ModelStorage from '$/global/model/ModelStorage';
+import { ModelNameUnion } from '$/global/model/Models';
 import { ControlTarget } from '../controller/Controlable';
 import { AnimationGroup, Node, TransformNode, Vector3 } from '@babylonjs/core';
 

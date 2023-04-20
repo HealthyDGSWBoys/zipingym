@@ -1,4 +1,4 @@
-import Command from '$/static/command/Command';
+import Command from '$/global/command/Command';
 import Tree from '$/util/Tree';
 import { InputMap } from '../input/InputMap';
 import RoadCalculator from '../world/RoadCalculator';

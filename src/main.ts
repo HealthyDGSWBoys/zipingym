@@ -1,10 +1,10 @@
-import App from './static/app/App';
+import App from './global/app/App';
 
 const root = document.getElementById('app')!;
 App.set(root, {
   debugUI: true,
   production: __ISPRODUCTION__,
-  input: ['keyboard'],
+  input: ['keyboard', 'exercise'],
   baseURL: '',
   engine: 'webgl',
 });
