@@ -73,7 +73,10 @@ export default class DumbleTrigger extends Trigger {
           this.inserting(2);
         }
       }
-      console.log(this.getMove());
+      const temp = this.getMove();
+      if (temp !== null) {
+        console.log(temp);
+      }
     }
     return null;
   }
