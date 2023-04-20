@@ -9,7 +9,7 @@ export default class MovementValidation {
   public static straightMovement: number = 6;
   public currentPos: number = 3;
   public currentSide: -1 | 0 | 1 = 0;
-  constructor(private roadTree: RoadTree) {}
+  constructor(public roadTree: RoadTree) {}
 
   public validate(input: InputMap): number {
     if (input == 'straight') {

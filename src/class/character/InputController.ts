@@ -7,7 +7,6 @@ import {
 import { Controller } from '../controller/Controller';
 import { Inputable } from '../input/Inputable';
 import { InputMap } from '../input/InputMap';
-import RoadTree from '../world/RoadTree';
 import RoadCalculator from '../world/RoadCalculator';
 import AccelateAnimation from '../animation/AccelateAnimation';
 import MovementValidation from './MovementValidation';
@@ -16,14 +15,12 @@ import KeyframeAnimation from '../animation/KeyframeAnimation';
 export default class InputController extends Controller<TransformNode> {
   private positionAnimation: AccelateAnimation | undefined;
   private rotationAnimation: KeyframeAnimation | undefined;
-  private moveValid: MovementValidation;
   constructor(
     private input: Inputable,
-    private roadTree: RoadTree,
+    private moveValid: MovementValidation,
     private animations: Array<AnimationGroup>
   ) {
     super();
-    this.moveValid = new MovementValidation(this.roadTree);
     this.input.setOnInput(this.onInputEvent.bind(this));
   }
 
@@ -49,7 +46,7 @@ export default class InputController extends Controller<TransformNode> {
         'add',
         RoadCalculator.calcRotToDir(
           RoadCalculator.calcAbsoluteRot(
-            this.roadTree.tree.root.val.rotation,
+            this.moveValid.roadTree.tree.root.val.rotation,
             res == 'right' ? 'l' : 'r'
           ),
           MovementValidation.sideMovement
@@ -65,7 +62,10 @@ export default class InputController extends Controller<TransformNode> {
     } else {
       this.positionAnimation?.animate(
         'add',
-        RoadCalculator.calcRotToDir(this.roadTree.tree.root.val.rotation, val),
+        RoadCalculator.calcRotToDir(
+          this.moveValid.roadTree.tree.root.val.rotation,
+          val
+        ),
         200
       );
     }
