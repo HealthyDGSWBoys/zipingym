@@ -12,7 +12,7 @@ import WebcamBuilder from '$/util/Webcam';
 import Trigger from './trigger/Trigger';
 import DumbleTrigger from './trigger/DumbleTrigger';
 import Config from '$/global/config/Config';
-import UpdateLoop from '$/global/core/UpdateLoop';
+import UpdateLoop from '$/global/legacyCore/UpdateLoop';
 
 export default class ExerciseInput extends Input {
   private inputVideo?: HTMLVideoElement;

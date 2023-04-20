@@ -1,4 +1,4 @@
-import Core from '$/global/core/Core';
+import Core from '$/global/legacyCore/Core';
 import { DirectionalLight, HemisphericLight, Vector3 } from '@babylonjs/core';
 import ItemLogic from '../item/ItemLogic';
 

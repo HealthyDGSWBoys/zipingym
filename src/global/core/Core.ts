@@ -1,66 +1,29 @@
-import {
-  Color4,
-  DirectionalLight,
-  HemisphericLight,
-  Scene,
-  TransformNode,
-  Vector3,
-} from '@babylonjs/core';
-import buildEngine from './buildEngine';
-import UpdateLoop from './UpdateLoop';
-import Config from '../config/Config';
+import { Scene } from '@babylonjs/core';
+import BuildCore from './build/BuildCore';
 
 export default class Core {
   private static instance: Core;
-  private parent: HTMLElement;
-  //@ts-expect-error
-  private _scene: Scene;
-
-  public static RootName = '@root';
-
-  private constructor(parent: HTMLElement) {
-    this.parent = parent;
-  }
-
-  public async init() {
-    this._scene = new Scene(await buildEngine());
-    this.parent.appendChild(this.scene.getEngine().getRenderingCanvas()!);
-
-    if (Config.get.debugUI) {
-      await import('@babylonjs/inspector');
-      this.scene.debugLayer.show({
-        overlay: false,
-      });
-    } else {
-      this.scene.debugLayer.hide();
-    }
-    this.scene.clearColor = new Color4(0.2, 0.5, 0.7, 1);
-    this.scene.getEngine().setHardwareScalingLevel(1 / window.devicePixelRatio);
-    this.scene.addTransformNode(new TransformNode(Core.RootName));
-  }
-
-  public static set(parent: HTMLElement) {
+  private constructor() {}
+  public static async set(parent: HTMLElement) {
     if (this.instance == null) {
-      this.instance = new Core(parent);
-      UpdateLoop.set();
+      this.instance = new Core();
+      await this.instance.init(parent);
     }
   }
-
-  public static run() {
-    this.instance.scene.getEngine().runRenderLoop(() => {
-      UpdateLoop.get.update();
-    });
+  private async init(parent: HTMLElement) {
+    const { canvas, scene } = await BuildCore.build(parent);
+    this._canvas = canvas;
+    this._scene = scene;
   }
-
-  public static get get() {
-    return this.instance;
+  private _canvas?: HTMLCanvasElement;
+  private _scene?: Scene;
+  public get rootElement(): HTMLElement {
+    if (this._canvas == null || this._canvas.parentElement == null)
+      throw new Error("Core isn't initalized");
+    else return this._canvas.parentElement;
   }
-
-  public get scene(): Scene {
-    return this._scene!;
-  }
-
-  public get root(): TransformNode {
-    return this.scene.getNodeByName(Core.RootName)! as TransformNode;
+  public get scene() {
+    if (this._scene == null) throw new Error("Core isn't initalized");
+    else return this._scene;
   }
 }

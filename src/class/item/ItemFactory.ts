@@ -1,7 +1,7 @@
 import { TransformNode, Vector3 } from '@babylonjs/core';
 import { ItemInfo } from './itemlist';
 import ModelStorage from '$/global/model/ModelStorage';
-import Core from '$/global/core/Core';
+import Core from '$/global/legacyCore/Core';
 
 export default class ItemFactory {
   private static range: number = 1;

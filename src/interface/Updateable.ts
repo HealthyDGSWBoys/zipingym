@@ -1,4 +1,4 @@
-import UpdateLoop from '$/global/core/UpdateLoop';
+import UpdateLoop from '$/global/legacyCore/UpdateLoop';
 
 export interface Updateable {
   update(deltaTime: number): void;

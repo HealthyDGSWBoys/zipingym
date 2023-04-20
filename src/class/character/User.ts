@@ -1,5 +1,5 @@
 import Config from '$/global/config/Config';
-import Core from '$/global/core/Core';
+import Core from '$/global/legacyCore/Core';
 import { ModelNameUnion } from '$/global/model/Models';
 import InputFactory, { InputType } from '../input/InputFactory';
 import Character from './Character';

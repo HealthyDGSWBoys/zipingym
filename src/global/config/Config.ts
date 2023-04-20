@@ -11,6 +11,19 @@ export default class Config implements RawConfig {
     }
     return Config.instance;
   }
+  public static async set(config: RawConfig) {
+    if (this.instance == null) {
+      if (config.engine == undefined) {
+        config.engine = (await WebGPUEngine.IsSupportedAsync)
+          ? 'webgpu'
+          : 'webgl';
+      }
+      this.instance = new Config(config);
+    }
+  }
+  public static get get() {
+    return this.instance;
+  }
 
   get debugUI() {
     return this.production ? false : this.config.debugUI;
@@ -30,21 +43,6 @@ export default class Config implements RawConfig {
 
   get engine() {
     return this.config.engine;
-  }
-
-  public static async set(config: RawConfig) {
-    if (config.engine == undefined) {
-      config.engine = (await WebGPUEngine.IsSupportedAsync)
-        ? 'webgpu'
-        : 'webgl';
-    }
-    if (this.instance == null) {
-      this.instance = new Config(config);
-    }
-  }
-
-  public static get get() {
-    return this.instance;
   }
 }
 

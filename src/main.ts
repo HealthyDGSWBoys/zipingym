@@ -1,7 +1,7 @@
 import App from './global/app/App';
 
 const root = document.getElementById('app')!;
-App.set(root, {
+App.init(root, {
   debugUI: true,
   production: __ISPRODUCTION__,
   input: ['keyboard', 'exercise'],
