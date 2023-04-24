@@ -6,7 +6,6 @@ export default class BuildScene {
     const scene = new Scene(engine);
     scene.clearColor = new Color4(0.2, 0.5, 0.7, 1);
     scene.getEngine().setHardwareScalingLevel(1 / window.devicePixelRatio);
-    scene.addTransformNode(new TransformNode('@Root'));
     return scene;
   }
 }

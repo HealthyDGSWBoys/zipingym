@@ -20,6 +20,7 @@ export default class Config implements RawConfig {
       }
       this.instance = new Config(config);
     }
+    return this.instance;
   }
   public static get get() {
     return this.instance;
