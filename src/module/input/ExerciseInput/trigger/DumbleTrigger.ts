@@ -3,6 +3,7 @@ import Trigger from './Trigger';
 
 export default class DumbleTrigger extends Trigger {
   private deque: number[] = [];
+  private turn: number = 0;
 
   private getLowestValue = (array: number[]) => {
     let map = new Map();
@@ -22,20 +23,22 @@ export default class DumbleTrigger extends Trigger {
   };
 
   private inserting = (activity: number) => {
-    if (this.deque.length > 100) {
+    if (this.deque.length > 5) {
       this.deque.shift();
     }
     this.deque.push(activity);
   };
 
   private getMove = (): number | null => {
-    if (this.getLowestValue(this.deque.slice(0, 50)) === 0) {
-      const curActivity = this.getLowestValue(this.deque.slice(50, 100));
-      if (curActivity !== 0) {
-        return curActivity;
-      }
+    const nowPos = this.getLowestValue(this.deque);
+    if (nowPos === 0 && this.turn !== 0) {
+      const temp = this.turn;
+      this.turn = 0;
+      return temp;
+    } else {
+      this.turn = nowPos;
+      return null;
     }
-    return null;
   };
 
   public call({
@@ -74,10 +77,23 @@ export default class DumbleTrigger extends Trigger {
         }
       }
       const temp = this.getMove();
-      if (temp !== null) {
-        console.log(temp);
+      if (temp != null) {
+        return this.numberToInputMap(temp);
       }
     }
     return null;
+  }
+
+  private numberToInputMap(n: number): InputMap | null {
+    switch (n) {
+      case 1:
+        return 'left';
+      case 2:
+        return 'right';
+      case 3:
+        return 'straight';
+      default:
+        return null;
+    }
   }
 }
