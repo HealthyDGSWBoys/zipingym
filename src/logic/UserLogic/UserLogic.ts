@@ -1,5 +1,5 @@
 import Config from '$/global/config/Config';
-import Data from '$/global/data/Data';
+import Data from '$/data/Data';
 import InputFactory from '$/module/input/InputFactory';
 import { InputMap } from '$/module/input/InputMap';
 import { Inputable } from '$/module/input/Inputable';

@@ -1,6 +1,6 @@
 import { Color3, MeshBuilder, Texture, Vector3 } from '@babylonjs/core';
 import { Controller } from '../controller/Controller';
-import Core from '$/global/legacyCore/Core';
+import Core from '$/@legacy/legacyCore/Core';
 import ColaTexture from '$asset/material/Cola3.png';
 import BumpTexture from '$asset/material/LavaBump2.jpg';
 import { LavaMaterial } from '@babylonjs/materials';

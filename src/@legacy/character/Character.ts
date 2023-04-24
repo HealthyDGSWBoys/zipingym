@@ -1,4 +1,4 @@
-import Core from '$/global/legacyCore/Core';
+import Core from '$/@legacy/legacyCore/Core';
 import ModelStorage from '$/global/model/ModelStorage';
 import { ModelNameUnion } from '$/global/model/Models';
 import { ControlTarget } from '../controller/Controlable';

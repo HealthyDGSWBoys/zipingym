@@ -7,7 +7,7 @@ import {
   Vector3,
 } from '@babylonjs/core';
 import UpdateLoop from './UpdateLoop';
-import Config from '../config/Config';
+import Config from '../../global/config/Config';
 import BuildEngine from './build/engine';
 
 export default class Core {

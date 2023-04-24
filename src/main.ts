@@ -1,4 +1,4 @@
-import App from './global/app/App';
+import App from './app/App';
 
 const root = document.getElementById('app')!;
 App.init(root, {

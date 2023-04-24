@@ -1,4 +1,4 @@
-import { InputType } from '$/class/input/InputFactory';
+import { InputType } from '$/@legacy/input/InputFactory';
 import { WebGPUEngine } from '@babylonjs/core';
 
 export default class Config implements RawConfig {

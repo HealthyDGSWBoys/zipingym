@@ -1,5 +1,5 @@
 import { Scene } from '@babylonjs/core';
-import Config from '../config/Config';
+import Config from '../global/config/Config';
 
 export default class DebugUI {
   public static async init(scene: Scene) {

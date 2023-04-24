@@ -1,7 +1,7 @@
 import { AssetContainer, Engine } from '@babylonjs/core';
 import Models, { ModelNameUnion } from './Models';
 import { LoadAll } from './Load';
-import Core from '../legacyCore/Core';
+import Core from '../../@legacy/legacyCore/Core';
 
 export default class ModelStorage {
   private static instance: ModelStorage;

@@ -1,4 +1,4 @@
-import Data from '$/global/data/Data';
+import Data from '$/data/Data';
 import UserLogic from './UserLogic/UserLogic';
 
 export default class Logic {

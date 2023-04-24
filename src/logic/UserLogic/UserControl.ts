@@ -30,5 +30,6 @@ export default class UserControl {
         }
       }
     }
+    console.log(this.userData.currentRank, this.userData.currentRow);
   }
 }

@@ -1,7 +1,7 @@
-import Logic from '$/class/logic/Logic';
+import Logic from '$/@legacy/logic/Logic';
 import { Update } from '$/interface/Updateable';
-import User from '../../class/character/User';
-import World from '$/class/world/World';
+import User from '../../@legacy/character/User';
+import World from '$/@legacy/world/World';
 
 export default class Command extends Update {
   private static instance: Command;

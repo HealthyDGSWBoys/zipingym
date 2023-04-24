@@ -1,5 +1,5 @@
 import { RoadInfo } from '$/data/WorldData/WorldData';
-import AssetContainerLoader from '$/loader/AssetContainerLoader';
+import AssetContainerLoader from '$/util/loader/AssetContainerLoader';
 import Random from '$/util/Random';
 import { AssetContainer, Scene, TransformNode } from '@babylonjs/core';
 
