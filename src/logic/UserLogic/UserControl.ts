@@ -11,12 +11,24 @@ export default class UserControl {
   public input(input: InputMap) {
     if (input == 'straight') {
       const currentRank = this.userData.currentRank;
-      const roadLength = this.worldData.length();
-      console.log(roadLength, currentRank);
-      if (roadLength - currentRank > this.rankSpeed) {
-        this.userData.move('rank', this.rankSpeed);
-      } else this.userData.move('row', roadLength - currentRank);
+      const roadLength = this.worldData.getNodeLength();
+      this.userData.move(
+        'rank',
+        roadLength - currentRank > this.rankSpeed
+          ? this.rankSpeed
+          : roadLength - currentRank
+      );
     } else {
+      if (this.userData.currentRank === this.worldData.getNodeLength()) {
+        const rotateDirection = input == 'left' ? 'l' : 'r';
+        this.userData.rotate(rotateDirection);
+        this.worldData.rotate(rotateDirection);
+      } else {
+        const speed = this.rowSpeed * (input == 'left' ? -1 : 1);
+        if (speed != this.userData.currentRow) {
+          this.userData.move('row', speed);
+        }
+      }
     }
   }
 }

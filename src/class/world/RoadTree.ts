@@ -1,6 +1,9 @@
 import Tree, { TreeNode } from '$/util/Tree';
 import { TransformNode, Vector3 } from '@babylonjs/core';
-import RoadCalculator, { direction, rotation } from './RoadCalculator';
+import RoadCalculator, {
+  direction,
+  rotation,
+} from '../../data/WorldData/RoadCalculator';
 import Random from '$/util/Random';
 
 export default class RoadEngine {

@@ -14,4 +14,9 @@ export default class UserData {
   public move(direction: 'row' | 'rank', speed: number) {
     this[direction == 'row' ? '_currentRow' : '_currentRank'] += speed;
   }
+
+  public rotate(direction: 'l' | 'r') {
+    this._currentRank = (direction == 'l' ? -1 : 1) * this.currentRow;
+    this._currentRow = 0;
+  }
 }

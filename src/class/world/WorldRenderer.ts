@@ -2,7 +2,7 @@ import Renderer from '$/interface/Renderer';
 import { AssetContainer, TransformNode, Vector3 } from '@babylonjs/core';
 import RoadTree from './RoadTree';
 import Core from '$/global/legacyCore/Core';
-import RoadCalculator from './RoadCalculator';
+import RoadCalculator from '../../data/WorldData/RoadCalculator';
 import Random from '$/util/Random';
 import { WorldRenderInfo } from './World';
 

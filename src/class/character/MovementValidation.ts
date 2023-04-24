@@ -1,7 +1,7 @@
 import Command from '$/global/command/Command';
 import Tree from '$/util/Tree';
 import { InputMap } from '../input/InputMap';
-import RoadCalculator from '../world/RoadCalculator';
+import RoadCalculator from '../../data/WorldData/RoadCalculator';
 import RoadTree, { RoadInfoNode } from '../world/RoadTree';
 
 export default class MovementValidation {

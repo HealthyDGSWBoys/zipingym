@@ -7,7 +7,7 @@ import {
 import { Controller } from '../controller/Controller';
 import { Inputable } from '../input/Inputable';
 import { InputMap } from '../input/InputMap';
-import RoadCalculator from '../world/RoadCalculator';
+import RoadCalculator from '../../data/WorldData/RoadCalculator';
 import AccelateAnimation from '../animation/AccelateAnimation';
 import MovementValidation from './MovementValidation';
 import KeyframeAnimation from '../animation/KeyframeAnimation';

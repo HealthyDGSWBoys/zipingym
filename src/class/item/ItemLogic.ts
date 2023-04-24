@@ -4,7 +4,7 @@ import Random from '$/util/Random';
 import { TransformNode, Vector3 } from '@babylonjs/core';
 import ItemFactory from './ItemFactory';
 import Itemlist from './itemlist';
-import { rotation } from '../world/RoadCalculator';
+import { rotation } from '../../data/WorldData/RoadCalculator';
 
 export default class ItemLogic extends Update {
   private itemFactorys: Map<ItemFactory, number>;
