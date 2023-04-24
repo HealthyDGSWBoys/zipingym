@@ -34,13 +34,13 @@ export default class DumbleTrigger extends Trigger {
     if (nowPos !== 0 && this.turn === 0) { // 
       this.turn = nowPos
       return null
-    }
-    if (nowPos === 0 && this.turn !== 0) {
+    } else if (nowPos === 0 && this.turn !== 0) {
       const temp = this.turn
       this.turn = 0
       return temp
+    } else {
+      return null
     }
-    return null
   };
 
   public call({
