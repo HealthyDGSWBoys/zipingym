@@ -30,14 +30,14 @@ export default class DumbleTrigger extends Trigger {
   };
 
   private getMove = (): number | null => {
-    const nowPos = this.getLowestValue(this.deque)
+    const nowPos = this.getLowestValue(this.deque);
     if (nowPos === 0 && this.turn !== 0) {
-      const temp = this.turn
-      this.turn = 0
-      return temp
+      const temp = this.turn;
+      this.turn = 0;
+      return temp;
     } else {
-      this.turn = nowPos
-      return null
+      this.turn = nowPos;
+      return null;
     }
   };
 
@@ -77,10 +77,23 @@ export default class DumbleTrigger extends Trigger {
         }
       }
       const temp = this.getMove();
-      if (temp !== null) {
-        console.log(temp);
+      if (temp != null) {
+        return this.numberToInputMap(temp);
       }
     }
     return null;
+  }
+
+  private numberToInputMap(n: number): InputMap | null {
+    switch (n) {
+      case 1:
+        return 'left';
+      case 2:
+        return 'right';
+      case 3:
+        return 'straight';
+      default:
+        return null;
+    }
   }
 }
