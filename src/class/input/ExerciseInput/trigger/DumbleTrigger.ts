@@ -3,6 +3,7 @@ import Trigger from './Trigger';
 
 export default class DumbleTrigger extends Trigger {
   private deque: number[] = [];
+  private turn: number = 0;
 
   private getLowestValue = (array: number[]) => {
     let map = new Map();
@@ -29,13 +30,17 @@ export default class DumbleTrigger extends Trigger {
   };
 
   private getMove = (): number | null => {
-    if (this.getLowestValue(this.deque.slice(0, 50)) === 0) {
-      const curActivity = this.getLowestValue(this.deque.slice(50, 100));
-      if (curActivity !== 0) {
-        return curActivity;
-      }
+    const nowPos = this.getLowestValue(this.deque)
+    if (nowPos !== 0 && this.turn === 0) { // 
+      this.turn = nowPos
+      return null
     }
-    return null;
+    if (nowPos === 0 && this.turn !== 0) {
+      const temp = this.turn
+      this.turn = 0
+      return temp
+    }
+    return null
   };
 
   public call({
