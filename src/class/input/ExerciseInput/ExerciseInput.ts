@@ -47,6 +47,9 @@ export default class ExerciseInput extends Input {
                   ...result,
                   deltaTime: 1000 / frameRate,
                 });
+                if (trigger !== null) {
+                  console.log(trigger)
+                }
                 if (trigger != undefined) {
                   this.onInput(trigger);
                 }

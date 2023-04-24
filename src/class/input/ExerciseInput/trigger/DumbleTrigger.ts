@@ -23,7 +23,7 @@ export default class DumbleTrigger extends Trigger {
   };
 
   private inserting = (activity: number) => {
-    if (this.deque.length > 100) {
+    if (this.deque.length > 5) {
       this.deque.shift();
     }
     this.deque.push(activity);
@@ -31,14 +31,12 @@ export default class DumbleTrigger extends Trigger {
 
   private getMove = (): number | null => {
     const nowPos = this.getLowestValue(this.deque)
-    if (nowPos !== 0 && this.turn === 0) { // 
-      this.turn = nowPos
-      return null
-    } else if (nowPos === 0 && this.turn !== 0) {
+    if (nowPos === 0 && this.turn !== 0) {
       const temp = this.turn
       this.turn = 0
       return temp
     } else {
+      this.turn = nowPos
       return null
     }
   };
