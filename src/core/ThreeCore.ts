@@ -17,21 +17,10 @@ abstract class OnOffCore {
 }
 
 export default class ThreeCore extends OnOffCore {
-  private root: TransformNode;
   constructor(scene: Scene) {
     super(scene);
-    this.root = new TransformNode('@root');
-    this.scene.addTransformNode(this.root);
   }
-  public async init() {
-    new WorldCore(
-      this.scene,
-      this.root,
-      await WorldCore.load([colaTheme], this.scene)
-    );
-    new UserCore(this.scene);
-    new ItemCore(this.scene);
-  }
+  public async init() {}
   protected update(): void {
     this.scene.render();
   }

@@ -1,8 +1,10 @@
 import WorldData from '$/data/WorldData/WorldData';
 import Tree from '$/util/Tree';
 import { Vector3 } from '@babylonjs/core';
-import Core from '../global/core/Core';
+import Core from '$/core/Core';
 import UserData from '$/data/CharacterData/UserData';
+import WorldCoreImpl from '$/core/WorldCore/WorldCoreImpl';
+import UserCore from '$/core/UserCore/UserCore';
 
 export default class Data {
   private static instance: Data;
@@ -12,8 +14,10 @@ export default class Data {
 
   private constructor(private core: Core) {
     // core.threeCore.
-    this.userData = new UserData();
+
+    this.userData = new UserData(new UserCore(core.scene));
     this.worldData = new WorldData(
+      new WorldCoreImpl(core.scene, core.root, core.roadMeshs!),
       new Tree({
         length: 3,
         origin: 'f',

@@ -1,8 +1,10 @@
+import UserCore from '$/core/UserCore/UserCore';
+
 export default class UserData {
   private _currentRow: number = 0;
   private _currentRank: number = 0;
 
-  constructor() {}
+  constructor(private userCore: UserCore) {}
 
   public get currentRow() {
     return this._currentRow;

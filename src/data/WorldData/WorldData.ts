@@ -5,7 +5,7 @@ import BuildWorld from './BuildWorld';
 
 export default class WorldData {
   private static roadLength: number = 15;
-  constructor(private roadTree: Tree<RoadInfo>) {
+  constructor(private worldCore: WorldCore, private roadTree: Tree<RoadInfo>) {
     // const builder = new BuildWorld(this.roadTree, 3);
   }
   public getNodeLength(node: TreeNode<RoadInfo> = this.roadTree.getRoot) {
