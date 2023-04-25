@@ -6,7 +6,10 @@ import BuildWorld from './BuildWorld';
 export default class WorldData {
   private static roadLength: number = 15;
   constructor(private worldCore: WorldCore, private roadTree: Tree<RoadInfo>) {
-    // const builder = new BuildWorld(this.roadTree, 3);
+    const builder = new BuildWorld(this.roadTree, 3);
+    builder.buildChildren().forEach((e) => {
+      worldCore.drawRoad(e.val);
+    });
   }
   public getNodeLength(node: TreeNode<RoadInfo> = this.roadTree.getRoot) {
     return node.val.length * WorldData.roadLength;

@@ -7,17 +7,14 @@ import RoadCalculator from '$/data/WorldData/RoadCalculator';
 
 export default class WorldCoreImpl implements WorldCore {
   // private deps: number = 0;
-  private theme: string;
+  private theme: string = '0';
   private deployLRoad: Map<RoadInfo, Array<TransformNode>> = new Map();
 
   constructor(
     private scene: Scene,
     private root: TransformNode,
     private meshs: RoadMeshs
-  ) {
-    this.theme = Object.keys(meshs)[0];
-    console.log(meshs);
-  }
+  ) {}
   setTheme(theme: string): void {
     if (this.meshs.has(theme)) this.theme = theme;
     else throw new Error('Theme is not exist in [WorldCoreImpl.ts]');
@@ -55,26 +52,7 @@ export default class WorldCoreImpl implements WorldCore {
         m.dispose();
       });
     }
-    // throw new Error('Method not implemented.');
   }
-
-  // public set setTheme(theme: string) {
-  //   if (this.meshs.has(theme)) this.theme = theme;
-  //   else throw new Error('No Theme have');
-  // }
-  // public get getTheme() {
-  //   return this.theme;
-  // }
-  // private get getRandomMesh() {
-  //   return Random.getRandom(this.meshs.get(this.theme)!);
-  // }
-  // public drawRoad(roadInfo: Array<RoadInfo>) {
-  //   roadInfo.forEach((info) => {
-  //     const mesh = this.getRandomMesh.clone(String(this.deps), this.root)!;
-  //     mesh.position.set(info.position.x, info.position.y, info.position.z);
-  //   });
-  //   this.deps++;
-  // }
   private static findRoadNodeRegex = new RegExp('^\\$');
   public static load(themes: Array<string>, scene: Scene): Promise<RoadMeshs> {
     return new Promise((resolve, reject) => {

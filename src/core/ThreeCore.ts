@@ -4,7 +4,7 @@ import WorldCore from './WorldCore/WorldCore';
 import UserCore from './UserCore/UserCore';
 import colaTheme from '$asset/model/stage1_5.glb';
 
-abstract class OnOffCore {
+export abstract class OnOffCore {
   constructor(protected scene: Scene) {}
 
   public run() {
@@ -20,7 +20,6 @@ export default class ThreeCore extends OnOffCore {
   constructor(scene: Scene) {
     super(scene);
   }
-  public async init() {}
   protected update(): void {
     this.scene.render();
   }

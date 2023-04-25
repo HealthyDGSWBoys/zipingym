@@ -5,6 +5,7 @@ import Core from '$/core/Core';
 import UserData from '$/data/CharacterData/UserData';
 import WorldCoreImpl from '$/core/WorldCore/WorldCoreImpl';
 import UserCore from '$/core/UserCore/UserCore';
+import LoadCore from '$/core/LoadCore';
 
 export default class Data {
   private static instance: Data;
@@ -12,9 +13,7 @@ export default class Data {
   public userData: UserData;
   public worldData: WorldData;
 
-  private constructor(private core: Core) {
-    // core.threeCore.
-
+  private constructor(private core: LoadCore) {
     this.userData = new UserData(new UserCore(core.scene));
     this.worldData = new WorldData(
       new WorldCoreImpl(core.scene, core.root, core.roadMeshs!),
@@ -26,7 +25,7 @@ export default class Data {
       })
     );
   }
-  public static async set(core: Core) {
+  public static async set(core: LoadCore) {
     this.instance = new Data(core);
     return this.instance;
   }
