@@ -1,4 +1,5 @@
 import { Vector3 } from '@babylonjs/core';
+import { rotation } from './WorldData';
 
 export default class RoadCalculator {
   public static RoadLength = 30;
@@ -52,6 +53,3 @@ export default class RoadCalculator {
     }
   }
 }
-
-export type direction = 'l' | 'f' | 'r';
-export type rotation = 'l' | 'r' | 'u' | 'd';

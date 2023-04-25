@@ -4,9 +4,9 @@ import { Vector3 } from '@babylonjs/core/Maths/math';
 import BuildWorld from './BuildWorld';
 
 export default class WorldData {
-  private static roadLength: number = 15;
+  private static roadLength: number = 30;
   constructor(private worldCore: WorldCore, private roadTree: Tree<RoadInfo>) {
-    const builder = new BuildWorld(this.roadTree, 3);
+    const builder = new BuildWorld(this.roadTree, 2);
     worldCore.drawRoad(roadTree.getRoot.val);
     builder.buildChildren().forEach((e) => {
       worldCore.drawRoad(e.val);

@@ -4,7 +4,7 @@ import { InputMap } from '$/module/input/InputMap';
 
 export default class UserControl {
   public rowSpeed: number = 1.5;
-  public rankSpeed: number = 3;
+  public rankSpeed: number = 6;
 
   constructor(protected userData: UserData, protected worldData: WorldData) {}
 
@@ -14,7 +14,7 @@ export default class UserControl {
       const roadLength = this.worldData.getNodeLength();
       this.userData.move(
         'rank',
-        roadLength - currentRank > this.rankSpeed
+        Math.abs(roadLength - currentRank) > this.rankSpeed
           ? this.rankSpeed
           : roadLength - currentRank
       );
@@ -30,6 +30,6 @@ export default class UserControl {
         }
       }
     }
-    console.log(this.userData.currentRank, this.userData.currentRow);
+    console.log(this.userData.currentRank, this.worldData.getNodeLength());
   }
 }
