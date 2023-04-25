@@ -1,4 +1,11 @@
-import { DirectionalLight, PointLight, Scene, Vector3 } from '@babylonjs/core';
+import {
+  DirectionalLight,
+  HemisphericLight,
+  PointLight,
+  Scene,
+  TransformNode,
+  Vector3,
+} from '@babylonjs/core';
 
 export abstract class OnOffCore {
   constructor(protected scene: Scene) {}
@@ -13,12 +20,21 @@ export abstract class OnOffCore {
 }
 
 export default class ThreeCore extends OnOffCore {
-  constructor(scene: Scene) {
+  constructor(scene: Scene, root: TransformNode) {
     super(scene);
-    const sunlight = new DirectionalLight('Sun', new Vector3(0, 10, 0), scene);
-    sunlight.intensity = 1000;
-    const pointLight = new PointLight('Point', new Vector3(0, 10, 0), scene);
-    pointLight.intensity = 1000;
+    const sun = new DirectionalLight(
+      'Sun',
+      root.position.add(new Vector3(0, -100, 0)),
+      scene
+    );
+    sun.intensity = 5;
+
+    const point = new HemisphericLight(
+      'Point',
+      root.position.add(new Vector3(0, -100, 0)),
+      scene
+    );
+    point.intensity = 0.2;
   }
   protected update(): void {
     this.scene.render();

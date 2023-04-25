@@ -11,6 +11,7 @@ export default class UserCore {
     const user = MeshBuilder.CreateDisc('User');
 
     user.position = root.absolutePosition.clone();
+    user.rotation.set(0, Math.PI, 0);
     user.parent = root;
     const camera = new UniversalCamera(
       'user_camera',

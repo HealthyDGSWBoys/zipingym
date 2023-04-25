@@ -19,7 +19,7 @@ export default class Core {
 
     await DebugUI.init(this._scene);
 
-    this._threeCore = new ThreeCore(this._scene);
+    this._threeCore = new ThreeCore(this._scene, this._root);
   }
   private _scene?: Scene;
   private _root?: TransformNode;
