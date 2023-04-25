@@ -15,8 +15,10 @@ export abstract class OnOffCore {
 export default class ThreeCore extends OnOffCore {
   constructor(scene: Scene) {
     super(scene);
-    const sunlight = new DirectionalLight('Sun', new Vector3(), scene);
-    const pointLight = new PointLight('Point', new Vector3(), scene);
+    const sunlight = new DirectionalLight('Sun', new Vector3(0, 10, 0), scene);
+    sunlight.intensity = 1000;
+    const pointLight = new PointLight('Point', new Vector3(0, 10, 0), scene);
+    pointLight.intensity = 1000;
   }
   protected update(): void {
     this.scene.render();

@@ -14,7 +14,7 @@ export default class Data {
   public worldData: WorldData;
 
   private constructor(private core: LoadCore) {
-    this.userData = new UserData(new UserCore(core.scene));
+    this.userData = new UserData(new UserCore(core.scene, core.root));
     this.worldData = new WorldData(
       new WorldCoreImpl(core.scene, core.root, core.roadMeshs!),
       new Tree({
