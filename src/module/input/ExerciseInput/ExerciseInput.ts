@@ -7,7 +7,7 @@ import {
   DisPreprocesser,
 } from '@zipingym/pose-input';
 
-import model from '$asset/tflite/work.tflite';
+import model from '$static/tflite/work.tflite';
 import WebcamBuilder from '$/util/Webcam';
 import Trigger from './trigger/Trigger';
 import DumbleTrigger from './trigger/DumbleTrigger';

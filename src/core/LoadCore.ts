@@ -1,5 +1,5 @@
 import Core from './Core';
-import colaTheme from '$asset/model/stage1_5.glb';
+import colaTheme from '$static/model/stage1_5.glb';
 import WorldCoreImpl from './WorldCore/WorldCoreImpl';
 import { RoadMeshs } from './WorldCore/WorldCore';
 
