@@ -1,8 +1,4 @@
-import { Scene, TransformNode } from '@babylonjs/core';
-import ItemCore from './ItemCore/ItemCore';
-import WorldCore from './WorldCore/WorldCore';
-import UserCore from './UserCore/UserCore';
-import colaTheme from '$asset/model/stage1_5.glb';
+import { DirectionalLight, PointLight, Scene, Vector3 } from '@babylonjs/core';
 
 export abstract class OnOffCore {
   constructor(protected scene: Scene) {}
@@ -19,6 +15,8 @@ export abstract class OnOffCore {
 export default class ThreeCore extends OnOffCore {
   constructor(scene: Scene) {
     super(scene);
+    const sunlight = new DirectionalLight('Sun', new Vector3(), scene);
+    const pointLight = new PointLight('Point', new Vector3(), scene);
   }
   protected update(): void {
     this.scene.render();
