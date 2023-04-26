@@ -4,7 +4,7 @@ import { InputMap } from '$/module/input/InputMap';
 
 export default class UserControl {
   public rowSpeed: number = 1.5;
-  public rankSpeed: number = 6;
+  public rankSpeed: number = 30;
 
   constructor(protected userData: UserData, protected worldData: WorldData) {}
 
@@ -21,8 +21,10 @@ export default class UserControl {
     } else {
       if (this.userData.currentRank === this.worldData.getNodeLength()) {
         const rotateDirection = input == 'left' ? 'l' : 'r';
-        this.userData.rotate(rotateDirection);
-        this.worldData.rotate(rotateDirection);
+        try {
+          this.worldData.rotate(rotateDirection);
+          this.userData.rotate(rotateDirection);
+        } catch (e) {}
       } else {
         const speed = this.rowSpeed * (input == 'left' ? -1 : 1);
         if (speed != this.userData.currentRow) {
@@ -30,6 +32,5 @@ export default class UserControl {
         }
       }
     }
-    console.log(this.userData.currentRank, this.worldData.getNodeLength());
   }
 }

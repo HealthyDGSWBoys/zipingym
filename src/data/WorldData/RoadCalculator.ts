@@ -6,7 +6,7 @@ export default class RoadCalculator {
   public static RoadWidth = 3;
   private static rotArr: Array<rotation> = ['u', 'r', 'd', 'l'];
   public static calcAbsoluteRot(parent: rotation, change: 'l' | 'r') {
-    let idx = this.rotArr.indexOf(parent) + (change == 'r' ? 1 : -1);
+    let idx = this.rotArr.indexOf(parent) + (change == 'r' ? -1 : 1);
     if (idx == -1) {
       idx = 3;
     } else if (idx == 4) {

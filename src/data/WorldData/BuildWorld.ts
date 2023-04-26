@@ -1,8 +1,21 @@
 import Tree, { TreeNode } from '$/util/Tree';
 import { RoadInfo } from './WorldData';
 import RoadCalculator from './RoadCalculator';
+import Random from '$/util/Random';
 
 export default class BuildWorld {
+  private static TreeDirection: Map<'b' | 'r' | 'l', number> = new Map([
+    ['b', 2],
+    ['l', 3],
+    ['r', 3],
+  ]);
+
+  private static TreeLength: Map<number, number> = new Map([
+    [1, 1],
+    [2, 2],
+    [3, 4],
+    [4, 2],
+  ]);
   constructor(private tree: Tree<RoadInfo>, public depth: number = 3) {}
 
   public buildChildren() {
@@ -20,7 +33,7 @@ export default class BuildWorld {
   }
 
   private buildChild(node: TreeNode<RoadInfo>) {
-    const type = 'b';
+    const type = Random.getRandom(BuildWorld.TreeDirection);
     const build: Array<TreeNode<RoadInfo>> = new Array();
     if (type == 'b') {
       build.push(this._buildChild(node, 'l'));
@@ -31,7 +44,7 @@ export default class BuildWorld {
     return build;
   }
   private _buildChild(parent: TreeNode<RoadInfo>, origin: 'r' | 'l') {
-    const length = 1;
+    const length = Random.getRandom(BuildWorld.TreeLength);
     const rotation = RoadCalculator.calcAbsoluteRot(
       parent.val.rotation,
       origin

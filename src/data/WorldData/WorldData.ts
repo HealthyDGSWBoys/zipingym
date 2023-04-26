@@ -16,12 +16,30 @@ export default class WorldData {
     return node.val.length * WorldData.roadLength;
   }
 
+  private deleteRoot?: RoadInfo;
   public rotate(direction: 'l' | 'r') {
     const targetNode = this.roadTree.root
       .getChildren()
       .find((child) => child.val.origin === direction);
+
+    if (this.deleteRoot != undefined)
+      this.worldCore.disposeRoad(this.deleteRoot);
+    this.deleteRoot = this.roadTree.root.val;
+
+    const reverseRoad = this.roadTree.root
+      .getChildren()
+      .find((child) => child.val.origin === (direction == 'l' ? 'r' : 'l'));
+    if (reverseRoad != undefined)
+      this.roadTree.traverseBFS(({ val }) => {
+        this.worldCore.disposeRoad(val);
+      }, reverseRoad);
+
     if (targetNode === undefined) throw new Error('Invalid Road');
     else {
+      const builder = new BuildWorld(this.roadTree, 2);
+      builder.buildChildren().forEach((e) => {
+        this.worldCore.drawRoad(e.val);
+      });
       this.roadTree.setRoot(targetNode);
     }
   }

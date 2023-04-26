@@ -38,8 +38,11 @@ export default class Tree<T> {
     return this.root;
   }
 
-  traverseBFS(callback: (node: TreeNode<T>) => void) {
-    const queue = [this.root];
+  traverseBFS(
+    callback: (node: TreeNode<T>) => void,
+    start: TreeNode<T> = this.root
+  ) {
+    const queue = [start];
     while (queue.length > 0) {
       const node = queue.shift()!;
       callback(node);
@@ -47,12 +50,15 @@ export default class Tree<T> {
     }
   }
 
-  traverseDFS(callback: (node: TreeNode<T>) => void) {
+  traverseDFS(
+    callback: (node: TreeNode<T>) => void,
+    start: TreeNode<T> = this.root
+  ) {
     const traverse = (node: TreeNode<T>) => {
       callback(node);
       node.getChildren().forEach((child) => traverse(child));
     };
-    traverse(this.root);
+    traverse(start);
   }
   setRoot(node: TreeNode<T>) {
     this.root = node;

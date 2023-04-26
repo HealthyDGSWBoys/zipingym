@@ -22,7 +22,7 @@ export default class UserData {
         speed,
         this._currentRoataion + (direction == 'row' ? 1 : 0)
       )!,
-      500
+      direction == 'row' ? 200 : 1000
     );
   }
 
