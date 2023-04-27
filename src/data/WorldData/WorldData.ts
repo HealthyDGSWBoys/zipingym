@@ -22,6 +22,10 @@ export default class WorldData {
       .getChildren()
       .find((child) => child.val.origin === direction);
 
+    if (targetNode === undefined) {
+      throw new Error('Invalid Road');
+    }
+
     if (this.deleteRoot != undefined)
       this.worldCore.disposeRoad(this.deleteRoot);
     this.deleteRoot = this.roadTree.root.val;
@@ -34,14 +38,11 @@ export default class WorldData {
         this.worldCore.disposeRoad(val);
       }, reverseRoad);
 
-    if (targetNode === undefined) throw new Error('Invalid Road');
-    else {
-      const builder = new BuildWorld(this.roadTree, 2);
-      builder.buildChildren().forEach((e) => {
-        this.worldCore.drawRoad(e.val);
-      });
-      this.roadTree.setRoot(targetNode);
-    }
+    const builder = new BuildWorld(this.roadTree, 2);
+    this.roadTree.setRoot(targetNode);
+    builder.buildChildren().forEach((e) => {
+      this.worldCore.drawRoad(e.val);
+    });
   }
 }
 
