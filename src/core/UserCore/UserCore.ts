@@ -23,10 +23,9 @@ export default class UserCore {
     private root: TransformNode,
     private user: AssetContainer
   ) {
-    this.userMesh = user.getNodes()[0];
-    console.log(this.userMesh);
+    this.userMesh = (user.getNodes()[0] as TransformNode).clone('name', root)!;
     this.userMesh.position = root.absolutePosition.clone();
-    this.userMesh.rotation.set(0, Math.PI, 0);
+    this.userMesh.rotation = new Vector3(0, 0, 0);
     this.userMesh.parent = root;
     const camera = new UniversalCamera(
       'user_camera',
@@ -48,7 +47,7 @@ export default class UserCore {
   public rotate(rotation: 'l' | 'r', duration: number = 300) {
     this.rotationAnimation.animate(
       'add',
-      new Vector3(0, rotation == 'l' ? -Math.PI / 2 : Math.PI / 2),
+      new Vector3(0, rotation == 'l' ? Math.PI / 2 : -Math.PI / 2),
       duration
     );
   }

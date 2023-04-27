@@ -38,11 +38,11 @@ export default class UserData {
       case 0:
         return new Vector3(0, 0, -movement);
       case 1:
-        return new Vector3(-movement, 0, 0);
+        return new Vector3(movement, 0, 0);
       case 2:
         return new Vector3(0, 0, movement);
       case 3:
-        return new Vector3(movement, 0, 0);
+        return new Vector3(-movement, 0, 0);
       default:
         return new Vector3();
     }
