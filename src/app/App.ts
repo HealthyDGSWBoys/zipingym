@@ -20,10 +20,10 @@ export default class App {
         this.core = await LoadCore.set(parent);
         this.data = await Data.set(this.core);
         this.logic = await Logic.set(this.data);
-        this.core.threeCore.run();
+        this.core.three.run();
       } catch (e) {
-        console.log(e);
-        console.error('Error Occur While initalizing App');
+        console.error(e);
+        console.log('Error Occur While initalizing App');
       }
     }
   }

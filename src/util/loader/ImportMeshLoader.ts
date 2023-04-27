@@ -62,7 +62,7 @@ export default class ImportMeshLoader {
     };
 }
 
-interface ImportMeshResult {
+export interface ImportMeshResult {
   meshes: AbstractMesh[];
   particleSystems: IParticleSystem[];
   skeletons: Skeleton[];

@@ -38,7 +38,7 @@ export default class Core {
     if (this._element == null) throw new Error("Core isn't initalized");
     else return this._element;
   }
-  public get threeCore(): ThreeCore {
+  public get three(): ThreeCore {
     if (this._threeCore == null) throw new Error("Core isn't initalized");
     else return this._threeCore;
   }

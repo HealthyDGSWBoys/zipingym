@@ -24,9 +24,7 @@ export default class UserControl {
         try {
           this.worldData.rotate(rotateDirection);
           this.userData.rotate(rotateDirection);
-        } catch (e) {
-          console.log(e);
-        }
+        } catch (e) {}
       } else {
         const speed = this.rowSpeed * (input == 'left' ? -1 : 1);
         if (speed != this.userData.currentRow) {
