@@ -28,5 +28,6 @@
       "$static/*": ["static/*"]
     }
   },
-  "include": ["./src", "vite.config.js"]
+  "include": ["./src", "vite.config.js"],
+  "exclude": ["node_modules", "./src/@legacy"]
 }
