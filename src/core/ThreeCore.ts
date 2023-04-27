@@ -24,7 +24,7 @@ export default class ThreeCore extends OnOffCore {
     super(scene);
     const sun = new DirectionalLight(
       'Sun',
-      root.position.add(new Vector3(0, -100, 0)),
+      root.position.add(new Vector3(0, 1, 0)),
       scene
     );
     sun.intensity = 5;
