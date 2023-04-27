@@ -3,11 +3,10 @@ import colaTheme from '$static/model/stage1_5.glb';
 import userGLB from '$static/model/girl.glb';
 import WorldCoreImpl from './WorldCore/WorldCoreImpl';
 import { RoadMeshs } from './WorldCore/WorldCore';
-import ImportMeshLoader, {
-  ImportMeshResult,
-} from '$/util/loader/ImportMeshLoader';
 import { AssetContainer } from '@babylonjs/core';
 import AssetContainerLoader from '$/util/loader/AssetContainerLoader';
+
+import '@babylonjs/loaders/glTF/2.0';
 
 export default class LoadCore extends Core {
   public roadMeshs?: RoadMeshs;

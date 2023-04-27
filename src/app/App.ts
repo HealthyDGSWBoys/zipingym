@@ -24,6 +24,7 @@ export default class App {
       } catch (e) {
         console.error(e);
         console.log('Error Occur While initalizing App');
+        if (Config.get.production) alert('Error Occur While initalizing App');
       }
     }
   }
