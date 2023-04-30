@@ -2,10 +2,13 @@ import WorldCore from '$/core/WorldCore/WorldCore';
 import Tree, { TreeNode } from '$/util/Tree';
 import { Vector3 } from '@babylonjs/core/Maths/math';
 import BuildWorld from './BuildWorld';
+import RoadCalculator from './RoadCalculator';
 
 export default class WorldData {
-  private static roadLength: number = 30;
-  constructor(private worldCore: WorldCore, private roadTree: Tree<RoadInfo>) {
+  constructor(
+    protected worldCore: WorldCore,
+    protected roadTree: Tree<RoadInfo>
+  ) {
     const builder = new BuildWorld(this.roadTree, 2);
     worldCore.drawRoad(roadTree.getRoot.val);
     builder.buildChildren().forEach((e) => {
@@ -13,10 +16,10 @@ export default class WorldData {
     });
   }
   public getNodeLength(node: TreeNode<RoadInfo> = this.roadTree.getRoot) {
-    return node.val.length * WorldData.roadLength;
+    return node.val.length * RoadCalculator.RoadLength;
   }
 
-  private deleteRoot?: RoadInfo;
+  protected deleteRoot?: RoadInfo;
   public rotate(direction: 'l' | 'r') {
     const targetNode = this.roadTree.root
       .getChildren()
@@ -43,7 +46,6 @@ export default class WorldData {
       children.forEach((e) => {
         this.worldCore.drawRoad(e.val);
       });
-      return children;
     }
   }
 }
