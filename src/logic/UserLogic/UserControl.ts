@@ -27,11 +27,12 @@ export default class UserControl {
       ) {
         const rotateDirection = input == 'left' ? 'l' : 'r';
         try {
+          const rootNode = this.worldData.rootNode;
+          this.worldData.rotate(rotateDirection);
           this.userData.rotate(
             rotateDirection,
-            this.worldData.rootNode.val.length * RoadCalculator.RoadLength
+            rootNode.val.length * RoadCalculator.RoadLength
           );
-          this.worldData.rotate(rotateDirection);
         } catch (e) {}
       } else {
         const speed = this.rowSpeed * (input == 'left' ? -1 : 1);
