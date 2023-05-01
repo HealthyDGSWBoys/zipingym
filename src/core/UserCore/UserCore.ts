@@ -51,4 +51,11 @@ export default class UserCore {
       duration
     );
   }
+
+  public get worldPosition() {
+    return this.userMesh.absolutePosition;
+  }
+  public get currentPosition() {
+    return this.userMesh.position;
+  }
 }

@@ -1,6 +1,6 @@
 import { TransformNode, Vector3 } from '@babylonjs/core';
 import CustomAnimation from './CustomAnimation';
-import UpdateLoop from '$/@legacy/legacyCore/UpdateLoop';
+import DeltaClock from '$/util/DeltaClock';
 
 export default class AccelateAnimation implements CustomAnimation {
   private target: TransformNode;
@@ -13,7 +13,11 @@ export default class AccelateAnimation implements CustomAnimation {
   constructor(target: TransformNode, type: 'position' | 'rotation') {
     this.target = target;
     this.type = type;
-    setInterval(() => this.update(1000 / 60), 1000 / 60);
+    const deltaClock = new DeltaClock();
+    deltaClock.getDeltaTime();
+    target.getScene().registerBeforeRender(() => {
+      this.update(deltaClock.getDeltaTime());
+    });
   }
   public animate(type: 'add' | 'set', vector: Vector3, duration: number) {
     const delta =
