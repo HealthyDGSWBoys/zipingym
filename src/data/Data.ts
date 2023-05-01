@@ -19,7 +19,12 @@ export default class Data {
       new UserCore(core.scene, core.root, core.humanMeshs!)
     );
     this.worldData = new WorldData(
-      new WorldCoreImpl(core.scene, core.root, core.roadMeshs!)
+      new WorldCoreImpl(
+        core.scene,
+        core.root,
+        core.roadMeshs!,
+        core.itemsMeshs!
+      )
     );
   }
   public static async set(core: LoadCore) {

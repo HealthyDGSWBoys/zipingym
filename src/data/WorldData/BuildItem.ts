@@ -25,7 +25,6 @@ export default class BuildItem {
     const result: Array<Array<ItemInfo>> = new Array();
     for (let i = 0; i < length; i++) {
       const itemCount = Random.getRandom(this.ItemCount);
-      console.log(itemCount);
       const positions = Random.getRandoms(this.ItemRank, itemCount);
       const one: Array<ItemInfo> = new Array();
       positions.forEach((rank: number) => {

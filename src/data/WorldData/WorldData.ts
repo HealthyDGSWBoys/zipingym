@@ -10,7 +10,7 @@ export default class WorldData {
     origin: 'f',
     position: new Vector3(0, 0, -15),
     rotation: 'u',
-    itemInfo: [],
+    itemInfo: [[], [], []],
   });
   constructor(protected worldCore: WorldCore) {
     this.build();
@@ -74,4 +74,6 @@ export interface ItemInfo {
   name: itemList;
 }
 
-export type itemList = 'banana' | 'cola';
+export const itemListValue = ['banana', 'cola'] as const;
+
+export type itemList = (typeof itemListValue)[number];

@@ -1,9 +1,10 @@
-import { RoadInfo } from '$/data/WorldData/WorldData';
+import { RoadInfo, RoadItemInfo } from '$/data/WorldData/WorldData';
 import AssetContainerLoader from '$/util/loader/AssetContainerLoader';
 import Random from '$/util/Random';
 import { AssetContainer, Scene, TransformNode, Vector3 } from '@babylonjs/core';
 import WorldCore, { RoadMeshs } from './WorldCore';
 import RoadCalculator from '$/data/WorldData/RoadCalculator';
+import ItemCore, { ItemMeshs } from './ItemCore';
 
 export default class WorldCoreImpl implements WorldCore {
   // private deps: number = 0;
@@ -13,14 +14,16 @@ export default class WorldCoreImpl implements WorldCore {
   constructor(
     private scene: Scene,
     private root: TransformNode,
-    private meshs: RoadMeshs
+    private meshs: RoadMeshs,
+    private items: ItemMeshs
   ) {}
   setTheme(theme: string): void {
     if (this.meshs.has(theme)) this.theme = theme;
     else throw new Error('Theme is not exist in [WorldCoreImpl.ts]');
   }
 
-  drawRoad(roadInfo: RoadInfo): void {
+  drawRoad(roadInfo: RoadItemInfo): void {
+    const itemCore = new ItemCore(this.items);
     const roadedMeshs = [];
 
     for (let i = 0; i < roadInfo.length; i++) {
@@ -40,12 +43,15 @@ export default class WorldCoreImpl implements WorldCore {
       if (roadInfo.rotation == 'l' || roadInfo.rotation == 'r') {
         roadMesh.rotation = new Vector3(0, Math.PI / 2, 0);
       }
+
+      itemCore.draw(roadMesh, roadInfo.itemInfo[i]);
+
       roadedMeshs.push(roadMesh);
     }
 
     this.deployLRoad.set(roadInfo, roadedMeshs);
   }
-  disposeRoad(roadInfo: RoadInfo): void {
+  disposeRoad(roadInfo: RoadItemInfo): void {
     const get = this.deployLRoad.get(roadInfo);
     if (get != undefined) {
       get.forEach((m) => {
