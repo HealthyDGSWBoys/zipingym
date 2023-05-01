@@ -11,6 +11,9 @@ export default class ItemCore {
       if (get === undefined) throw new Error("Can't find item mesh");
       else {
         const item = get.clone(e.name, parent);
+        item?.getScene().registerBeforeRender(() => {
+          item.addRotation(0, 0.05, 0);
+        });
         item!.position.set(e.row, 0, e.rank);
         meshs.push(item!);
       }
