@@ -6,8 +6,13 @@ export default class UserData {
   private _currentRank: number = 3;
   private _currentRoataion: number = 400000;
   private _score: number = 0;
+  private _rootPosition: Vector3;
 
-  constructor(private userCore: UserCore) {}
+  constructor(private userCore: UserCore) {
+    this._rootPosition = userCore.currentPosition.subtract(
+      new Vector3(0, 0, -3)
+    );
+  }
 
   public get currentRow() {
     return this._currentRow;
@@ -17,7 +22,14 @@ export default class UserData {
   }
 
   public get currentProgress() {
-    return this.userCore.currentPosition;
+    return (
+      Math.round(
+        Math.abs(
+          this.userCore.currentPosition[this.sightDirection] -
+            this._rootPosition[this.sightDirection]
+        ) * 1000
+      ) / 1000
+    );
   }
 
   public get absolutePosition() {
@@ -39,7 +51,8 @@ export default class UserData {
     );
   }
 
-  public rotate(direction: 'l' | 'r') {
+  public rotate(direction: 'l' | 'r', length: number) {
+    this._rootPosition = this._rootPosition.add(this.calcRotToDir(length));
     this._currentRank = (direction == 'l' ? -1 : 1) * this.currentRow;
     this._currentRow = 0;
     this._currentRoataion += direction == 'l' ? -1 : 1;
@@ -63,5 +76,9 @@ export default class UserData {
       default:
         return new Vector3();
     }
+  }
+
+  private get sightDirection(): 'x' | 'z' {
+    return this._currentRoataion % 2 ? 'x' : 'z';
   }
 }

@@ -1,4 +1,5 @@
 import UserData from '$/data/CharacterData/UserData';
+import RoadCalculator from '$/data/WorldData/RoadCalculator';
 import WorldData from '$/data/WorldData/WorldData';
 import { InputMap } from '$/module/input/InputMap';
 
@@ -19,11 +20,18 @@ export default class UserControl {
           : roadLength - currentRank
       );
     } else {
-      if (this.userData.currentRank === this.worldData.getNodeLength()) {
+      if (
+        this.worldData.rootNode.val.length * RoadCalculator.RoadLength -
+          this.userData.currentProgress <
+        7
+      ) {
         const rotateDirection = input == 'left' ? 'l' : 'r';
         try {
+          this.userData.rotate(
+            rotateDirection,
+            this.worldData.rootNode.val.length * RoadCalculator.RoadLength
+          );
           this.worldData.rotate(rotateDirection);
-          this.userData.rotate(rotateDirection);
         } catch (e) {}
       } else {
         const speed = this.rowSpeed * (input == 'left' ? -1 : 1);

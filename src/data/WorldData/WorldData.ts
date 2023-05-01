@@ -26,6 +26,9 @@ export default class WorldData {
   public get getItems() {
     return this.worldCore.getItems();
   }
+  public get rootNode() {
+    return this.roadTree.getRoot;
+  }
   protected deleteRoot?: RoadItemInfo;
   public rotate(direction: 'l' | 'r') {
     const targetNode = this.roadTree.root
