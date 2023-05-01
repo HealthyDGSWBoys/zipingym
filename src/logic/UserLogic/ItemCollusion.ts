@@ -4,7 +4,7 @@ import GoodItemSoundSrc from '$static/sound/gooditem.wav';
 import BadItemSoundSrc from '$static/sound/baditem.wav';
 
 export default class ItemCollusion {
-  private static itemSize = new Vector3(1, 1, 1);
+  private static itemSize = new Vector3(1.3, 1, 1.3);
   private goodItemDisposeSound: Sound;
   private badItemDisposeSound: Sound;
   constructor(
@@ -16,8 +16,8 @@ export default class ItemCollusion {
       null,
       null,
       {
-        playbackRate: 0.5,
-        volume: 0.5,
+        playbackRate: 1,
+        volume: 0.3,
       }
     );
     this.badItemDisposeSound = new Sound(
@@ -26,8 +26,8 @@ export default class ItemCollusion {
       null,
       null,
       {
-        playbackRate: 0,
-        volume: 0.5,
+        playbackRate: 1,
+        volume: 0.3,
       }
     );
   }
@@ -49,7 +49,6 @@ export default class ItemCollusion {
             this.onCollusion.get(item.name as itemList) ??
             ((node: TransformNode) => {
               node.dispose();
-              this.goodItemDisposeSound.play();
             })
           )(item);
         }
