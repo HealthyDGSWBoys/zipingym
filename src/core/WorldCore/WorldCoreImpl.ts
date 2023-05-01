@@ -7,23 +7,29 @@ import RoadCalculator from '$/data/WorldData/RoadCalculator';
 import ItemCore, { ItemMeshs } from './ItemCore';
 
 export default class WorldCoreImpl implements WorldCore {
-  // private deps: number = 0;
   private theme: string = '0';
   private deployLRoad: Map<RoadInfo, Array<TransformNode>> = new Map();
+  private itemCore: ItemCore;
+  public deployItems: Array<TransformNode> = new Array();
 
   constructor(
     private scene: Scene,
     private root: TransformNode,
     private meshs: RoadMeshs,
     private items: ItemMeshs
-  ) {}
+  ) {
+    this.itemCore = new ItemCore(items);
+  }
+  getItems(): Array<TransformNode> {
+    return this.deployItems;
+  }
+
   setTheme(theme: string): void {
     if (this.meshs.has(theme)) this.theme = theme;
     else throw new Error('Theme is not exist in [WorldCoreImpl.ts]');
   }
 
   drawRoad(roadInfo: RoadItemInfo): void {
-    const itemCore = new ItemCore(this.items);
     const roadedMeshs = [];
 
     for (let i = 0; i < roadInfo.length; i++) {
@@ -44,8 +50,8 @@ export default class WorldCoreImpl implements WorldCore {
         roadMesh.rotation = new Vector3(0, Math.PI / 2, 0);
       }
 
-      itemCore.draw(roadMesh, roadInfo.itemInfo[i]);
-
+      const meshs = this.itemCore.draw(roadMesh, roadInfo.itemInfo[i]);
+      this.deployItems.push(...meshs);
       roadedMeshs.push(roadMesh);
     }
 

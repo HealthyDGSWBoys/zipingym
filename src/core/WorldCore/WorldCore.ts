@@ -5,6 +5,7 @@ export default interface WorldCore {
   setTheme(theme: string): void;
   drawRoad(roadItemInfo: RoadItemInfo): void;
   disposeRoad(roadItemInfo: RoadItemInfo): void;
+  getItems(): Array<TransformNode>;
 }
 
 export type RoadMeshs = Map<string, Map<TransformNode, number>>;

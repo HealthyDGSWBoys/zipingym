@@ -5,6 +5,7 @@ export default class UserData {
   private _currentRow: number = 0;
   private _currentRank: number = 3;
   private _currentRoataion: number = 400000;
+  private _score: number = 0;
 
   constructor(private userCore: UserCore) {}
 
@@ -13,6 +14,18 @@ export default class UserData {
   }
   public get currentRank() {
     return this._currentRank;
+  }
+
+  public get currentProgress() {
+    return this.userCore.currentPosition;
+  }
+
+  public get absolutePosition() {
+    return this.userCore.worldPosition;
+  }
+
+  public get score() {
+    return this._score;
   }
 
   public move(direction: 'row' | 'rank', speed: number) {
@@ -31,6 +44,10 @@ export default class UserData {
     this._currentRow = 0;
     this._currentRoataion += direction == 'l' ? -1 : 1;
     this.userCore.rotate(direction, 300);
+  }
+
+  public setScore(score: number) {
+    this._score = score;
   }
 
   private calcRotToDir(movement: number, rotation = this._currentRoataion) {

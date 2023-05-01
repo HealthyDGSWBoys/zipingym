@@ -23,7 +23,9 @@ export default class WorldData {
   public getNodeLength(node: TreeNode<RoadInfo> = this.roadTree.getRoot) {
     return node.val.length * RoadCalculator.RoadLength;
   }
-
+  public get getItems() {
+    return this.worldCore.getItems();
+  }
   protected deleteRoot?: RoadItemInfo;
   public rotate(direction: 'l' | 'r') {
     const targetNode = this.roadTree.root
