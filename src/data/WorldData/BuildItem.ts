@@ -1,6 +1,6 @@
 import RoadCalculator from './RoadCalculator';
 import Random from '$/util/Random';
-import { ItemInfo } from './WorldData';
+import { ItemInfo, itemList, itemListValue } from './WorldData';
 
 export default class BuildItem {
   private static ItemRank: Map<number, number> = new Map([
@@ -22,6 +22,7 @@ export default class BuildItem {
   ]);
 
   public static buildItems(length: number): Array<Array<ItemInfo>> {
+    const itemNameMap = new Map(itemListValue.map((name) => [name, 1]));
     const result: Array<Array<ItemInfo>> = new Array();
     for (let i = 0; i < length; i++) {
       const itemCount = Random.getRandom(this.ItemCount);
@@ -31,7 +32,7 @@ export default class BuildItem {
         one.push({
           rank,
           row: Random.getRandom(this.ItemRow),
-          name: 'banana',
+          name: Random.getRandom(itemNameMap),
         });
       });
       result.push(one);

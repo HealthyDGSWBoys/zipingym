@@ -1,10 +1,18 @@
 import { RoadInfo, RoadItemInfo } from '$/data/WorldData/WorldData';
 import AssetContainerLoader from '$/util/loader/AssetContainerLoader';
 import Random from '$/util/Random';
-import { AssetContainer, Scene, TransformNode, Vector3 } from '@babylonjs/core';
+import {
+  AssetContainer,
+  Scene,
+  Sound,
+  TransformNode,
+  Vector3,
+} from '@babylonjs/core';
 import WorldCore, { RoadMeshs } from './WorldCore';
 import RoadCalculator from '$/data/WorldData/RoadCalculator';
 import ItemCore, { ItemMeshs } from './ItemCore';
+import backgroundSoundSrc from '$static/sound/roombackground.mp3';
+import BackgroundSound from '$/module/sound/BackgroundSound';
 
 export default class WorldCoreImpl implements WorldCore {
   private theme: string = '0';
@@ -19,6 +27,7 @@ export default class WorldCoreImpl implements WorldCore {
     private items: ItemMeshs
   ) {
     this.itemCore = new ItemCore(items);
+    new BackgroundSound();
   }
   getItems(): Array<TransformNode> {
     return this.deployItems;
