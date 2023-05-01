@@ -4,15 +4,15 @@ import { ItemInfo } from './WorldData';
 
 export default class BuildItem {
   private static ItemRank: Map<number, number> = new Map([
-    [RoadCalculator.RoadLength / 2, 1],
+    [-RoadCalculator.RoadLength / 3, 1],
     [0, 1],
-    [RoadCalculator.RoadLength / 2, 1],
+    [RoadCalculator.RoadLength / 3, 1],
   ]);
 
   private static ItemRow: Map<number, number> = new Map([
-    [RoadCalculator.RoadWidth / 2, 1],
+    [-RoadCalculator.RoadWidth / 2, 1],
     [0, 1],
-    [RoadCalculator.RoadWidth, 1],
+    [RoadCalculator.RoadWidth / 2, 1],
   ]);
 
   private static ItemCount: Map<number, number> = new Map([

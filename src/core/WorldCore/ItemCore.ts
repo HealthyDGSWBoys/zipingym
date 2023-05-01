@@ -10,7 +10,7 @@ export default class ItemCore {
       if (get === undefined) throw new Error("Can't find item mesh");
       else {
         const item = get.clone(e.name, parent);
-        item?.position.set(e.rank, 0, e.row);
+        item?.position.set(e.row, 0, e.rank);
       }
     });
   }
