@@ -4,7 +4,7 @@ const root = document.getElementById('app')!;
 App.init(root, {
   debugUI: true,
   production: __ISPRODUCTION__,
-  input: ['keyboard', 'exercise'],
+  input: ['keyboard'],
   baseURL: '',
   engine: 'webgl',
 });

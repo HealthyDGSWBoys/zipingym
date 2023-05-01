@@ -6,6 +6,7 @@ import UserData from '$/data/CharacterData/UserData';
 import WorldCoreImpl from '$/core/WorldCore/WorldCoreImpl';
 import UserCore from '$/core/UserCore/UserCore';
 import LoadCore from '$/core/LoadCore';
+import BuildItem from './WorldData/BuildItem';
 
 export default class Data {
   private static instance: Data;
@@ -18,13 +19,7 @@ export default class Data {
       new UserCore(core.scene, core.root, core.humanMeshs!)
     );
     this.worldData = new WorldData(
-      new WorldCoreImpl(core.scene, core.root, core.roadMeshs!),
-      new Tree({
-        length: 3,
-        origin: 'f',
-        position: new Vector3(0, 0, -15),
-        rotation: 'u',
-      })
+      new WorldCoreImpl(core.scene, core.root, core.roadMeshs!)
     );
   }
   public static async set(core: LoadCore) {

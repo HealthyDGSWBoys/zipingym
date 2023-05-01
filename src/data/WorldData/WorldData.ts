@@ -1,25 +1,30 @@
 import WorldCore from '$/core/WorldCore/WorldCore';
 import Tree, { TreeNode } from '$/util/Tree';
 import { Vector3 } from '@babylonjs/core/Maths/math';
-import BuildWorld from './BuildWorld';
 import RoadCalculator from './RoadCalculator';
+import BuildWorldItem from './BuildWorldItem';
 
 export default class WorldData {
-  constructor(
-    protected worldCore: WorldCore,
-    protected roadTree: Tree<RoadInfo>
-  ) {
-    const builder = new BuildWorld(this.roadTree, 2);
-    worldCore.drawRoad(roadTree.getRoot.val);
-    builder.buildChildren().forEach((e) => {
-      worldCore.drawRoad(e.val);
-    });
+  private roadTree: Tree<RoadItemInfo> = new Tree({
+    length: 3,
+    origin: 'f',
+    position: new Vector3(0, 0, -15),
+    rotation: 'u',
+    itemInfo: [],
+  });
+  constructor(protected worldCore: WorldCore) {
+    this.build();
+    this.roadTree.traverseBFS((node) => worldCore.drawRoad(node.val));
+  }
+
+  private build() {
+    return BuildWorldItem.build(this.roadTree, 2);
   }
   public getNodeLength(node: TreeNode<RoadInfo> = this.roadTree.getRoot) {
     return node.val.length * RoadCalculator.RoadLength;
   }
 
-  protected deleteRoot?: RoadInfo;
+  protected deleteRoot?: RoadItemInfo;
   public rotate(direction: 'l' | 'r') {
     const targetNode = this.roadTree.root
       .getChildren()
@@ -40,9 +45,8 @@ export default class WorldData {
           this.worldCore.disposeRoad(val);
         }, reverseRoad);
 
-      const builder = new BuildWorld(this.roadTree, 2);
-      const children = builder.buildChildren();
       this.roadTree.setRoot(targetNode);
+      const children = this.build();
       children.forEach((e) => {
         this.worldCore.drawRoad(e.val);
       });
@@ -59,3 +63,15 @@ export interface RoadInfo {
   position: Vector3;
   rotation: rotation;
 }
+
+export interface RoadItemInfo extends RoadInfo {
+  itemInfo: Array<ItemInfo>;
+}
+
+export interface ItemInfo {
+  rank: number;
+  row: number;
+  name: itemList;
+}
+
+export type itemList = 'banana' | 'cola';

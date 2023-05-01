@@ -1,5 +1,4 @@
-import { RoadInfo } from '$/data/WorldData/WorldData';
-import { RoadItemInfo } from '$/data/WorldData/WorldItemData';
+import { RoadItemInfo } from '$/data/WorldData/WorldData';
 import { TransformNode } from '@babylonjs/core';
 
 export default interface WorldCore {

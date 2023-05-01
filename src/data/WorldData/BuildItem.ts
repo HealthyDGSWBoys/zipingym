@@ -2,7 +2,7 @@ import Tree, { TreeNode } from '$/util/Tree';
 import { RoadInfo } from './WorldData';
 import RoadCalculator from './RoadCalculator';
 import Random from '$/util/Random';
-import { ItemInfo } from './WorldItemData';
+import { ItemInfo } from './WorldData';
 
 export default class BuildItem {
   private static ItemRank: Map<number, number> = new Map([
@@ -25,15 +25,16 @@ export default class BuildItem {
   ]);
 
   public static buildItems() {
-    const itemCount = Random.getRandom(this.ItemCount);
-    const positions = Random.getRandoms(this.ItemRank, itemCount);
+    // const itemCount = Random.getRandom(this.ItemCount);
+    // const positions = Random.getRandoms(this.ItemRank, itemCount);
     const result: Array<ItemInfo> = new Array();
-    positions.forEach((rank) => {
-      result.push({
-        rank,
-        row: Random.getRandom(this.ItemRow),
-        name: 'banana',
-      });
-    });
+    // positions.forEach((rank) => {
+    //   result.push({
+    //     rank,
+    //     row: Random.getRandom(this.ItemRow),
+    //     name: 'banana',
+    //   });
+    // });
+    return result;
   }
 }
