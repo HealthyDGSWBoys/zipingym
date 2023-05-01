@@ -11,7 +11,7 @@ export default class BuildWorldItem {
     const worldBuilder = new BuildWorld(tree, depth);
     const roads = worldBuilder.buildChildren() as Array<TreeNode<RoadItemInfo>>;
     roads.forEach((_, idx) => {
-      roads[idx].val.itemInfo = BuildItem.buildItems();
+      roads[idx].val.itemInfo = BuildItem.buildItems(_.val.length);
     });
     return roads;
   }

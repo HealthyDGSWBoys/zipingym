@@ -65,7 +65,7 @@ export interface RoadInfo {
 }
 
 export interface RoadItemInfo extends RoadInfo {
-  itemInfo: Array<ItemInfo>;
+  itemInfo: Array<Array<ItemInfo>>;
 }
 
 export interface ItemInfo {
