@@ -10,8 +10,8 @@ const WebcamBuilder = (video?: HTMLVideoElement): Promise<HTMLVideoElement> => {
               navigator.mediaDevices
                 .getUserMedia({
                   video: {
-                    width: { ideal: 1920 },
-                    height: { ideal: 1080 },
+                    width: { ideal: 540 },
+                    height: { ideal: 540 },
                     deviceId: { exact: device.deviceId },
                   },
                 })
