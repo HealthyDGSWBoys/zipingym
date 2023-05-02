@@ -4,8 +4,6 @@ import KeyframeAnimation from '$/module/animation/KeyframeAnimation';
 import SkeletonAnimation from '$/module/animation/SkeletonAnimation';
 import { ImportMeshResult } from '$/util/loader/ImportMeshLoader';
 import {
-  AnimationPropertiesOverride,
-  AssetContainer,
   Scene,
   TransformNode,
   UniversalCamera,
@@ -33,7 +31,7 @@ export default class UserCore {
     );
     camera.parent = this.userMesh;
     camera.setTarget(this.userMesh.position);
-    camera.position = camera.position.add(new Vector3(0, 0.5, 0));
+    camera.position = camera.position.add(new Vector3(0, 1.5, 0));
 
     this.positionAnimation = new AccelateAnimation(this.userMesh, 'position');
     this.rotationAnimation = new KeyframeAnimation(this.userMesh, 'rotation');
