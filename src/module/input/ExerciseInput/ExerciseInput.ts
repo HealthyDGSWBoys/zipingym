@@ -2,7 +2,6 @@ import { Input } from '../Inputable';
 
 import {
   TfliteClassfier,
-  Pipeline,
   MpJointPosition,
   DisPreprocesser,
 } from '@zipingym/pose-input';
@@ -12,6 +11,7 @@ import WebcamBuilder from '$/util/Webcam';
 import Trigger from './trigger/Trigger';
 import DumbleTrigger from './trigger/DumbleTrigger';
 import Config from '$/global/config/Config';
+import CustomExercisePipeline from './CustomExercisePipeline';
 
 export default class ExerciseInput extends Input {
   private inputVideo?: HTMLVideoElement;
@@ -34,7 +34,7 @@ export default class ExerciseInput extends Input {
           jointPosition.init(),
           ExerciseInput.loadBackend(),
         ]).then(() => {
-          const pipeline = new Pipeline();
+          const pipeline = new CustomExercisePipeline();
           pipeline.setClassfier(classfier);
           pipeline.setJointPosition(jointPosition);
           pipeline.setPreprocesser(processer);
