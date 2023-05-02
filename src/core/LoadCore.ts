@@ -1,12 +1,9 @@
 import Core from './Core';
 import colaTheme from '$static/model/stage1_5.glb';
-import userGLB from '$static/model/girl.glb';
 import itemAssets from '$static/model/item.glb';
 import userAsset from '$static/model/dummy.babylon';
 import WorldCoreImpl from './WorldCore/WorldCoreImpl';
 import { RoadMeshs } from './WorldCore/WorldCore';
-import { AssetContainer } from '@babylonjs/core';
-import AssetContainerLoader from '$/util/loader/AssetContainerLoader';
 import ImportMeshLoader, {
   ImportMeshResult,
 } from '$/util/loader/ImportMeshLoader';

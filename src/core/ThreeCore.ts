@@ -1,8 +1,14 @@
 import {
+  Color3,
+  Color4,
+  CubeTexture,
   DirectionalLight,
   HemisphericLight,
+  MeshBuilder,
   PointLight,
   Scene,
+  StandardMaterial,
+  Texture,
   TransformNode,
   Vector3,
 } from '@babylonjs/core';
@@ -34,8 +40,20 @@ export default class ThreeCore extends OnOffCore {
       root.position.add(new Vector3(0, 100, 0)),
       scene
     );
+
+    const skybox = MeshBuilder.CreateBox('skyBox', { size: 1024 }, scene);
+    const skyboxMaterial = new StandardMaterial('skyBox', scene);
+    skyboxMaterial.backFaceCulling = false;
+    skyboxMaterial.diffuseColor = new Color3(1, 1, 1);
+    skyboxMaterial.specularColor = new Color3(1, 1, 1);
+    skybox.material = skyboxMaterial;
+
     point.intensity = 2;
+    scene.fogMode = Scene.FOGMODE_EXP2;
+    scene.fogColor = new Color3(0.9, 0.9, 0.9);
+    scene.fogDensity = 0.008;
   }
+
   protected update(): void {
     this.scene.render();
   }
