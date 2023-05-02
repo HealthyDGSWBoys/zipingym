@@ -1,16 +1,32 @@
 import { ItemInfo, itemList, itemListValue } from '$/data/WorldData/WorldData';
 import AssetContainerLoader from '$/util/loader/AssetContainerLoader';
-import { Scene, TransformNode } from '@babylonjs/core';
+import {
+  Color3,
+  HighlightLayer,
+  Mesh,
+  Scene,
+  TransformNode,
+} from '@babylonjs/core';
 
 export default class ItemCore {
-  constructor(private items: ItemMeshs) {}
+  private highlightLayer: HighlightLayer;
+  constructor(scene: Scene, private items: ItemMeshs) {
+    this.highlightLayer = new HighlightLayer('hl1', scene);
+  }
   public draw(parent: TransformNode, info: Array<ItemInfo>) {
     const meshs: Array<TransformNode> = new Array();
     info.forEach((e) => {
       const get = this.items.get(e.name);
       if (get === undefined) throw new Error("Can't find item mesh");
       else {
-        const item = get.clone(e.name, parent);
+        const item = get.clone(e.name, parent)!;
+        //@ts-expect-error
+        item.getChildMeshes().forEach((mesh: Mesh) => {
+          this.highlightLayer.addMesh(
+            mesh,
+            e.name == 'banana' ? Color3.Green() : Color3.Red()
+          );
+        });
         item?.getScene().registerBeforeRender(() => {
           item.addRotation(0, 0.05, 0);
         });

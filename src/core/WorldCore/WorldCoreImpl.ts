@@ -26,7 +26,7 @@ export default class WorldCoreImpl implements WorldCore {
     private meshs: RoadMeshs,
     private items: ItemMeshs
   ) {
-    this.itemCore = new ItemCore(items);
+    this.itemCore = new ItemCore(scene, items);
     new BackgroundSound();
   }
   getItems(): Array<TransformNode> {
