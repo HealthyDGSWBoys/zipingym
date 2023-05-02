@@ -1,13 +1,11 @@
 import CustomAnimation from '$/@legacy/animation/CustomAnimation';
 import AccelateAnimation from '$/module/animation/AccelateAnimation';
 import KeyframeAnimation from '$/module/animation/KeyframeAnimation';
-import ImportMeshLoader, {
-  ImportMeshResult,
-} from '$/util/loader/ImportMeshLoader';
+import SkeletonAnimation from '$/module/animation/SkeletonAnimation';
+import { ImportMeshResult } from '$/util/loader/ImportMeshLoader';
 import {
+  AnimationPropertiesOverride,
   AssetContainer,
-  Mesh,
-  MeshBuilder,
   Scene,
   TransformNode,
   UniversalCamera,
@@ -17,15 +15,16 @@ import {
 export default class UserCore {
   private positionAnimation: CustomAnimation;
   private rotationAnimation: CustomAnimation;
+  private skeletonAnimation: SkeletonAnimation;
   private userMesh: TransformNode;
   constructor(
     private scene: Scene,
     private root: TransformNode,
-    private user: AssetContainer
+    private user: ImportMeshResult
   ) {
-    this.userMesh = (user.getNodes()[0] as TransformNode).clone('name', root)!;
+    this.userMesh = user.meshes[1];
     this.userMesh.position = root.absolutePosition.clone();
-    this.userMesh.rotation = new Vector3(0, 0, 0);
+    this.userMesh.rotation = new Vector3(0, Math.PI, 0);
     this.userMesh.parent = root;
     const camera = new UniversalCamera(
       'user_camera',
@@ -38,6 +37,28 @@ export default class UserCore {
 
     this.positionAnimation = new AccelateAnimation(this.userMesh, 'position');
     this.rotationAnimation = new KeyframeAnimation(this.userMesh, 'rotation');
+    this.skeletonAnimation = new SkeletonAnimation(
+      this.scene,
+      this.user.skeletons[0]
+    );
+    setInterval(this.animationCommander.bind(this), 1000 / 30);
+    this.currentCheck = this.currentPosition;
+  }
+  private currentCheck: Vector3;
+  private isIdle: boolean = false;
+  private animationCommander() {
+    const { x, z } = this.currentCheck.subtract(this.currentPosition);
+
+    const differance = Math.abs(x) + Math.abs(z);
+    if (differance > 0.01 && this.isIdle) {
+      this.isIdle = false;
+      this.skeletonAnimation.play(this.skeletonAnimation.animations[2]);
+    } else if (differance == 0 && !this.isIdle) {
+      this.isIdle = true;
+      this.skeletonAnimation.play(this.skeletonAnimation.animations[0]);
+    }
+
+    this.currentCheck = this.currentPosition;
   }
 
   public move(position: Vector3, duration: number = 300) {

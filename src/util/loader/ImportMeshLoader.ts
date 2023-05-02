@@ -23,7 +23,7 @@ export default class ImportMeshLoader {
         if (get != null) resolve(get);
         else {
           SceneLoader.ImportMesh(
-            [],
+            '',
             Config.get.baseURL,
             url,
             scene,

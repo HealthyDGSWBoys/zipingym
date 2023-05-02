@@ -8,6 +8,11 @@ declare module '*.gltf' {
   export default src;
 }
 
+declare module '*.babylon' {
+  const src: string;
+  export default src;
+}
+
 declare module '*.png' {
   const src: string;
   export default src;

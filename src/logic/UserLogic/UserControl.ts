@@ -10,6 +10,8 @@ export default class UserControl {
   constructor(protected userData: UserData, protected worldData: WorldData) {}
 
   public input(input: InputMap) {
+    if (input == 'left') input = 'right';
+    else if (input == 'right') input = 'left';
     if (input == 'straight') {
       const currentRank = this.userData.currentRank;
       const roadLength = this.worldData.getNodeLength();
