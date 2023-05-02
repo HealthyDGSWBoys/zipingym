@@ -27,9 +27,6 @@ export default class LoadCore extends Core {
     await super.init(parent);
     this.roadMeshs = await WorldCoreImpl.load([colaTheme], this.scene);
     this.itemsMeshs = await ItemCore.load(itemAssets, this.scene);
-    this.humanMeshs = await ImportMeshLoader.load(
-      'http://localhost:3000/' + userAsset,
-      this.scene
-    );
+    this.humanMeshs = await ImportMeshLoader.load('./' + userAsset, this.scene);
   }
 }
