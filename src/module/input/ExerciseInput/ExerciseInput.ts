@@ -21,13 +21,13 @@ export default class ExerciseInput extends Input {
     this.trigger = new DumbleTrigger();
     WebcamBuilder(document.getElementById('webcam')! as HTMLVideoElement).then(
       (camera) => {
-        camera.width = 360;
         this.inputVideo = camera;
         this.inputVideo.play();
         const classfier = new TfliteClassfier(model);
         const processer = new DisPreprocesser();
         const jointPosition = new MpJointPosition({
           modelComplexity: 1,
+          enableSegmentation: false,
         });
         Promise.all([
           classfier.init(),
