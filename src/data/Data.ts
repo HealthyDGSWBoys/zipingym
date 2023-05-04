@@ -1,12 +1,8 @@
 import WorldData from '$/data/WorldData/WorldData';
-import Tree from '$/util/Tree';
-import { Vector3 } from '@babylonjs/core';
-import Core from '$/core/Core';
 import UserData from '$/data/UserData/UserData';
 import WorldCoreImpl from '$/core/WorldCore/WorldCoreImpl';
 import UserCore from '$/core/UserCore/UserCore';
-import LoadCore from '$/core/LoadCore';
-import BuildItem from './WorldData/BuildItem';
+import { Scene, TransformNode } from '@babylonjs/core';
 
 export default class Data {
   private static instance: Data;
@@ -14,20 +10,20 @@ export default class Data {
   public userData!: UserData;
   public worldData!: WorldData;
 
-  private constructor(private core: LoadCore) {
-    this.userData = new UserData(
-      new UserCore(core.scene, core.root, core.humanMeshs!)
-    );
-  }
+  private constructor(private scene: Scene, private root: TransformNode) {}
 
   public async init() {
-    const worldCore = new WorldCoreImpl(this.core.scene, this.core.root);
+    const worldCore = new WorldCoreImpl(this.scene, this.root);
     await worldCore.init();
     this.worldData = new WorldData(worldCore);
+
+    const userCore = new UserCore(this.scene, this.root);
+    await userCore.init();
+    this.userData = new UserData(userCore);
   }
 
-  public static async set(core: LoadCore) {
-    this.instance = new Data(core);
+  public static async set(scene: Scene, root: TransformNode) {
+    this.instance = new Data(scene, root);
     await this.instance.init();
     return this.instance;
   }

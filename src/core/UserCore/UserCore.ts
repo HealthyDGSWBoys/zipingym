@@ -2,6 +2,7 @@ import CustomAnimation from '$/@legacy/animation/CustomAnimation';
 import AccelateAnimation from '$/module/animation/AccelateAnimation';
 import KeyframeAnimation from '$/module/animation/KeyframeAnimation';
 import SkeletonAnimation from '$/module/animation/SkeletonAnimation';
+import AssetContainerLoader from '$/package/Loader/AssetContainerLoader';
 import { ImportMeshResult } from '$/util/loader/ImportMeshLoader';
 import {
   Scene,
@@ -9,25 +10,27 @@ import {
   UniversalCamera,
   Vector3,
 } from '@babylonjs/core';
-
+import userAsset from '$static/model/dummy.babylon';
+import ImportMeshLoader from '$/package/Loader/ImportMeshLoader';
 export default class UserCore {
-  private positionAnimation: CustomAnimation;
-  private rotationAnimation: CustomAnimation;
-  private skeletonAnimation: SkeletonAnimation;
-  private userMesh: TransformNode;
-  constructor(
-    private scene: Scene,
-    private root: TransformNode,
-    private user: ImportMeshResult
-  ) {
-    this.userMesh = user.meshes[1];
-    this.userMesh.position = root.absolutePosition.clone();
+  private positionAnimation!: CustomAnimation;
+  private rotationAnimation!: CustomAnimation;
+  private skeletonAnimation!: SkeletonAnimation;
+  private userMesh!: TransformNode;
+  private user!: ImportMeshResult;
+
+  constructor(private scene: Scene, private root: TransformNode) {}
+  public async init() {
+    const importer = new ImportMeshLoader(this.scene);
+    this.user = await importer.load('./' + userAsset);
+    this.userMesh = this.user.meshes[1];
+    this.userMesh.position = this.root.absolutePosition.clone();
     this.userMesh.rotation = new Vector3(0, Math.PI, 0);
-    this.userMesh.parent = root;
+    this.userMesh.parent = this.root;
     const camera = new UniversalCamera(
       'user_camera',
       new Vector3(0, 2, -6),
-      scene
+      this.scene
     );
     camera.parent = this.userMesh;
     camera.setTarget(this.userMesh.position);
@@ -42,7 +45,7 @@ export default class UserCore {
     setInterval(this.animationCommander.bind(this), 1000 / 30);
     this.currentCheck = this.currentPosition;
   }
-  private currentCheck: Vector3;
+  private currentCheck: Vector3 = new Vector3().setAll(0);
   private isIdle: boolean = false;
   private animationCommander() {
     const { x, z } = this.currentCheck.subtract(this.currentPosition);

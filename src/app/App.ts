@@ -1,13 +1,13 @@
 import Logic from '$/logic/Logic';
 import Config, { RawConfig } from '../global/config/Config';
 import Data from '../data/Data';
-import LoadCore from '$/core/LoadCore';
+import Core from '$/core/Core';
 
 export default class App {
   private static isInitalized: boolean = false;
 
   private static config: Config;
-  private static core: LoadCore;
+  private static core: Core;
   private static data: Data;
   private static logic: Logic;
 
@@ -17,8 +17,8 @@ export default class App {
     } else {
       try {
         this.config = await Config.set(config);
-        this.core = await LoadCore.set(parent);
-        this.data = await Data.set(this.core);
+        this.core = await Core.set(parent);
+        this.data = await Data.set(this.core.scene, this.core.root);
         this.logic = await Logic.set(this.data);
         this.core.three.run();
       } catch (e) {
