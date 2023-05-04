@@ -1,4 +1,4 @@
-import UserData from '$/data/CharacterData/UserData';
+import UserData from '$/data/UserData/UserData';
 import RoadCalculator from '$/data/WorldData/RoadCalculator';
 import WorldData from '$/data/WorldData/WorldData';
 import { InputMap } from '$/module/input/InputMap';

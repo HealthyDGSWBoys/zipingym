@@ -2,7 +2,7 @@ import WorldData from '$/data/WorldData/WorldData';
 import Tree from '$/util/Tree';
 import { Vector3 } from '@babylonjs/core';
 import Core from '$/core/Core';
-import UserData from '$/data/CharacterData/UserData';
+import UserData from '$/data/UserData/UserData';
 import WorldCoreImpl from '$/core/WorldCore/WorldCoreImpl';
 import UserCore from '$/core/UserCore/UserCore';
 import LoadCore from '$/core/LoadCore';
