@@ -7,12 +7,21 @@ import {
   Scene,
   TransformNode,
 } from '@babylonjs/core';
+import ItemImporter from './ItemImporter';
+import itemAssets from '$static/model/item.glb';
 
 export default class ItemCore {
   private highlightLayer: HighlightLayer;
-  constructor(scene: Scene, private items: ItemMeshs) {
+  private items!: ItemMeshs;
+  constructor(private scene: Scene) {
     this.highlightLayer = new HighlightLayer('hl1', scene);
   }
+
+  public async init() {
+    const importer = new ItemImporter(this.scene);
+    this.items = await importer.import(itemAssets);
+  }
+
   public draw(parent: TransformNode, info: Array<ItemInfo>) {
     const meshs: Array<TransformNode> = new Array();
     info.forEach((e) => {

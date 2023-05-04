@@ -11,30 +11,34 @@ import {
 import WorldCore, { RoadMeshs } from './WorldCore';
 import RoadCalculator from '$/data/WorldData/RoadCalculator';
 import ItemCore, { ItemMeshs } from './ItemCore';
-import backgroundSoundSrc from '$static/sound/roombackground.mp3';
+import colaTheme from '$static/model/stage1_5.glb';
 import BackgroundSound from '$/module/sound/BackgroundSound';
+import WorldImporter from './WorldImporter';
 
 export default class WorldCoreImpl implements WorldCore {
   private theme: string = '0';
   private deployLRoad: Map<RoadInfo, Array<TransformNode>> = new Map();
   private itemCore: ItemCore;
+  private meshs?: RoadMeshs;
   public deployItems: Array<TransformNode> = new Array();
 
-  constructor(
-    private scene: Scene,
-    private root: TransformNode,
-    private meshs: RoadMeshs,
-    private items: ItemMeshs
-  ) {
-    this.itemCore = new ItemCore(scene, items);
+  constructor(private scene: Scene, private root: TransformNode) {
+    this.itemCore = new ItemCore(scene);
     new BackgroundSound();
   }
+
+  public async init() {
+    const importer = new WorldImporter(this.scene);
+    this.meshs = await importer.import([colaTheme]);
+    await this.itemCore.init();
+  }
+
   getItems(): Array<TransformNode> {
     return this.deployItems;
   }
 
   setTheme(theme: string): void {
-    if (this.meshs.has(theme)) this.theme = theme;
+    if (this.meshs?.has(theme)) this.theme = theme;
     else throw new Error('Theme is not exist in [WorldCoreImpl.ts]');
   }
 
@@ -42,7 +46,7 @@ export default class WorldCoreImpl implements WorldCore {
     const roadedMeshs = [];
 
     for (let i = 0; i < roadInfo.length; i++) {
-      const roadMesh = Random.getRandom(this.meshs.get(this.theme)!).clone(
+      const roadMesh = Random.getRandom(this.meshs?.get(this.theme)!).clone(
         'road',
         this.root
       )!;
