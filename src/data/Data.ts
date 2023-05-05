@@ -13,7 +13,7 @@ export default class Data {
   public worldData!: WorldData;
   public uiData!: UIData;
 
-  private constructor(private scene: Scene, private root: TransformNode) {}
+  private constructor(public scene: Scene, private root: TransformNode) {}
 
   public async init() {
     const worldCore = new WorldCoreImpl(this.scene, this.root);

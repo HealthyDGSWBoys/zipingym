@@ -7,5 +7,8 @@ export default class UIData {
   public get getTime() {
     return this.time;
   }
-  public addTime() {}
+  public addTime(time: number) {
+    this.time += time;
+    this.core.drawTime(this.getTime);
+  }
 }
