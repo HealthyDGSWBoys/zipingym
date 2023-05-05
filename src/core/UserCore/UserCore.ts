@@ -2,7 +2,6 @@ import CustomAnimation from '$/@legacy/animation/CustomAnimation';
 import AccelateAnimation from '$/module/animation/AccelateAnimation';
 import KeyframeAnimation from '$/module/animation/KeyframeAnimation';
 import SkeletonAnimation from '$/module/animation/SkeletonAnimation';
-import AssetContainerLoader from '$/package/Loader/AssetContainerLoader';
 import { ImportMeshResult } from '$/util/loader/ImportMeshLoader';
 import {
   Scene,
@@ -10,8 +9,9 @@ import {
   UniversalCamera,
   Vector3,
 } from '@babylonjs/core';
-import userAsset from '$static/model/dummy.babylon';
 import ImportMeshLoader from '$/package/Loader/ImportMeshLoader';
+
+import { CharacterUrl } from '$/asset';
 export default class UserCore {
   private positionAnimation!: CustomAnimation;
   private rotationAnimation!: CustomAnimation;
@@ -22,7 +22,7 @@ export default class UserCore {
   constructor(private scene: Scene, private root: TransformNode) {}
   public async init() {
     const importer = new ImportMeshLoader(this.scene);
-    this.user = await importer.load('./' + userAsset);
+    this.user = await importer.load(CharacterUrl);
     this.userMesh = this.user.meshes[1];
     this.userMesh.position = this.root.absolutePosition.clone();
     this.userMesh.rotation = new Vector3(0, Math.PI, 0);

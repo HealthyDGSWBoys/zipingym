@@ -10,10 +10,11 @@ import {
 } from '@babylonjs/core';
 import WorldCore, { RoadMeshs } from './WorldCore';
 import RoadCalculator from '$/data/WorldData/RoadCalculator';
-import ItemCore, { ItemMeshs } from './ItemCore';
-import colaTheme from '$static/model/stage1_5.glb';
+import ItemCore from './ItemCore';
 import BackgroundSound from '$/module/sound/BackgroundSound';
 import WorldImporter from './WorldImporter';
+
+import { StageUrls } from '$/asset';
 
 export default class WorldCoreImpl implements WorldCore {
   private theme: string = '0';
@@ -29,7 +30,7 @@ export default class WorldCoreImpl implements WorldCore {
 
   public async init() {
     const importer = new WorldImporter(this.scene);
-    this.meshs = await importer.import([colaTheme]);
+    this.meshs = await importer.import(StageUrls);
     await this.itemCore.init();
   }
 

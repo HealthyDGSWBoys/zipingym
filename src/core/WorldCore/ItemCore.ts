@@ -8,7 +8,7 @@ import {
   TransformNode,
 } from '@babylonjs/core';
 import ItemImporter from './ItemImporter';
-import itemAssets from '$static/model/item.glb';
+import { ItemUrl } from '$/asset';
 
 export default class ItemCore {
   private highlightLayer: HighlightLayer;
@@ -19,7 +19,7 @@ export default class ItemCore {
 
   public async init() {
     const importer = new ItemImporter(this.scene);
-    this.items = await importer.import(itemAssets);
+    this.items = await importer.import(ItemUrl);
   }
 
   public draw(parent: TransformNode, info: Array<ItemInfo>) {
