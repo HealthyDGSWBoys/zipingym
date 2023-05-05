@@ -31,10 +31,10 @@ export default class ItemCore {
         const item = get.clone(e.name, parent)!;
         //@ts-expect-error
         item.getChildMeshes().forEach((mesh: Mesh) => {
-          this.highlightLayer.addMesh(
-            mesh,
-            e.name == 'banana' ? Color3.Green() : Color3.Red()
-          );
+          // this.highlightLayer.addMesh(
+          //   mesh,
+          //   e.name == 'banana' ? Color3.Green() : Color3.Red()
+          // );
         });
         item?.getScene().registerBeforeRender(() => {
           item.addRotation(0, 0.05, 0);

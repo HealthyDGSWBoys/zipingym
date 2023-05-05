@@ -49,8 +49,10 @@ export default class ThreeCore extends OnOffCore {
     skybox.material = skyboxMaterial;
 
     point.intensity = 2;
-    scene.fogMode = Scene.FOGMODE_EXP2;
-    scene.fogColor = new Color3(0.9, 0.9, 0.9);
+    scene.fogMode = Scene.FOGMODE_LINEAR;
+    scene.fogColor = new Color3(0.8, 0.9, 1);
+    scene.fogStart = 30;
+    scene.fogEnd = 60;
     scene.fogDensity = 0.008;
   }
 
