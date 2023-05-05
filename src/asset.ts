@@ -1,3 +1,5 @@
+import '@babylonjs/loaders/glTF/2.0';
+
 export { default as ItemUrl } from '$static/model/item.glb';
 
 import stage1 from '$static/model/stage1_5.glb';

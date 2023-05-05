@@ -3,7 +3,7 @@ import App from './app/App';
 const root = document.getElementById('app')!;
 App.init(root, {
   debugUI: true,
-  production: __ISPRODUCTION__,
+  production: true,
   input: ['keyboard', 'exercise'],
   baseURL: '',
   engine: 'webgl',
