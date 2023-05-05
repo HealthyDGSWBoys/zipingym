@@ -14,7 +14,8 @@ export default class PoseElement extends HTMLElement {
         <video
             id="webcam"
         ></video>
-        <canvas />
+        <canvas></canvas>
+        <span>  </span>
     `;
     this.root = template.content;
     this.isRendered = false;
@@ -36,7 +37,10 @@ export default class PoseElement extends HTMLElement {
     return null;
   }
 
-  public draw(landmarks: NormalizedLandmarkList) {
+  public draw(
+    landmarks: NormalizedLandmarkList,
+    info: { name: string; color: string }
+  ) {
     const canvasElement = this.getElementsByTagName('canvas')[0];
     const canvasCtx = canvasElement.getContext('2d')!;
     const image = this.getElementsByTagName('video')[0];
@@ -66,6 +70,10 @@ export default class PoseElement extends HTMLElement {
       lineWidth: 2,
     });
     canvasCtx.restore();
+
+    const nameContainer = this.getElementsByTagName('span')[0];
+    nameContainer.innerText = info.name;
+    nameContainer.style.backgroundColor = info.color;
   }
 }
 

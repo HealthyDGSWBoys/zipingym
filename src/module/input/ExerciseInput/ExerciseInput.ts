@@ -16,7 +16,7 @@ import { NormalizedLandmarkList } from '@mediapipe/pose';
 
 export default class ExerciseInput extends Input {
   private inputVideo?: HTMLVideoElement;
-  private trigger: Trigger;
+  public trigger: Trigger;
   constructor(inputVideo?: HTMLVideoElement, frameRate: number = 30) {
     super();
     this.trigger = new DumbleTrigger();
@@ -43,8 +43,11 @@ export default class ExerciseInput extends Input {
             setInterval(() => {
               pipeline.run(this.inputVideo!).then((result) => {
                 if (this._changeSkeleton) {
-                  //@ts-expect-error
-                  this._changeSkeleton(result.landmarks);
+                  this._changeSkeleton(
+                    //@ts-expect-error
+                    result.landmarks,
+                    this.trigger.arrayToCode(result.result)
+                  );
                 }
                 const trigger = this.trigger.call({
                   ...result,
@@ -60,8 +63,10 @@ export default class ExerciseInput extends Input {
       }
     );
   }
-  private _changeSkeleton?: (lmd: NormalizedLandmarkList) => void;
-  public changeSkeleton(f: (lmd: NormalizedLandmarkList) => void) {
+  private _changeSkeleton?: (lmd: NormalizedLandmarkList, code: number) => void;
+  public changeSkeleton(
+    f: (lmd: NormalizedLandmarkList, code: number) => void
+  ) {
     this._changeSkeleton = f;
   }
 

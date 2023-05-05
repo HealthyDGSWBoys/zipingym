@@ -19,7 +19,10 @@ export default class UICore {
     this.timeElement.setAttribute(TimeElement.timeAttribute, String(time));
   }
 
-  public drawSkeleton(landmarks: NormalizedLandmarkList) {
-    this.poseElement.draw(landmarks);
+  public drawSkeleton(
+    landmarks: NormalizedLandmarkList,
+    info: { name: string; color: string }
+  ) {
+    this.poseElement.draw(landmarks, info);
   }
 }

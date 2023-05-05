@@ -12,7 +12,10 @@ export default class UIData {
     this.time += time;
     this.core.drawTime(this.getTime);
   }
-  public setLandmarks(landmarks: NormalizedLandmarkList) {
-    this.core.drawSkeleton(landmarks);
+  public setLandmarks(
+    landmarks: NormalizedLandmarkList,
+    info: { name: string; color: string }
+  ) {
+    this.core.drawSkeleton(landmarks, info);
   }
 }

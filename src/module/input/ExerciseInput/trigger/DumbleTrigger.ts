@@ -54,28 +54,8 @@ export default class DumbleTrigger extends Trigger {
       all += e;
     });
     if (all / accuracy.length > 0.5) {
-      // OK if the accuracy average of all points exceeds 0.5
-      if (res[0] > -0.9) {
-        // Down Case ( Stand Value > -0.9 )
-        // console.log('DOWN');
-        this.inserting(0);
-      } else if (
-        Math.abs(res[1] - res[2]) < 0.1 &&
-        (res[1] > 0 || res[2] > 0)
-      ) {
-        // UP Case ( Difference of Left and Right Value is less than 0.1, left and right value must greater than 0)
-        // console.log('UP');
-        this.inserting(3);
-      } else {
-        // Left or right ( larger value )
-        if (res[1] > res[2]) {
-          //   console.log('LEFT');
-          this.inserting(1);
-        } else {
-          //   console.log('RIGHT');
-          this.inserting(2);
-        }
-      }
+      const code = this.arrayToCode(res);
+      this.inserting(code);
       const temp = this.getMove();
       if (temp != null) {
         return this.numberToInputMap(temp);
@@ -94,6 +74,50 @@ export default class DumbleTrigger extends Trigger {
         return 'straight';
       default:
         return null;
+    }
+  }
+
+  public arrayToCode(arr: number[]): number {
+    if (arr[0] > -0.9) {
+      return 0;
+    } else if (Math.abs(arr[1] - arr[2]) < 0.1 && (arr[1] > 0 || arr[2] > 0)) {
+      return 3;
+    } else {
+      if (arr[1] > arr[2]) {
+        return 1;
+      } else {
+        return 2;
+      }
+    }
+  }
+
+  public getInfo(code: number): { name: string; color: string } {
+    switch (code) {
+      case 0:
+        return {
+          name: 'stand',
+          color: 'rgba(200, 0, 0, 0.5)',
+        };
+      case 1:
+        return {
+          name: 'left',
+          color: 'rgba(0, 200, 0, 0.5)',
+        };
+      case 2:
+        return {
+          name: 'right',
+          color: 'rgba(0, 0, 200, 0.5)',
+        };
+      case 3:
+        return {
+          name: 'up',
+          color: 'rgba(0, 200, 200, 0.5)',
+        };
+      default:
+        return {
+          name: 'undefined',
+          color: 'rgb(200, 200, 200)',
+        };
     }
   }
 }

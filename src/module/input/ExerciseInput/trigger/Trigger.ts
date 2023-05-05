@@ -6,4 +6,6 @@ export default abstract class Trigger {
     accuracy: Array<number>;
     deltaTime: number;
   }): InputMap | null;
+  public abstract arrayToCode(arr: Array<number>): number;
+  public abstract getInfo(code: number): { name: string; color: string };
 }
