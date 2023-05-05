@@ -2,6 +2,7 @@ import Vector3 from '@zipingym/pose-input/dist/interface/Vector';
 import ExerciseClassfier from '@zipingym/pose-input/dist/interface/ExerciseClassfier';
 import JointPosition from '@zipingym/pose-input/dist/interface/JointPosition';
 import Preprocesser from '@zipingym/pose-input/dist/interface/Preprocesser';
+import { NormalizedLandmarkList } from '@mediapipe/drawing_utils';
 
 export default class CustomExercisePipeline {
   private jointPosition?: JointPosition;
@@ -24,13 +25,16 @@ export default class CustomExercisePipeline {
     joint: Array<Vector3>;
     result: Array<number>;
     accuracy: Array<number>;
+    landmarks: NormalizedLandmarkList;
   }> {
     if (
       this.jointPosition != undefined &&
       this.preprocesser != undefined &&
       this.classfier != undefined
     ) {
-      const { joint, accuracy } = await this.jointPosition.getJoint(buffer);
+      const { joint, accuracy, landmarks } = await this.jointPosition.getJoint(
+        buffer
+      );
       const result = await this.classfier.classfier(
         this.preprocesser.calculate(joint)
       );
@@ -38,6 +42,7 @@ export default class CustomExercisePipeline {
         joint,
         result,
         accuracy,
+        landmarks,
       };
     } else {
       throw new Error('');

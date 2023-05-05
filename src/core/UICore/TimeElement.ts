@@ -40,14 +40,16 @@ export default class TimeElement extends HTMLElement {
     return null;
   }
 
-  private msToString(ms: number): string {
-    return (
-      String(Math.round(ms / 60000)).padStart(2, '0') +
-      ' : ' +
-      String(Math.round((ms / 1000) % 60)).padStart(2, '0') +
-      ' : ' +
-      String(Math.round(ms % 1000)).padStart(3, '0')
-    );
+  private msToString(milliseconds: number): string {
+    const totalSeconds = Math.floor(milliseconds / 1000);
+    const minutes = Math.floor(totalSeconds / 60)
+      .toString()
+      .padStart(2, '0');
+    const seconds = (totalSeconds % 60).toString().padStart(2, '0');
+    const mil = Math.floor(milliseconds % 1000)
+      .toString()
+      .padStart(3, '0');
+    return `${minutes} : ${seconds} : ${mil}`;
   }
 }
 

@@ -6,6 +6,7 @@ import UserControl from './UserControl';
 import ItemCollusion from './ItemCollusion';
 import { TransformNode } from '@babylonjs/core';
 import ItemEatSound from '$/module/sound/ItemEatSound';
+import { NormalizedLandmarkList } from '@mediapipe/pose';
 
 export default class UserLogic {
   private inputs: Array<Inputable> = new Array();
@@ -36,6 +37,12 @@ export default class UserLogic {
       const inputMod = InputFactory.GetInput(input);
       this.inputs.push(inputMod);
       inputMod.setOnInput(this.userControl.input.bind(this.userControl));
+      if (input == 'exercise') {
+        //@ts-expect-error
+        inputMod.changeSkeleton((lmd: NormalizedLandmarkList) => {
+          this.data.uiData.setLandmarks(lmd);
+        });
+      }
     });
     setInterval(() => {
       this.itemCollusion.update(

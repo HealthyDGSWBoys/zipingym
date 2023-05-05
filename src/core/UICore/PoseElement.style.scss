@@ -1,0 +1,21 @@
+custom-pose-element {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 310px;
+  height: 350px;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 0px 10px rgba(134, 134, 134, 0.5);
+  backdrop-filter: blur(10px);
+  border-bottom-right-radius: 20px;
+  video {
+    position: absolute;
+    display: none;
+  }
+
+  canvas {
+    border-bottom-left-radius: 20px;
+    width: 300px;
+    transform: scaleX(-1);
+  }
+}

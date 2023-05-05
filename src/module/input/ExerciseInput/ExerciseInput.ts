@@ -12,6 +12,7 @@ import Trigger from './trigger/Trigger';
 import DumbleTrigger from './trigger/DumbleTrigger';
 import Config from '$/global/config/Config';
 import CustomExercisePipeline from './CustomExercisePipeline';
+import { NormalizedLandmarkList } from '@mediapipe/pose';
 
 export default class ExerciseInput extends Input {
   private inputVideo?: HTMLVideoElement;
@@ -41,6 +42,10 @@ export default class ExerciseInput extends Input {
           setTimeout(() => {
             setInterval(() => {
               pipeline.run(this.inputVideo!).then((result) => {
+                if (this._changeSkeleton) {
+                  //@ts-expect-error
+                  this._changeSkeleton(result.landmarks);
+                }
                 const trigger = this.trigger.call({
                   ...result,
                   deltaTime: 1000 / frameRate,
@@ -54,6 +59,10 @@ export default class ExerciseInput extends Input {
         });
       }
     );
+  }
+  private _changeSkeleton?: (lmd: NormalizedLandmarkList) => void;
+  public changeSkeleton(f: (lmd: NormalizedLandmarkList) => void) {
+    this._changeSkeleton = f;
   }
 
   private static isBackendRegister: boolean = false;

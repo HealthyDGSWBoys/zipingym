@@ -1,4 +1,5 @@
 import UICore from '$/core/UICore/UICore';
+import { NormalizedLandmarkList } from '@mediapipe/pose';
 
 export default class UIData {
   constructor(private core: UICore) {}
@@ -10,5 +11,8 @@ export default class UIData {
   public addTime(time: number) {
     this.time += time;
     this.core.drawTime(this.getTime);
+  }
+  public setLandmarks(landmarks: NormalizedLandmarkList) {
+    this.core.drawSkeleton(landmarks);
   }
 }
