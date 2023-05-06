@@ -5,6 +5,7 @@ import UserCore from '$/core/UserCore/UserCore';
 import { Scene, TransformNode } from '@babylonjs/core';
 import UICore from '$/core/UICore/UICore';
 import UIData from './UIData/UIData';
+import { Customelement } from '$/interface/CustomElements';
 
 export default class Data {
   private static instance: Data;

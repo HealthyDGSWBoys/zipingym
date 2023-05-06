@@ -12,7 +12,6 @@ export default class ItemElement extends Customelement{
     public static readonly currentItem:ItemListOrNull = "null";
 
     connectedCallback() {
-        console.log("connnected")
         this.addInnerHtmlToThis(ui.addWrapper("null"))
     }
 

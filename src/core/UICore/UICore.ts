@@ -7,13 +7,16 @@ import "./TimeElement/TimeElement"
 import { itemList, itemListValue } from '$/data/WorldData/WorldData';
 import ItemElement from './ItemElement/ItemElement';
 import "./ItemElement/ItemElement"
+import TutorialElement from './TutorialElement/TutorialElement';
+import "./TutorialElement/TutorialElement"
 
 export default class UICore {
   private timeElement: TimeElement;
   private poseElement: PoseElement;
   private itemElement: ItemElement;
+  private tutorialElement: TutorialElement;
   constructor(private rootElement: HTMLElement) {
-
+ 
     this.timeElement = document.createElement('custom-time-element');
     this.rootElement.appendChild(this.timeElement);
 
@@ -22,6 +25,9 @@ export default class UICore {
 
     this.itemElement = document.createElement('custom-item-element');
     this.rootElement.appendChild(this.itemElement)
+
+    this.tutorialElement = document.createElement('custom-tutorial-element');
+    this.rootElement.appendChild(this.tutorialElement)
   }
 
   public drawTime(time: number) {

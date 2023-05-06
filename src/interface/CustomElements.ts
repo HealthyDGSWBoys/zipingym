@@ -1,6 +1,6 @@
 
 type PositionType = "before" | "after" | undefined
-type ClickEffectsType = [{selector:string;FN:EventListenerOrEventListenerObject}]
+type ClickEffectsType = {selector:string | null; FN:EventListenerOrEventListenerObject}[]
 
 
 export abstract class Customelement extends HTMLElement{
@@ -47,7 +47,12 @@ export abstract class Customelement extends HTMLElement{
 
 export abstract class ClickAbleCustomElement extends Customelement{
   addEventToDOM({ eventKind, selector, FN }:{eventKind:string; selector:string; FN:EventListenerOrEventListenerObject}) {
-    const dom = this.querySelector(selector);
+    console.log("이벤트 추가함",eventKind,selector,FN)
+    let dom = this
+    if (selector){
+      dom = this.querySelector(selector) ?? this;
+    }
+
     if (dom instanceof HTMLElement){
       dom.addEventListener(eventKind, FN);
     }
@@ -58,7 +63,7 @@ export abstract class ClickAbleCustomElement extends Customelement{
     clickEffects.forEach((clickEffect) => {
       this.addEventToDOM({
         eventKind:'click',
-        selector:clickEffect.selector,
+        selector:clickEffect.selector ?? "",
         FN:clickEffect.FN
       });
     });
