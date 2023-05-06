@@ -4,7 +4,7 @@ import './PoseElement/PoseElement'
 import TimeElement from './TimeElement/TimeElement';
 /** @todo 왜 이럼? */
 import "./TimeElement/TimeElement"
-import { itemListValue } from '$/data/WorldData/WorldData';
+import { itemList, itemListValue } from '$/data/WorldData/WorldData';
 import ItemElement from './ItemElement/ItemElement';
 import "./ItemElement/ItemElement"
 
@@ -35,7 +35,8 @@ export default class UICore {
     this.poseElement.draw(landmarks, info);
   }
 
-  public recordItem(item:string){
-    this.poseElement.setAttribute(ItemElement.currentItem, item);
+  public recordItem(item:itemList){
+    console.log(item)
+    this.itemElement.setAttribute(ItemElement.currentItem, item);
   }
 }
