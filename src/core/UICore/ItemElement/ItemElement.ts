@@ -23,7 +23,7 @@ export default class ItemElement extends Customelement{
         console.log(name)
         if (name === ItemElement.currentItem){
             console.log(newValue)
-            this.clearDom('.wrapper')
+            this.clearDom() 
             this.addInnerHtmlToThis(ui.addWrapper(newValue))
         }
     }

@@ -31,9 +31,10 @@ export abstract class Customelement extends HTMLElement{
         }
       }
 
-      clearDom(querySelectValue:string){
+      clearDom(querySelectValue?:string){
         if (querySelectValue){
           const dom = this.querySelector(querySelectValue)
+          console.log("query 함",dom)
           if (dom instanceof HTMLElement){
               dom.innerHTML = ""
           }
