@@ -2,6 +2,7 @@ import { NormalizedLandmarkList, POSE_CONNECTIONS } from '@mediapipe/pose';
 import './PoseElement.style.scss';
 
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
+import { Customelement } from '$/interface/CustomElements';
 
 export default class PoseElement extends HTMLElement {
   private root: DocumentFragment;
@@ -84,3 +85,4 @@ declare global {
     'custom-pose-element': PoseElement;
   }
 }
+

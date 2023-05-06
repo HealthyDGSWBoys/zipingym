@@ -1,11 +1,11 @@
 
-type PositionType = "before" | "after"
+type PositionType = "before" | "after" | undefined
 type ClickEffectsType = [{selector:string;FN:EventListenerOrEventListenerObject}]
 
 
 export abstract class Customelement extends HTMLElement{
 
-    addInnerHtmlToThis(html:string, querySelectValue:string, position:PositionType="before") {
+    addInnerHtmlToThis(html:string, querySelectValue?:string, position:PositionType="before") {
     
         function exec(target:Element,html:string,position:PositionType){
           const temp = position === "after" ? `

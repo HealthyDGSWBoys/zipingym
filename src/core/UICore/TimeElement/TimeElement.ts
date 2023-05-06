@@ -19,10 +19,10 @@ export default class TimeElement extends HTMLElement {
   }
   connectedCallback() {
     if (!this.isRendered) {
-      this.isRendered = true;
-      this.appendChild(this.root);
-      this.root = this;
     }
+    this.isRendered = true;
+    this.appendChild(this.root);
+    this.root = this;
   }
   disconnectedCallback() {}
   static get observedAttributes() {

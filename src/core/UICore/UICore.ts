@@ -1,13 +1,14 @@
 import { NormalizedLandmarkList } from '@mediapipe/pose';
-import PoseElement from './PoseElement';
-import './PoseElement';
-import TimeElement from './TimeElement';
-import './TimeElement';
+import PoseElement from './PoseElement/PoseElement';
+import './PoseElement/PoseElement'
+import TimeElement from './TimeElement/TimeElement';
 
 export default class UICore {
   private timeElement: TimeElement;
   private poseElement: PoseElement;
   constructor(private rootElement: HTMLElement) {
+    console.log(TimeElement)
+
     this.timeElement = document.createElement('custom-time-element');
     this.rootElement.appendChild(this.timeElement);
 
