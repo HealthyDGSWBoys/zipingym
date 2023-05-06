@@ -21,13 +21,13 @@
       "babylonjs-materials"
     ],
     "experimentalDecorators": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "baseUrl": "./",
     "paths": {
       "$/*": ["src/*"],
-      "$static/*": ["static/*"],
-      "$util/*": ["src/util/*"]
+      "$static/*": ["static/*"]
     }
   },
-  "include": ["./src", "vite.config.js"]
+  "include": ["./src", "vite.config.js"],
+  "exclude": ["node_modules", "./src/@legacy"]
 }

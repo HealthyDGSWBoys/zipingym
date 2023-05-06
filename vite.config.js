@@ -7,14 +7,14 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig(({ command, mode }) => {
   return {
-    assetsInclude: ['**/*.tflite'],
+    assetsInclude: ['**/*.tflite', '**/*.babylon'],
     plugins: [
       gltf(),
       wasm(),
       top_await(),
       visualizer({
         filename: './dist/report.html',
-        open: true,
+        open: false,
         brotliSize: true,
       }),
       tsconfigPaths(),

@@ -1,11 +1,14 @@
-import App from './core/app';
+import App from './app/App';
 
 const root = document.getElementById('app')!;
-const app = new App(root, {
-  debugUI: true,
+App.init(root, {
+  debugUI: false,
   production: __ISPRODUCTION__,
-  input: 'keyboard',
+  input: ['keyboard', 'exercise'],
+  baseURL: '',
+  engine: 'webgl',
 });
+
 declare global {
   const __ISPRODUCTION__: boolean;
 }
