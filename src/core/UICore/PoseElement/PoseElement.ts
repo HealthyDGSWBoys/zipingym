@@ -6,7 +6,6 @@ import { Customelement } from '$/interface/CustomElements';
 
 export default class PoseElement extends Customelement {
   connectedCallback() {
-    console.log("connnected")
     const template = document.createElement('template');
     template.innerHTML = `
         <video

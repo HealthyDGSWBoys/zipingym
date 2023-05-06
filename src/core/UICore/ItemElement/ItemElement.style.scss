@@ -1,5 +1,27 @@
+custom-item-element{
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width:150px;
+    height:150px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 0px 10px rgba(134, 134, 134, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    border:5px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-.Wrapper{
-
-    
+    .wrapper{
+        width:135px;
+        height: 135px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
 }

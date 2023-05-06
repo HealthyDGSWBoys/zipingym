@@ -5,8 +5,6 @@ type ClickEffectsType = [{selector:string;FN:EventListenerOrEventListenerObject}
 
 export abstract class Customelement extends HTMLElement{
 
-  connectedCallback(){}
-
     addInnerHtmlToThis(html:string, querySelectValue?:string, position:PositionType="before") {
     
         function exec(target:Element,html:string,position:PositionType){
