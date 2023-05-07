@@ -1,15 +1,17 @@
 import ModalElement from "../ModalElement/ModalElement"
 import TutorialElement from "./TutorialElement"
 
-function clickEffects(modal:ModalElement){ 
+function clickEffects(tutorial:TutorialElement){ 
     return [
         {
         selector:null,
         FN:() => {
-            modal.changeModalAttribute({
+            tutorial.nextTutorial(tutorial.tutorials)
+            tutorial.modal.changeModalAttribute({
                 isOpen:true,
+                isDark:true,
+                outsideClickEffect:() => tutorial.nextTutorial(tutorial.tutorials)
             })
-            console.log("실행")
         }
     },
     ]

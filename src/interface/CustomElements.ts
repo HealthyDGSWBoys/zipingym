@@ -59,6 +59,7 @@ export abstract class ClickAbleCustomElement extends Customelement{
   }
 
   useClickEffects(clickEffects:ClickEffectsType){
+    console.log("이벤트 등록",clickEffects)
     clickEffects.forEach((clickEffect) => {
       this.addEventToDOM({
         eventKind:'click',
