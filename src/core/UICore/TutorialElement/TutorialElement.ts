@@ -4,7 +4,7 @@ import clickEffects from "./clickEffects";
 import ui from "./ui";
 
 export default class TutorialElement extends ClickAbleCustomElement{
-    connectedCallback(){
+    connectedCallback(arg:string){
         this.addInnerHtmlToThis(ui.addWrapper())
         this.useClickEffects(clickEffects)
     }

@@ -3,5 +3,10 @@ export default {
         return `
             <div class="wrapper">?</div>
         `
-    }
+  },
+  addContent:() => {
+        return `
+            <div class="content" ></div>
+        `
+  }
 }

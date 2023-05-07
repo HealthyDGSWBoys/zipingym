@@ -26,8 +26,10 @@ export default class UICore {
     this.itemElement = document.createElement('custom-item-element');
     this.rootElement.appendChild(this.itemElement)
 
-    this.tutorialElement = document.createElement('custom-tutorial-element');
+    this.tutorialElement = new TutorialElement("hi")
     this.rootElement.appendChild(this.tutorialElement)
+    // this.tutorialElement = document.createElement('custom-tutorial-element');
+    // this.rootElement.appendChild(this.tutorialElement)
   }
 
   public drawTime(time: number) {
