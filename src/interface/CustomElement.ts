@@ -1,0 +1,31 @@
+
+type PositionType = "before" | "after"
+
+export default abstract class Customelement extends HTMLElement{
+
+    addInnerHtmlToThis(html:string, querySelectValue:string, position:PositionType="before") {
+    
+        function exec(target:Element,html:string,position:PositionType){
+          const temp = position === "after" ? `
+            ${html}
+            ${target.innerHTML}
+          ` : `
+            ${target.innerHTML}
+            ${html}
+          `
+          target.innerHTML = temp
+        }
+    
+        if (querySelectValue) {
+          let targetDom = this.querySelector(querySelectValue);
+          if (targetDom instanceof Element){
+              exec(targetDom,html,position)
+          } else {
+              console.error("addInnerHtmlToThis에 들어온 쿼리로 요소를 찾을 수 없습니다")
+
+          }
+        } else {
+          exec(this,html,position)
+        }
+      }
+}
