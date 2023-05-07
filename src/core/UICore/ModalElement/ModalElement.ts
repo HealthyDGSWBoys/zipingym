@@ -16,7 +16,8 @@ export default class ModalElement extends ClickAbleCustomElement{
     }
 
 
-    changeModalAttribute({isOpen,element,outsideClickEffect,isDark}:{isOpen:boolean,element:HTMLElement,outsideClickEffect?:EventListenerOrEventListenerObject, isDark?:boolean}){
+    public changeModalAttribute({isOpen,element,outsideClickEffect,isDark}:{isOpen:boolean,element?:HTMLElement,outsideClickEffect?:EventListenerOrEventListenerObject, isDark?:boolean}){
+
         if (isOpen){this.style.zIndex = "1"}
         else {this.style.zIndex = "0"}
 
@@ -35,8 +36,8 @@ export default class ModalElement extends ClickAbleCustomElement{
             }])
         }
 
-        if (isDark){this.style.backgroundColor="rgba($color: #000000, $alpha: 0.7)"}
-        else {this.style.backgroundColor=""}
+        if (isDark){this.style.backgroundColor="rgba(0,0,0,0.7)"}
+        else {this.style.backgroundColor="rgba(0,0,0,0)"}
 
     }
 
