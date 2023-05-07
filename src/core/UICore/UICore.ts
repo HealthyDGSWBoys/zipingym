@@ -1,7 +1,7 @@
 import { NormalizedLandmarkList } from '@mediapipe/pose';
 import PoseElement from './PoseElement/PoseElement';
 import './PoseElement/PoseElement'
-import TimeElement from './TimeElement/TimeElement';
+import TimeElement from './TimeElement/TimeElement'; 
 /** @todo 왜 이럼? */
 import "./TimeElement/TimeElement"
 import { itemList, itemListValue } from '$/data/WorldData/WorldData';
