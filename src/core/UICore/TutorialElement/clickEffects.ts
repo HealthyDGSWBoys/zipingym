@@ -8,7 +8,6 @@ function clickEffects(modal:ModalElement){
         FN:() => {
             modal.changeModalAttribute({
                 isOpen:true,
-                isDark:tre
             })
             console.log("실행")
         }
