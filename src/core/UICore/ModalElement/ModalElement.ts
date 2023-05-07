@@ -16,16 +16,16 @@ export default class ModalElement extends ClickAbleCustomElement{
     }
 
 
-    public changeModalAttribute({isOpen,element,outsideClickEffect,isDark}:{isOpen:boolean,element?:HTMLElement,outsideClickEffect?:EventListenerOrEventListenerObject, isDark?:boolean}){
+    public changeModalAttribute({isOpen,element,outsideClickEffect,isDark,keepPrevAttr=false}:{isOpen:boolean,element?:HTMLElement,outsideClickEffect?:EventListenerOrEventListenerObject, isDark?:boolean, keepPrevAttr?:boolean}){
 
         if (isOpen){this.style.zIndex = "1"}
-        else {this.style.zIndex = "0"}
+        else if(!keepPrevAttr) {this.style.zIndex = "0"}
 
         if (element){
             this.clearDom()
             console.log(this.serializer.serializeToString(element))
             this.addInnerHtmlToThis(this.serializer.serializeToString(element))
-        } else {
+        } else if(!keepPrevAttr) {
             this.clearDom()
         }
 
@@ -34,10 +34,15 @@ export default class ModalElement extends ClickAbleCustomElement{
                selector:null,
                FN:outsideClickEffect 
             }])
+        } else if (!keepPrevAttr){
+            this.useClickEffects([{
+                selector:null,
+                FN:() => {}
+            }])
         }
 
         if (isDark){this.style.backgroundColor="rgba(0,0,0,0.7)"}
-        else {this.style.backgroundColor="rgba(0,0,0,0)"}
+        else if(!keepPrevAttr) {this.style.backgroundColor="rgba(0,0,0,0)"}
 
     }
 

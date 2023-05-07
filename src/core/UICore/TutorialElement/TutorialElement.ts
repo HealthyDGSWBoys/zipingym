@@ -6,19 +6,40 @@ import ui from "./ui";
 
 export default class TutorialElement extends ClickAbleCustomElement {
   step: number = 0;
-  private prevEffect = () => {}
+  private clearClickEffect = () => {}
 
   public tutorials =[
     () => {
       /**@todo 그냥 element 에는 style이 없는데 어떡할까 */
-      const timer = document.querySelector(".time-root") as HTMLElement
-      // timer!.style.boxShadow = "rgba(0,0,0,0.5) 0px 0px 0px 9999px;"
-      timer!.style.backgroundColor = "black";
-      timer!.style.zIndex = "3"
-      console.log(timer.style)
+      const timer = document.querySelector("custom-time-element") as HTMLElement
+      timer!.style.zIndex = "2"
+
+      this.clearClickEffect = () => {
+        timer!.style.zIndex = "0"
+      }
     },
     () => {
       this.clearClickEffect()
+
+      const camera = document.querySelector("custom-pose-element") as HTMLElement
+      camera!.style.zIndex = "2"
+
+      this.clearClickEffect = () => {
+        camera!.style.zIndex = "0"
+      }
+    },
+    () => {
+      this.clearClickEffect()
+
+      const item = document.querySelector("custom-item-element") as HTMLElement
+      item!.style.zIndex = "2"
+
+      this.clearClickEffect = () => {
+        item!.style.zIndex = "0"
+      }
+    },
+    () => {
+      
     }
   ]
 
@@ -36,15 +57,13 @@ export default class TutorialElement extends ClickAbleCustomElement {
     console.log(tutorials)
     if (this.step > tutorials.length){
       this.step = 0
+      this.clearClickEffect()
       this.modal.changeModalAttribute({isOpen:false})
     } else {
       this.tutorials[this.step - 1]()
     }
   }
 
-  clearClickEffect(){
-    console.log("clear")
-  }
   
 }
 
