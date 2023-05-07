@@ -1,20 +1,22 @@
-import { Customelement } from "$/interface/CustomElements";
+import { ClickAbleCustomElement } from "$/interface/CustomElements";
+import "./ModalElement.style.scss"
 
+/** @todo 싱글톤으로 하고싶었는데 일단 못 함 */
+export default class ModalElement extends ClickAbleCustomElement{
+    private static readonly isOpen:string = "0"
+    private static readonly element:string
+    private static readonly outsideClickEffect:string
+    // public static instance:ModalElement = new ModalElement();
+    // private constructor(){super()}
+    connectedCallback(){
+        
 
-export default class ModalElement extends Customelement{
-    public static readonly isOpen:string = "0"
-    public static readonly element:string
-    public static readonly outsideClickEffect:string
-
-    connectedCallback(){}
-    static get observedAttributes(){
-        return [this.isOpen,this.element,this.outsideClickEffect]
     }
-    attributeChangeCallback(name:string, oldValue:string, newValue:string){
-        console.log("name",name)
-        console.log("oldValue",oldValue)
-        console.log("newValue",newValue)
+
+    changeModalAttribute(isOpen:boolean,element:HTMLElement,outsideClickEffect:Function){
+
     }
+
 }
 
 customElements.define('custom-modal-element',ModalElement);

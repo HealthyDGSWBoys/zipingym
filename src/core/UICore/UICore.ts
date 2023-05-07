@@ -10,6 +10,7 @@ import "./ItemElement/ItemElement"
 import TutorialElement from './TutorialElement/TutorialElement';
 import "./TutorialElement/TutorialElement"
 import ModalElement from './ModalElement/ModalElement';
+import "./ModalElement/ModalElement"
 
 export default class UICore {
   private timeElement: TimeElement;
@@ -33,6 +34,7 @@ export default class UICore {
 
     this.tutorialElement = document.createElement('custom-tutorial-element');
     this.rootElement.appendChild(this.tutorialElement)
+
   }
 
   public drawTime(time: number) {
@@ -49,11 +51,5 @@ export default class UICore {
   public recordItem(item:itemList){
     console.log(item)
     this.itemElement.setAttribute(ItemElement.currentItem, item);
-  }
-
-  public changeModal({isOpen,element, outsideClickEffect}:{isOpen?:"1" | "0",element?:string, outsideClickEffect?:string}){
-    isOpen && this.modalElement.setAttribute(ModalElement.isOpen,isOpen)
-    element && this.modalElement.setAttribute(ModalElement.element,element)
-    outsideClickEffect && this.modalElement.setAttribute(ModalElement.outsideClickEffect, outsideClickEffect)
   }
 }
