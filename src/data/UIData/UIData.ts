@@ -1,5 +1,6 @@
 import UICore from '$/core/UICore/UICore';
 import { NormalizedLandmarkList } from '@mediapipe/pose';
+import { itemList } from '../WorldData/WorldData';
 
 export default class UIData {
   constructor(private core: UICore) {}
@@ -17,5 +18,8 @@ export default class UIData {
     info: { name: string; color: string }
   ) {
     this.core.drawSkeleton(landmarks, info);
+  }
+  public recordItem(item:itemList){
+    this.core.recordItem(item)
   }
 }

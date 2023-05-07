@@ -32,7 +32,7 @@ export default class UserLogic {
             this.itemSound.play('bad');
           },
         ],
-      ])
+      ]),data
     );
     Config.get.input.forEach((input) => {
       const inputMod = InputFactory.GetInput(input);

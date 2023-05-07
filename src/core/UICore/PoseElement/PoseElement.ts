@@ -2,13 +2,10 @@ import { NormalizedLandmarkList, POSE_CONNECTIONS } from '@mediapipe/pose';
 import './PoseElement.style.scss';
 
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
+import { Customelement } from '$/interface/CustomElements';
 
-export default class PoseElement extends HTMLElement {
-  private root: DocumentFragment;
-  public isRendered: boolean;
-  // private grid: LandmarkGrid;
-  constructor() {
-    super();
+export default class PoseElement extends Customelement {
+  connectedCallback() {
     const template = document.createElement('template');
     template.innerHTML = `
         <video
@@ -17,22 +14,16 @@ export default class PoseElement extends HTMLElement {
         <canvas></canvas>
         <span>  </span>
     `;
-    this.root = template.content;
-    this.isRendered = false;
+    const serializer = new XMLSerializer();
+    const document_fragment_string = serializer.serializeToString(template.content);
+    this.addInnerHtmlToThis(document_fragment_string)
   }
-  connectedCallback() {
-    if (!this.isRendered) {
-      this.isRendered = true;
-      this.appendChild(this.root);
-      this.root = this;
-    }
-  }
-  disconnectedCallback() {}
+  disconnectedCallback() { }
   static get observedAttributes() {
     return [];
   }
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {}
-  adoptedCallback() {}
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) { }
+  adoptedCallback() { }
   getElementById() {
     return null;
   }
@@ -84,3 +75,4 @@ declare global {
     'custom-pose-element': PoseElement;
   }
 }
+
