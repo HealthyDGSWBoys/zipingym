@@ -16,15 +16,18 @@ export default class ModalElement extends ClickAbleCustomElement{
     }
 
 
-    public changeModalAttribute({isOpen,element,outsideClickEffect,isDark,keepPrevAttr=false}:{isOpen:boolean,element?:HTMLElement,outsideClickEffect?:EventListenerOrEventListenerObject, isDark?:boolean, keepPrevAttr?:boolean}){
+    public changeModalAttribute({isOpen,element,outsideClickEffect,isDark,keepPrevAttr=false}:{isOpen:boolean,element?:HTMLElement | string,outsideClickEffect?:EventListenerOrEventListenerObject, isDark?:boolean, keepPrevAttr?:boolean}){
+        console.log(element)
 
         if (isOpen){this.style.zIndex = "1"}
         else if(!keepPrevAttr) {this.style.zIndex = "0"}
 
-        if (element){
+        if (element instanceof HTMLElement){
             this.clearDom()
-            console.log(this.serializer.serializeToString(element))
             this.addInnerHtmlToThis(this.serializer.serializeToString(element))
+        } else if(typeof element === "string"){
+            this.clearDom()
+            this.addInnerHtmlToThis(element)
         } else if(!keepPrevAttr) {
             this.clearDom()
         }

@@ -24,6 +24,12 @@ export default class TutorialElement extends ClickAbleCustomElement {
       const camera = document.querySelector("custom-pose-element") as HTMLElement
       camera!.style.zIndex = "2"
 
+      this.modal.changeModalAttribute({
+        isOpen:true,
+        element:"<div>현재 웹캠 및 분석 결과</div>",
+        keepPrevAttr:true
+      })
+
       this.clearClickEffect = () => {
         camera!.style.zIndex = "0"
       }
@@ -34,12 +40,27 @@ export default class TutorialElement extends ClickAbleCustomElement {
       const item = document.querySelector("custom-item-element") as HTMLElement
       item!.style.zIndex = "2"
 
+      this.modal.changeModalAttribute({
+        isOpen:true,
+        element:"<div>획득한 아이템이 보이는 곳</div>",
+        keepPrevAttr:true
+      })
+
       this.clearClickEffect = () => {
         item!.style.zIndex = "0"
       }
     },
     () => {
-      
+      this.clearClickEffect()
+
+      this.modal.changeModalAttribute({
+        isOpen:true,
+        element:`
+          <div>
+          </div>
+        `,
+        keepPrevAttr:true
+      })
     }
   ]
 
