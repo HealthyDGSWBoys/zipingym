@@ -6,7 +6,7 @@ App.init(root, {
   production: __ISPRODUCTION__,
   input: ['keyboard', 'exercise'],
   baseURL: '',
-  engine: 'webgl',
+  engine: undefined,
 });
 
 declare global {
