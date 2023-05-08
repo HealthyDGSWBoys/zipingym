@@ -16,7 +16,7 @@ export default class UIData {
   }
   public addScore(score: number) {
     this.score += score;
-    if (score < 0) score = 0;
+    if (this.score < 0) this.score = 0;
     this.core.drawScore(this.score);
   }
   public setLandmarks(
