@@ -6,13 +6,15 @@ import {
   DisPreprocesser,
 } from '@zipingym/pose-input';
 
-import model from '$static/tflite/work.tflite';
 import WebcamBuilder from '$/util/Webcam';
 import Trigger from './trigger/Trigger';
 import DumbleTrigger from './trigger/DumbleTrigger';
 import Config from '$/global/config/Config';
 import CustomExercisePipeline from './CustomExercisePipeline';
 import { NormalizedLandmarkList } from '@mediapipe/pose';
+
+import model from '$static/tflite/bin.tflite';
+import CustomDisPreprocesser from './CustomDisPreprocesser';
 
 export default class ExerciseInput extends Input {
   private inputVideo?: HTMLVideoElement;
@@ -25,7 +27,7 @@ export default class ExerciseInput extends Input {
         this.inputVideo = camera;
         this.inputVideo.play();
         const classfier = new TfliteClassfier(model);
-        const processer = new DisPreprocesser();
+        const processer = new CustomDisPreprocesser();
         const jointPosition = new MpJointPosition({
           modelComplexity: 1,
           enableSegmentation: false,

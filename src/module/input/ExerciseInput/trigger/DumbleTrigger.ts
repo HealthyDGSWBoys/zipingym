@@ -78,16 +78,13 @@ export default class DumbleTrigger extends Trigger {
   }
 
   public arrayToCode(arr: number[]): number {
-    if (arr[0] > -0.9) {
-      return 0;
-    } else if (Math.abs(arr[1] - arr[2]) < 0.1 && (arr[1] > 0 || arr[2] > 0)) {
+    const line = 0.5;
+    if (arr[0] > line && arr[1] > line) {
       return 3;
+    } else if (arr[0] <= line && arr[1] <= line) {
+      return 0;
     } else {
-      if (arr[1] > arr[2]) {
-        return 1;
-      } else {
-        return 2;
-      }
+      return arr[0] > arr[1] ? 1 : 2;
     }
   }
 
