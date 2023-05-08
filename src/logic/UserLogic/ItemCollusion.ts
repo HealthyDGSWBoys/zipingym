@@ -6,7 +6,7 @@ export default class ItemCollusion {
   private static itemSize = new Vector3(1.3, 1, 1.3);
   constructor(
     public onCollusion: Map<itemList, (node: TransformNode) => void>,
-    private date:Data
+    private date: Data
   ) {}
 
   public update(items: Array<TransformNode>, userPosition: Vector3) {
@@ -29,7 +29,7 @@ export default class ItemCollusion {
             })
           )(item);
           /** @todo item element 의 trigger */
-            this.date.uiData.recordItem(item.name as itemList)
+          this.date.uiData.recordItem(item.name as itemList);
         }
       });
   }

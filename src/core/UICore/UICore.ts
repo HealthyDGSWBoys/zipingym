@@ -45,6 +45,10 @@ export default class UICore {
     this.timeElement.setAttribute(TimeElement.timeAttribute, String(time));
   }
 
+  public drawScore(score: number) {
+    this.scoreELement.setAttribute(ScoreElement.scoreAttribute, String(score));
+  }
+
   public drawSkeleton(
     landmarks: NormalizedLandmarkList,
     info: { name: string; color: string }

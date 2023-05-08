@@ -6,6 +6,7 @@ export default class UIData {
   constructor(private core: UICore) {}
 
   private time: number = 0;
+  private score: number = 0;
   public get getTime() {
     return this.time;
   }
@@ -13,13 +14,18 @@ export default class UIData {
     this.time += time;
     this.core.drawTime(this.getTime);
   }
+  public addScore(score: number) {
+    this.score += score;
+    if (score < 0) score = 0;
+    this.core.drawScore(this.score);
+  }
   public setLandmarks(
     landmarks: NormalizedLandmarkList,
     info: { name: string; color: string }
   ) {
     this.core.drawSkeleton(landmarks, info);
   }
-  public recordItem(item:itemList){
-    this.core.recordItem(item)
+  public recordItem(item: itemList) {
+    this.core.recordItem(item);
   }
 }

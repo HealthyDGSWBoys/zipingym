@@ -22,6 +22,7 @@ export default class UserLogic {
           'banana',
           (node: TransformNode) => {
             node.dispose();
+            this.data.uiData.addScore(200);
             this.itemSound.play('good');
           },
         ],
@@ -29,10 +30,12 @@ export default class UserLogic {
           'cola',
           (node: TransformNode) => {
             node.dispose();
+            this.data.uiData.addScore(-200);
             this.itemSound.play('bad');
           },
         ],
-      ]),data
+      ]),
+      data
     );
     Config.get.input.forEach((input) => {
       const inputMod = InputFactory.GetInput(input);
