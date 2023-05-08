@@ -1,25 +1,23 @@
-custom-time-element {
+custom-score-element {
   position: absolute;
   top: 0px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 0;
 
-  .time-root {
+  .score-root {
     z-index: 0;
-    width: 450px;
-    height: 100px;
+    width: 330px;
+    height: 140px;
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0px 0px 10px rgba(134, 134, 134, 0.5);
     backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
+    align-items: center;
     border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    .time-core {
+    .score-core {
       box-sizing: border-box;
-      position: absolute;
-      width: 391.5px;
-      height: 80px;
+      width: 300px;
+      height: 110px;
       background: rgba(255, 255, 255, 0.5);
       border: 1px solid #ffffff;
       box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5),
@@ -29,24 +27,19 @@ custom-time-element {
       backdrop-filter: blur(10px);
       top: 5px;
       border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+
       h3 {
         width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
-
+        justify-content: center;
         font-family: 'Pretendard';
         font-style: normal;
         font-weight: 400;
-        font-size: 50px;
-        color: #aaaaaa;
-        margin: 0;
-        padding: 0;
-        padding-left: 65px;
         margin-top: 10px;
+        font-size: 60px;
+        color: #aaaaaa;
         text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
       }
     }
