@@ -9,7 +9,9 @@ export default class BuildCore {
     const engine = await BuildEngine.build(canvas);
     const scene = await BuildScene.build(engine);
     const root = await BuildRoot.build(scene);
-
+    window.addEventListener('resize', () => {
+      engine.resize();
+    });
     return {
       canvas,
       engine,
