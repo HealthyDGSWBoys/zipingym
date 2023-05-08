@@ -22,16 +22,50 @@ export default class UserLogic {
           'banana',
           (node: TransformNode) => {
             node.dispose();
-            this.data.uiData.addScore(200);
+            this.data.uiData.addScore(300);
             this.itemSound.play('good');
             this.data.uiData.recordItem('banana');
+          },
+        ],
+        [
+          'NRGbar',
+          (node: TransformNode) => {
+            node.dispose();
+            this.data.uiData.addScore(500);
+            this.itemSound.play('good');
+            this.data.uiData.recordItem('banana');
+          },
+        ],
+        [
+          'proteinPowder',
+          (node: TransformNode) => {
+            node.dispose();
+            this.data.uiData.addScore(1000);
+            this.itemSound.play('good');
+            this.data.uiData.recordItem('banana');
+          },
+        ],
+        [
+          'soju',
+          (node: TransformNode) => {
+            node.dispose();
+            this.data.uiData.addScore(-300);
+            this.itemSound.play('bad');
+          },
+        ],
+        [
+          'injector',
+          (node: TransformNode) => {
+            node.dispose();
+            this.data.uiData.addScore(-500);
+            this.itemSound.play('bad');
           },
         ],
         [
           'cola',
           (node: TransformNode) => {
             node.dispose();
-            this.data.uiData.addScore(-200);
+            this.data.uiData.addScore(-150);
             this.itemSound.play('bad');
             this.data.uiData.recordItem('cola');
           },

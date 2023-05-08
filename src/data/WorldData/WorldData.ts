@@ -79,6 +79,13 @@ export interface ItemInfo {
   name: itemList;
 }
 
-export const itemListValue = ['banana', 'cola'] as const;
+export const itemListValue = [
+  'banana',
+  'cola',
+  'soju',
+  'NRGbar',
+  'proteinPowder',
+  'injector',
+] as const;
 
 export type itemList = (typeof itemListValue)[number];
