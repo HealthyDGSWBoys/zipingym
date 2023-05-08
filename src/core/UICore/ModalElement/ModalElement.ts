@@ -9,9 +9,8 @@ export default class ModalElement extends ClickAbleCustomElement{
     connectedCallback(){
         this.changeModalAttribute({
             isOpen:false,
-            element:new HTMLElement(),
             outsideClickEffect:() => {},
-            isDark:true
+            isDark:false
         })
     }
 
