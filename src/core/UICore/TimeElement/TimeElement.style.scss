@@ -5,6 +5,7 @@ custom-time-element {
   transform: translateX(-50%);
 
   .time-root {
+    z-index: 0;
     width: 450px;
     height: 100px;
     background: rgba(255, 255, 255, 0.2);

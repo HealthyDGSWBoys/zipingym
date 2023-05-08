@@ -9,14 +9,20 @@ import ItemElement from './ItemElement/ItemElement';
 import "./ItemElement/ItemElement"
 import TutorialElement from './TutorialElement/TutorialElement';
 import "./TutorialElement/TutorialElement"
+import ModalElement from './ModalElement/ModalElement';
+import "./ModalElement/ModalElement"
 
 export default class UICore {
   private timeElement: TimeElement;
   private poseElement: PoseElement;
   private itemElement: ItemElement;
   private tutorialElement: TutorialElement;
+  private modalElement: ModalElement;
   constructor(private rootElement: HTMLElement) {
  
+    this.modalElement = document.createElement('custom-modal-element')
+    this.rootElement.appendChild(this.modalElement)
+
     this.timeElement = document.createElement('custom-time-element');
     this.rootElement.appendChild(this.timeElement);
 
@@ -26,8 +32,10 @@ export default class UICore {
     this.itemElement = document.createElement('custom-item-element');
     this.rootElement.appendChild(this.itemElement)
 
-    this.tutorialElement = document.createElement('custom-tutorial-element');
+    // this.tutorialElement = document.createElement('custom-tutorial-element');
+    this.tutorialElement = new TutorialElement(this.modalElement)
     this.rootElement.appendChild(this.tutorialElement)
+
   }
 
   public drawTime(time: number) {
@@ -45,4 +53,5 @@ export default class UICore {
     console.log(item)
     this.itemElement.setAttribute(ItemElement.currentItem, item);
   }
+
 }

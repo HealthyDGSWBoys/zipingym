@@ -7,9 +7,6 @@ export default {
     addWrapper:(item:string) => {
         const {img, text} = itemsMapper[item] ?? {}
 
-        console.log(img);
-        console.log(text);
-        
         return `
             <div class="wrapper">
             ${

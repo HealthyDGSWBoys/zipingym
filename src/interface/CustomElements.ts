@@ -24,7 +24,6 @@ export abstract class Customelement extends HTMLElement{
               exec(targetDom,html,position)
           } else {
               console.error("addInnerHtmlToThis에 들어온 쿼리로 요소를 찾을 수 없습니다")
-
           }
         } else {
           exec(this,html,position)
@@ -60,6 +59,7 @@ export abstract class ClickAbleCustomElement extends Customelement{
   }
 
   useClickEffects(clickEffects:ClickEffectsType){
+    console.log("이벤트 등록",clickEffects)
     clickEffects.forEach((clickEffect) => {
       this.addEventToDOM({
         eventKind:'click',
