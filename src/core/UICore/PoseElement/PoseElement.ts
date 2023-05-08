@@ -15,15 +15,17 @@ export default class PoseElement extends Customelement {
         <span>  </span>
     `;
     const serializer = new XMLSerializer();
-    const document_fragment_string = serializer.serializeToString(template.content);
-    this.addInnerHtmlToThis(document_fragment_string)
+    const document_fragment_string = serializer.serializeToString(
+      template.content
+    );
+    this.addInnerHtmlToThis(document_fragment_string);
   }
-  disconnectedCallback() { }
+  disconnectedCallback() {}
   static get observedAttributes() {
     return [];
   }
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) { }
-  adoptedCallback() { }
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {}
+  adoptedCallback() {}
   getElementById() {
     return null;
   }
@@ -52,11 +54,19 @@ export default class PoseElement extends Customelement {
     canvasCtx.drawImage(image, 0, 0, canvasElement.width, canvasElement.height);
 
     canvasCtx.globalCompositeOperation = 'source-over';
-    drawConnectors(canvasCtx, landmarks, POSE_CONNECTIONS, {
-      color: '#00FF00',
-      lineWidth: 4,
-    });
-    drawLandmarks(canvasCtx, landmarks, {
+    //@ts-expect-error
+    (window.drawConnectors ?? drawConnectors)(
+      canvasCtx,
+      landmarks,
+      //@ts-expect-error
+      window.POSE_CONNECTIONS ?? POSE_CONNECTIONS,
+      {
+        color: '#00FF00',
+        lineWidth: 4,
+      }
+    );
+    //@ts-expect-error
+    (window.drawLandmarks ?? drawLandmarks)(canvasCtx, landmarks, {
       color: '#FF0000',
       lineWidth: 2,
     });
@@ -75,4 +85,3 @@ declare global {
     'custom-pose-element': PoseElement;
   }
 }
-
