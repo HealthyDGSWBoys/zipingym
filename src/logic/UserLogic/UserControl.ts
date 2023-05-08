@@ -15,11 +15,15 @@ export default class UserControl {
     if (input == 'straight') {
       const currentRank = this.userData.currentRank;
       const roadLength = this.worldData.getNodeLength();
-      this.userData.move(
-        'rank',
+      const moveDistance =
         Math.abs(roadLength - currentRank) > this.rankSpeed
           ? this.rankSpeed
-          : roadLength - currentRank
+          : roadLength - currentRank;
+      const remainDistance =
+        roadLength - this.userData.currentRank - moveDistance;
+      this.userData.move(
+        'rank',
+        remainDistance > 2 ? moveDistance : moveDistance + remainDistance
       );
     } else {
       if (
