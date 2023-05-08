@@ -28,8 +28,6 @@ export default class ItemCollusion {
               node.dispose();
             })
           )(item);
-          /** @todo item element 의 trigger */
-          this.date.uiData.recordItem(item.name as itemList);
         }
       });
   }

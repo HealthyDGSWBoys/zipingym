@@ -24,6 +24,7 @@ export default class UserLogic {
             node.dispose();
             this.data.uiData.addScore(200);
             this.itemSound.play('good');
+            this.data.uiData.recordItem('banana');
           },
         ],
         [
@@ -32,6 +33,7 @@ export default class UserLogic {
             node.dispose();
             this.data.uiData.addScore(-200);
             this.itemSound.play('bad');
+            this.data.uiData.recordItem('cola');
           },
         ],
       ]),
