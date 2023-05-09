@@ -105,6 +105,7 @@ export default class TutorialElement extends ClickAbleCustomElement {
         `,
         keepPrevAttr:true
       })
+      
     }
   ]
   

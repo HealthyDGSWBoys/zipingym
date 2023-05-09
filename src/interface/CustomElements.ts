@@ -45,8 +45,10 @@ export abstract class Customelement extends HTMLElement{
 }
 
 export abstract class ClickAbleCustomElement extends Customelement{
+  private clickEvents:EventListenerOrEventListenerObject[] = []
+
   addEventToDOM({ eventKind, selector, FN }:{eventKind:string; selector:string; FN:EventListenerOrEventListenerObject}) {
-    console.log("이벤트 추가함",eventKind,selector,FN)
+    this.clickEvents.push(FN)
     let dom = this
     if (selector){
       dom = this.querySelector(selector) ?? this;
@@ -67,5 +69,14 @@ export abstract class ClickAbleCustomElement extends Customelement{
         FN:clickEffect.FN
       });
     });
+  }
+
+  clearClickEvent(){
+    console.log("이벤트  삭제",this.clickEvents);
+    
+    this.clickEvents.forEach((FN) => {
+      this.removeEventListener("click",FN);
+    })
+    
   }
 }

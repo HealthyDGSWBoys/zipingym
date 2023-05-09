@@ -3,6 +3,7 @@ import { Image } from "@babylonjs/gui/2D/controls/image"
 import banana from "static/imgs/itemBar/banana.png"
 import coke from "static/imgs/itemBar/coke.png"
 
+
 export default {
     addWrapper:(item:string) => {
         const {img, text} = itemsMapper[item] ?? {}
