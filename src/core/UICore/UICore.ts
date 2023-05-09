@@ -57,7 +57,6 @@ export default class UICore {
   }
 
   public recordItem(item: itemList) {
-    console.log(item);
     this.itemElement.setAttribute(ItemElement.currentItem, item);
   }
 }
