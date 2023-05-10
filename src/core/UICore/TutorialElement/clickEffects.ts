@@ -7,11 +7,6 @@ function clickEffects(tutorial:TutorialElement){
         selector:null,
         FN:() => {
             tutorial.nextTutorial(tutorial.tutorials)
-            tutorial.modal.changeModalAttribute({
-                isOpen:true,
-                isDark:true,
-                outsideClickEffect:() => tutorial.nextTutorial(tutorial.tutorials)
-            })
         }
     },
     ]

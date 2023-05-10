@@ -33,7 +33,7 @@ export default class UserLogic {
             node.dispose();
             this.data.uiData.addScore(500);
             this.itemSound.play('good');
-            this.data.uiData.recordItem('banana');
+            this.data.uiData.recordItem('NRGbar');
           },
         ],
         [
@@ -42,7 +42,7 @@ export default class UserLogic {
             node.dispose();
             this.data.uiData.addScore(1000);
             this.itemSound.play('good');
-            this.data.uiData.recordItem('banana');
+            this.data.uiData.recordItem('proteinPowder');
           },
         ],
         [
@@ -51,6 +51,7 @@ export default class UserLogic {
             node.dispose();
             this.data.uiData.addScore(-300);
             this.itemSound.play('bad');
+            this.data.uiData.recordItem("soju");
           },
         ],
         [
@@ -59,6 +60,7 @@ export default class UserLogic {
             node.dispose();
             this.data.uiData.addScore(-500);
             this.itemSound.play('bad');
+            this.data.uiData.recordItem("injector");
           },
         ],
         [
