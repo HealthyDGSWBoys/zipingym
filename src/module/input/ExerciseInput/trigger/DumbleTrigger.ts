@@ -78,7 +78,7 @@ export default class DumbleTrigger extends Trigger {
   }
 
   public arrayToCode(arr: number[]): number {
-    const line = 0.75;
+    const line = 0.25;
     if (Math.abs(arr[0] - arr[1]) > 1.5) {
       return arr[0] > arr[1] ? 1 : 2;
     } else if (arr[0] > line && arr[1] > line) {

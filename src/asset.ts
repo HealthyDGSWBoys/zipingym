@@ -9,3 +9,5 @@ export const StageUrls = [stage1];
 import RawCharacterUrl from '$static/model/dummy.babylon';
 
 export const CharacterUrl = '.' + RawCharacterUrl;
+
+export { default as ExerciseModel } from '$static/tflite/work.tflite';

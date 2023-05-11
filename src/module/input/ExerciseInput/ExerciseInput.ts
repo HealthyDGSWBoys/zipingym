@@ -12,8 +12,7 @@ import DumbleTrigger from './trigger/DumbleTrigger';
 import Config from '$/global/config/Config';
 import CustomExercisePipeline from './CustomExercisePipeline';
 import { NormalizedLandmarkList } from '@mediapipe/pose';
-
-import model from '$static/tflite/bin.tflite';
+import { ExerciseModel } from '$/asset';
 import CustomDisPreprocesser from './CustomDisPreprocesser';
 
 export default class ExerciseInput extends Input {
@@ -26,7 +25,7 @@ export default class ExerciseInput extends Input {
       (camera) => {
         this.inputVideo = camera;
         this.inputVideo.play();
-        const classfier = new TfliteClassfier(model);
+        const classfier = new TfliteClassfier(ExerciseModel);
         const processer = new CustomDisPreprocesser();
         const jointPosition = new MpJointPosition({
           modelComplexity: 1,
