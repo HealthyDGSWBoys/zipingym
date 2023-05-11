@@ -6,7 +6,7 @@ export default class UIData {
   constructor(private core: UICore) {}
 
   private time: number = 0;
-  private score: number = 0;
+  private _score: number = 0;
   public get getTime() {
     return this.time;
   }
@@ -15,9 +15,12 @@ export default class UIData {
     this.core.drawTime(this.getTime);
   }
   public addScore(score: number) {
-    this.score += score;
-    if (this.score < 0) this.score = 0;
+    this._score += score;
+    if (this.score < 0) this._score = 0;
     this.core.drawScore(this.score);
+  }
+  public get score(): number {
+    return this._score;
   }
   public setLandmarks(
     landmarks: NormalizedLandmarkList,

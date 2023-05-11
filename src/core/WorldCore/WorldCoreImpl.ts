@@ -79,30 +79,4 @@ export default class WorldCoreImpl implements WorldCore {
       });
     }
   }
-  private static findRoadNodeRegex = new RegExp('^\\$');
-  public static load(themes: Array<string>, scene: Scene): Promise<RoadMeshs> {
-    return new Promise((resolve, reject) => {
-      Promise.all(
-        themes.map((theme) => AssetContainerLoader.load(theme, scene))
-      )
-        .then((result) => {
-          const response = new Map();
-          result.forEach((container: AssetContainer, index: number) => {
-            const randomMap = new Map();
-            (
-              container
-                .getNodes()
-                .filter(({ name }) =>
-                  this.findRoadNodeRegex.test(name)
-                ) as Array<TransformNode>
-            ).forEach((node: TransformNode) => {
-              randomMap.set(node, 1);
-            });
-            response.set(String(index), randomMap);
-          });
-          resolve(response);
-        })
-        .catch(reject);
-    });
-  }
 }

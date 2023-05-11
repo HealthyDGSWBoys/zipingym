@@ -22,7 +22,7 @@ export default class UserLogic {
           'banana',
           (node: TransformNode) => {
             node.dispose();
-            this.data.uiData.addScore(300);
+            this.addScore(300);
             this.itemSound.play('good');
             this.data.uiData.recordItem('banana');
           },
@@ -31,7 +31,7 @@ export default class UserLogic {
           'NRGbar',
           (node: TransformNode) => {
             node.dispose();
-            this.data.uiData.addScore(500);
+            this.addScore(500);
             this.itemSound.play('good');
             this.data.uiData.recordItem('NRGbar');
           },
@@ -40,7 +40,7 @@ export default class UserLogic {
           'proteinPowder',
           (node: TransformNode) => {
             node.dispose();
-            this.data.uiData.addScore(1000);
+            this.addScore(1000);
             this.itemSound.play('good');
             this.data.uiData.recordItem('proteinPowder');
           },
@@ -49,25 +49,25 @@ export default class UserLogic {
           'soju',
           (node: TransformNode) => {
             node.dispose();
-            this.data.uiData.addScore(-300);
+            this.addScore(-300);
             this.itemSound.play('bad');
-            this.data.uiData.recordItem("soju");
+            this.data.uiData.recordItem('soju');
           },
         ],
         [
           'injector',
           (node: TransformNode) => {
             node.dispose();
-            this.data.uiData.addScore(-500);
+            this.addScore(-500);
             this.itemSound.play('bad');
-            this.data.uiData.recordItem("injector");
+            this.data.uiData.recordItem('injector');
           },
         ],
         [
           'cola',
           (node: TransformNode) => {
             node.dispose();
-            this.data.uiData.addScore(-150);
+            this.addScore(-150);
             this.itemSound.play('bad');
             this.data.uiData.recordItem('cola');
           },
@@ -97,5 +97,11 @@ export default class UserLogic {
         this.data.userData.absolutePosition
       );
     }, 30);
+  }
+  private addScore(score: number) {
+    this.data.uiData.addScore(score);
+    this.data.worldData.setTheme(
+      String(Math.round(this.data.uiData.score / 2000) % 3)
+    );
   }
 }
