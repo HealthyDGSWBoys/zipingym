@@ -41,7 +41,7 @@ export default class ThreeCore extends OnOffCore {
       scene
     );
 
-    const skybox = MeshBuilder.CreateBox('skyBox', { size: 1024 }, scene);
+    const skybox = MeshBuilder.CreateBox('skyBox', { size: 4096 }, scene);
     const skyboxMaterial = new StandardMaterial('skyBox', scene);
     skyboxMaterial.backFaceCulling = false;
     skyboxMaterial.diffuseColor = new Color3(1, 1, 1);
